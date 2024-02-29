@@ -1,0 +1,46 @@
+Study,Strain,Outcome,N
+"AMIRI, 2021",Wistar (rat),Other behavioural,112
+"AMIRI, 2022",Wistar (rat),Fear memory,20
+"KOYUNCUOGLU, 2021",Wistar (rat),Freezing,12
+~,~,Other behavioural,60
+~,~,Other neurobiological,120
+"MIRJALILI, 2022",Wistar (rat),BDNF,80
+~,~,Other behavioural,80
+~,~,Other neurobiological,160
+~,~,Stress response,40
+"MOHAMMADI, 2024",Wistar (rat),BDNF,20
+~,~,Fear memory,20
+~,~,Freezing,20
+~,~,Locomotor,60
+~,~,Other neurobiological,100
+"PATKI, 2014",Wistar (rat),Locomotor,80
+~,~,Other behavioural,80
+~,~,Stress response,20
+"SHAFIA, 2017",Wistar (rat),BDNF,20
+~,~,Fear memory,56
+~,~,Other behavioural,98
+~,~,Other neurobiological,40
+~,~,Stress response,28
+"SHAFIA, 2019",Wistar (rat),BDNF,80
+~,~,Other behavioural,40
+"SHAFIA, 2022",Wistar (rat),Locomotor,80
+~,~,Other neurobiological,20
+~,~,Stress response,20
+"SHAFIA, 2023a",Wistar (rat),BDNF,28
+~,~,Fear memory,14
+~,~,Other behavioural,70
+"SHAFIA, 2023b",Wistar (rat),BDNF,56
+~,~,Other behavioural,56
+~,~,Stress response,28
+"SHAFIA, 2023c",Wistar (rat),Other behavioural,28
+~,~,Other neurobiological,70
+"YAKHKESHI, 2022",Wistar (rat),BDNF,40
+~,~,Other behavioural,100
+~,~,Other neurobiological,80
+~,~,Stress response,20
+"ZHANG, 2020",Sprague-dawley (rat),BDNF,20
+~,~,Freezing,20
+~,~,Locomotor,40
+~,~,Neurotransmitter levels,200
+~,~,Other behavioural,20
+~,~,Other neurobiological,60

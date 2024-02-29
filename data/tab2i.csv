@@ -1,0 +1,47 @@
+Study,Strain,Intervention,Outcome,N
+"AMIRI, 2021",Wistar (rat),"exercise, 28 Days",Other behavioural,112
+~,~,~,Other neurobiological,28
+"AMIRI, 2022",Wistar (rat),"exercise, 28 Days",Fear memory,20
+"KOYUNCUOGLU, 2021",Wistar (rat),"exercise, 42 Days",Freezing,24
+~,~,~,Other behavioural,120
+~,~,~,Other neurobiological,240
+"MIRJALILI, 2022",Wistar (rat),"exercise, 28 Days",BDNF,80
+~,~,~,Other behavioural,80
+~,~,~,Other neurobiological,160
+~,~,~,Stress response,40
+"MOHAMMADI, 2024",Wistar (rat),"exercise, 28 Days",BDNF,20
+~,~,~,Fear memory,20
+~,~,~,Freezing,20
+~,~,~,Locomotor,60
+~,~,~,Other neurobiological,100
+"PATKI, 2014",Wistar (rat),"exercise, 14 Days",Locomotor,80
+~,~,~,Other behavioural,80
+~,~,~,Stress response,20
+"SHAFIA, 2017",Wistar (rat),"exercise, 28 Days",BDNF,20
+~,~,~,Fear memory,56
+~,~,~,Other behavioural,98
+~,~,~,Other neurobiological,40
+~,~,~,Stress response,14
+"SHAFIA, 2019",Wistar (rat),"exercise, 3 Days",BDNF,80
+~,~,~,Other behavioural,40
+"SHAFIA, 2022",Wistar (rat),"exercise, 28 Days",Locomotor,80
+~,~,~,Other neurobiological,20
+~,~,~,Stress response,20
+"SHAFIA, 2023a",Wistar (rat),"exercise, 28 Days",BDNF,28
+~,~,~,Fear memory,14
+~,~,~,Other behavioural,126
+"SHAFIA, 2023b",Wistar (rat),"exercise, 28 Days",BDNF,112
+~,~,~,Other behavioural,112
+~,~,~,Stress response,56
+"SHAFIA, 2023c",Wistar (rat),"exercise, 28 Days",Other behavioural,28
+~,~,~,Other neurobiological,70
+"YAKHKESHI, 2022",Wistar (rat),"exercise, 28 Days",BDNF,40
+~,~,~,Other behavioural,180
+~,~,~,Other neurobiological,80
+~,~,~,Stress response,20
+"ZHANG, 2020",Sprague-dawley (rat),"exercise, 28 Days",BDNF,20
+~,~,~,Freezing,20
+~,~,~,Locomotor,40
+~,~,~,Neurotransmitter levels,200
+~,~,~,Other behavioural,20
+~,~,~,Other neurobiological,60
