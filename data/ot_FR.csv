@@ -1,0 +1,116 @@
+,Var1,Var2,Freq,Changes
+6,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Bax expression,7,Other neurobiological (enter in outcome label and in comments box)
+14,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Bax mRNA,4,Other neurobiological (enter in outcome label and in comments box)
+22,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Bax:Bcl2 ratio,4,Other neurobiological (enter in outcome label and in comments box)
+30,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Bax/Bcl2 expression,3,Other neurobiological (enter in outcome label and in comments box)
+38,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Bax/Bcl2 ratio,4,Other neurobiological (enter in outcome label and in comments box)
+46,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Bcl-2 expression,3,Other neurobiological (enter in outcome label and in comments box)
+54,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),BCL-2 expression,2,Other neurobiological (enter in outcome label and in comments box)
+62,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Bcl2 expression,2,Other neurobiological (enter in outcome label and in comments box)
+70,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Bcl2 mRNA,4,Other neurobiological (enter in outcome label and in comments box)
+78,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),BDNF - hippocampal,3,
+86,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),BDNF - Prefrontal cortex,3,
+94,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),BDNF - serum,6,
+102,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),BNDF – hippocampus,6,
+110,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),BNDF – serum,6,
+118,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Caspase 3,2,Other neurobiological (enter in outcome label and in comments box)
+126,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Caspase expression,5,Other neurobiological (enter in outcome label and in comments box)
+134,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Caspase mRNA,4,Other neurobiological (enter in outcome label and in comments box)
+144,Other neurobiological (enter in outcome label and in comments box),catalase activity,3,
+147,Freezing behaviour,contextual freezing measurement,2,
+158,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),corticosterone,4,Stress response
+168,Other neurobiological (enter in outcome label and in comments box),dexamethasone suppression test,3,Stress response
+175,Other behavioural (enter in outcome label and in comments box),discrimination index,6,
+183,Other behavioural (enter in outcome label and in comments box),Elevated plus maze,3,
+185,Fear generalisation,elevated plus maze - open arm entries,4,Other behavioural (enter in outcome label and in comments box)
+191,Other behavioural (enter in outcome label and in comments box),elevated plus maze - open arm entries,3,
+193,Fear generalisation,Elevated plus maze - open arm entries,3,Other behavioural (enter in outcome label and in comments box)
+196,Locomotor behaviour or arousal (e.g. social interaction test),Elevated plus maze - open arm entries,2,Other behavioural (enter in outcome label and in comments box)
+204,Locomotor behaviour or arousal (e.g. social interaction test),Elevated plus maze - open arm time,2,Other behavioural (enter in outcome label and in comments box)
+209,Fear generalisation,elevated plus maze - time in open arm,4,Other behavioural (enter in outcome label and in comments box)
+217,Fear generalisation,Elevated plus maze - time in open arm,3,Other behavioural (enter in outcome label and in comments box)
+231,Other behavioural (enter in outcome label and in comments box),elevated plus maze - time in open arms,3,
+233,Fear generalisation,entrance latency - conditioning,3,Other behavioural (enter in outcome label and in comments box)
+241,Fear generalisation,EPM - Open arm entries,3,Other behavioural (enter in outcome label and in comments box)
+249,Fear generalisation,EPM - Open Arm Entries,2,Other behavioural (enter in outcome label and in comments box)
+257,Fear generalisation,EPM - Open arm time,3,Other behavioural (enter in outcome label and in comments box)
+271,Other behavioural (enter in outcome label and in comments box),EPM – open arm entries,6,
+279,Other behavioural (enter in outcome label and in comments box),EPM – time in open arm,6,
+282,"Fear memory (e.g. object recognition, episodic)",Extinction Index,3,
+289,Fear generalisation,extinction latency day 1,3,"Fear memory (e.g. object recognition, episodic)"
+297,Fear generalisation,extinction latency day 2,3,"Fear memory (e.g. object recognition, episodic)"
+305,Fear generalisation,extinction latency day 3,3,"Fear memory (e.g. object recognition, episodic)"
+313,Fear generalisation,extinction latency day 4,3,"Fear memory (e.g. object recognition, episodic)"
+322,"Fear memory (e.g. object recognition, episodic)",Fear extinction,3,
+336,Other neurobiological (enter in outcome label and in comments box),Glutathione,3,Other neurobiological (enter in outcome label and in comments box)
+342,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Hippocampal Bax expression,3,Other neurobiological (enter in outcome label and in comments box)
+350,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Hippocampal Bax/ Bcl-2 expression ratio,3,Other neurobiological (enter in outcome label and in comments box)
+358,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Hippocampal Bcl-2 expression,3,Other neurobiological (enter in outcome label and in comments box)
+366,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),hippocampal BDNF,6,
+374,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Hippocampal BDNF,6,
+382,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Hippocampal BDNF abundance,2,
+390,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Hippocampal Caspase 3 expression,3,Other neurobiological (enter in outcome label and in comments box)
+398,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Hippocampal pAkt abundance,2,Other neurobiological (enter in outcome label and in comments box)
+406,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Hippocampal pCREB abundance,2,Other neurobiological (enter in outcome label and in comments box)
+414,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Hippocampal TrkB abundance,2,Other neurobiological (enter in outcome label and in comments box)
+421,"Neurotransmitter (NT) or neurotransmitter modulator levels (e.g. dopamine, cannabinoids)",Hippocampus - 5-HIAA,2,
+429,"Neurotransmitter (NT) or neurotransmitter modulator levels (e.g. dopamine, cannabinoids)",Hippocampus - 5-HT,2,
+437,"Neurotransmitter (NT) or neurotransmitter modulator levels (e.g. dopamine, cannabinoids)",Hippocampus - DA,2,
+445,"Neurotransmitter (NT) or neurotransmitter modulator levels (e.g. dopamine, cannabinoids)",Hippocampus - DOPAC,2,
+453,"Neurotransmitter (NT) or neurotransmitter modulator levels (e.g. dopamine, cannabinoids)",Hippocampus - NE,2,
+459,Freezing behaviour,Hole board test - freezing,3,Other behavioural (enter in outcome label and in comments box)???
+465,Fear generalisation,Hole board test - head dipping,3,Other behavioural (enter in outcome label and in comments box)
+473,Fear generalisation,Hole board test - rearing number,3,Other behavioural (enter in outcome label and in comments box)
+486,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),IGF-1,3,Other neurobiological (enter in outcome label and in comments box)
+495,Other behavioural (enter in outcome label and in comments box),light box: number of crossings,6,
+503,Other behavioural (enter in outcome label and in comments box),light box: number of rearings,6,
+511,Other behavioural (enter in outcome label and in comments box),light box: time in light,6,
+513,Fear generalisation,light dark box - rearing,3,Other behavioural (enter in outcome label and in comments box)
+521,Fear generalisation,light dark box - time in light,3,Other behavioural (enter in outcome label and in comments box)
+535,Other behavioural (enter in outcome label and in comments box),Light dark test - time in light,2,
+544,Other neurobiological (enter in outcome label and in comments box),lucigenin (ROS),3,
+552,Other neurobiological (enter in outcome label and in comments box),luminol (ROS),3,
+560,Other neurobiological (enter in outcome label and in comments box),malondialdehyde,3,
+568,Other neurobiological (enter in outcome label and in comments box),Myeloperoxidase activity,3,
+576,Other neurobiological (enter in outcome label and in comments box),neuronal degeneration - CA3,3,
+584,Other neurobiological (enter in outcome label and in comments box),neuronal degeneration - cortex,3,
+592,Other neurobiological (enter in outcome label and in comments box),neuronal degeneration - dentate gyrus,3,
+593,Fear generalisation,Novel Object recognition test - difference score,3,Other behavioural (enter in outcome label and in comments box)
+608,Other neurobiological (enter in outcome label and in comments box),object location task - discrimination index,3,Other behavioural (enter in outcome label and in comments box)
+615,Other behavioural (enter in outcome label and in comments box),object location task - total exploration time,3,
+620,Locomotor behaviour or arousal (e.g. social interaction test),OFT - ambulatory activity,2,
+628,Locomotor behaviour or arousal (e.g. social interaction test),OFT - crossings,2,
+636,Locomotor behaviour or arousal (e.g. social interaction test),OFT - rearings,2,
+644,Locomotor behaviour or arousal (e.g. social interaction test),OFT - time in centre,2,
+652,Locomotor behaviour or arousal (e.g. social interaction test),OFT - total activity,2,
+660,Locomotor behaviour or arousal (e.g. social interaction test),OFT - total distance travelled,2,
+668,Locomotor behaviour or arousal (e.g. social interaction test),OFT – N crossing in centre,2,
+679,Other behavioural (enter in outcome label and in comments box),OFT – time spent in centre,2,Locomotor behaviour or arousal (e.g. social interaction test)
+687,Other behavioural (enter in outcome label and in comments box),OFT – time spent in marginal zone,2,Locomotor behaviour or arousal (e.g. social interaction test)
+692,Locomotor behaviour or arousal (e.g. social interaction test),OFT – total distance,2,
+700,Locomotor behaviour or arousal (e.g. social interaction test),Open Field - distance travelled,2,
+705,Fear generalisation,Open Field - time in centre,2,Locomotor behaviour or arousal (e.g. social interaction test)
+713,Fear generalisation,Open Field - time in margin,2,Locomotor behaviour or arousal (e.g. social interaction test)
+727,Other behavioural (enter in outcome label and in comments box),Passive avoidance - latency,3,
+736,Other neurobiological (enter in outcome label and in comments box),plasma cort,2,Stress response
+742,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),prefrontal BDNF,2,
+749,"Neurotransmitter (NT) or neurotransmitter modulator levels (e.g. dopamine, cannabinoids)",Prefrontal cortex - 5-HIAA,2,
+757,"Neurotransmitter (NT) or neurotransmitter modulator levels (e.g. dopamine, cannabinoids)",Prefrontal cortex - 5-HT,2,
+765,"Neurotransmitter (NT) or neurotransmitter modulator levels (e.g. dopamine, cannabinoids)",Prefrontal cortex - DA,2,
+773,"Neurotransmitter (NT) or neurotransmitter modulator levels (e.g. dopamine, cannabinoids)",Prefrontal cortex - DOPAC,2,
+781,"Neurotransmitter (NT) or neurotransmitter modulator levels (e.g. dopamine, cannabinoids)",Prefrontal cortex - NE,2,
+791,Other behavioural (enter in outcome label and in comments box),Radial Arm Water Maze - LTM,2,
+799,Other behavioural (enter in outcome label and in comments box),Radial Arm Water Maze - STM,2,
+808,Other neurobiological (enter in outcome label and in comments box),resting cort,1,Stress response
+814,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),serum BDNF,6,
+822,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Serum BDNF,6,
+830,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),serum corticosterone,2,Stress response
+838,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Serum corticosterone,8,Stress response
+846,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),serum IGF-1,2,Other neurobiological (enter in outcome label and in comments box)
+854,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Serum IGF-1,2,Other neurobiological (enter in outcome label and in comments box)
+857,Fear generalisation,Shuttlebox - % extinction,2,"Fear memory (e.g. object recognition, episodic)"
+867,Freezing behaviour,Shuttlebox - freezing time,2,
+880,Other neurobiological (enter in outcome label and in comments box),SOD activity,3,Other neurobiological (enter in outcome label and in comments box)
+887,Other behavioural (enter in outcome label and in comments box),Spatial memory – T-maze alternation %,6,
+895,Other behavioural (enter in outcome label and in comments box),Sucrose consumption,2,
+902,Non-NT gene or protein expression/level (e.g. BDNF in plasma or western blot),Tunnel staining,4,Other neurobiological (enter in outcome label and in comments box)
