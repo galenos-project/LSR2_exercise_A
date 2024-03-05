@@ -460,7 +460,7 @@ forest_subgroup <- function(modelsumm, moderator, outcome, moderator_text, title
   model <- modelsumm
   colnames(model) <- c('moderator','k','SMD','se','p','ci_l','ci_u','symbol','size','summary','fontfaace','fontsize','d1','d2')
   model$order <- as.numeric(rownames(model))
-  model$estimate_lab = paste0(round(model$SMD,2), " (", round(model$ci_l,2), "-", round(model$ci_u,2),")")
+  model$estimate_lab = paste0(round(model$SMD,2), " (", round(model$ci_l,2), ", ", round(model$ci_u,2),")")
   model <- model %>%
     arrange(order) %>%
     mutate(moderator = factor(model[["moderator"]], levels = unique(model[["moderator"]])))
@@ -1472,7 +1472,7 @@ run_sse_plot_SMD_L <- function(df, type, outcome, rho_value = 0.5) {
                     control=list(optimizer="nlm")
   )
   
-  plot <- bubble_plot(SMD_sse, mod = "SMDN", group = "StudyId", xlab = "1/SQRT(N) associated with SMD estimate", ylab = "SMD estimate", legend.pos = "none")
+  plot <- bubble_plot(SMD_sse, mod = "SMDN", group = "StudyId", xlab = "1/SQRT(N)", ylab = "SMD estimate", legend.pos = "none")
   return(plot)
 }
 
@@ -1508,7 +1508,7 @@ run_sse_plot_SMD_C <- function(df, rho_value = 0.5) {
                     control=list(optimizer="nlm")
   )
   
-  plot <- bubble_plot(SMD_sse, mod = "SMDN", group = "StudyId", xlab = "1/SQRT(N) associated with SMD estimate", ylab = "SMD estimate", legend.pos = "none")
+  plot <- bubble_plot(SMD_sse, mod = "SMDN", group = "StudyId", xlab = "1/SQRT(N)", ylab = "SMD estimate", legend.pos = "none")
   return(plot)
 }
 
