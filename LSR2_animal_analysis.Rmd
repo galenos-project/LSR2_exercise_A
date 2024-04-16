@@ -302,901 +302,6 @@ We constructed multilevel models without Hartung-Knapp adjustments as these are 
 
 The scales and units used to measure outcomes in preclinical studies often differ between studies although they may measure the same underlying biological construct. The primary effect size used for meta-analysis of preclinical studies is therefore the standardised mean difference (SMD, Hedge's g). For experiments testing the effects of interventions we also present a sensitivity analysis using normalised mean difference (NMD), where there are sufficient data for sham procedures to allow this. This analysis is not possible for studies of the effect of single prolonged stress (SPS).
 
-# 2 Effects of model induction (SPS)
-
-```{r # Split df by experiment and outcome type into dataframes to simply inline code below - Control v Sham, eval = TRUE, echo = FALSE}
-df_S <- filter(df, SortLabel == "CvS")
-df_S_NT <- filter_experiment_outcome_type(df, "CvS", "Neuotransmitter levels")
-df_S_L <- filter_experiment_outcome_type(df, "CvS", "Locomotor")
-df_S_B <- filter_experiment_outcome_type(df, "CvS", "BDNF")
-df_S_OB <- filter_experiment_outcome_type(df, "CvS", "Other behavioural")
-df_S_OthN <- filter_experiment_outcome_type(df, "CvS", "Other neurobiological")
-df_S_FM <- filter_experiment_outcome_type(df, "CvS", "Fear memory")
-df_S_Fr <- filter_experiment_outcome_type(df, "CvS", "Freezing")
-df_S_StR<- filter_experiment_outcome_type(df, "CvS", "Stress response")
-```
-
-`r length(table(df_S$StudyId))` studies (`r nrow(df%>%filter(SortLabel == "CvS"))` comparisons) investigated the effects of model induction. The number of studies and individual effect sizes for each outcome were:
-
--   Locomotor outcomes: `r length(table(df_S_L$StudyId))` studies and `r nrow(df_S_L)` comparisons in `r {strains <- unique(df_S_L$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
-
--   Fear Memory `r length(table(df_S_FM$StudyId))` studies and `r nrow(df_S_FM)` comparisons in `r {strains <- unique(df_S_FM$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
-
--   Freezing: `r length(table(df_S_Fr$StudyId))` studies and `r nrow(df_S_Fr)` comparisons in `r {strains <- unique(df_S_Fr$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
-
--   Other behaviours: `r length(table(df_S_OB$StudyId))` studies and `r nrow(df_S_OB)` comparisons in `r {strains <- unique(df_S_OB$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
-
--   BDNF: `r length(table(df_S_B$StudyId))` studies and `r nrow(df_S_B)` comparisons in `r {strains <- unique(df_S_B$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
-
--   Neurotransmitter levels: `r length(table(df_S_NT$StudyId))` studies and `r nrow(df_S_NT)` comparisons in `r {strains <- unique(df_S_NT$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
-
--   Biochemical stress responses: `r length(table(df_S_StR$StudyId))` studies and `r nrow(df_S_StR)` comparisons in `r {strains <- unique(df_S_StR$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
-
--   Other neurobiological outcomes: `r length(table(df_S_OthN$StudyId))` studies and `r nrow(df_S_OthN)` comparisons in `r {strains <- unique(df_S_OthN$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
-
-## 2.1 Outcome 1: Locomotor activity
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_L <- run_SMD(df, "CvS", "Locomotor")
-#levels 4,4,2 so stop
-```
-
-Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_L[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_L$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_L$data$StudyId))` publications and involving `r length(unique(SMD_S_L$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed.
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
-forest_metafor(SMD_S_L, "CvS", "Locomotor")
-```
-
-## 2.2 Outcome 2: Fear memory
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_FM <- run_SMD(df, "CvS", "Fear memory")
-#levels 4-4-1
-```
-
-Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_FM[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_FM$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_FM$data$StudyId))` publications and involving `r length(unique(SMD_S_FM$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed.
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
-forest_metafor(SMD_S_FM, "CvS", "Locomotor")
-```
-
-## 2.3 Outcome 3: Freezing
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_Fr <- run_SMD(df, "CvS", "Freezing")
-# levels 3-3-2
-```
-
-Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_Fr[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_Fr$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_Fr$data$StudyId))` publications and involving `r length(unique(SMD_S_Fr$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed.
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
-forest_metafor(SMD_S_Fr, "CvS", "Freezing")
-```
-
-## 2.4 Outcome 4: Other behavioural outcomes
-
-### 2.4.1 Risks of bias
-
-Figure 2.4.1 shows the risk of bias summary for studies investigating the effect of single prolonged stress on other behavioural outcomes in animals. The risk of bias assessment was performed using the SyRCLE RoB tool.
-
-**Figure 2.4.1**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
-SyRCLE_RoB_traffic(df, "CvS", "Other behavioural")
-```
-
-### 2.4.2 Reporting completeness
-
-Figure 2.4.2 shows the reporting completeness summary for studies investigating the effect of single prolonged stress on sucrose preference in animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
-
-**Figure 2.4.2**
-
-```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 10}
-ARRIVE_traffic(df, "CvS", "Other behavioural")
-```
-
-### 2.4.3 Meta-analysis
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_OB <- run_ML_SMD(df, "CvS", "Other behavioural", 0.5)
-```
-
-The effect of single prolonged stress on other bevaiours in animals using SMD as the effect size is shown in Figure 2.4.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
-
-**Figure 2.4.3**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 12}
-forest_metafor(SMD_S_OB, "CvS", "Other behavioural")
-```
-
-Single prolonged stress had a pooled effect on other behaviours of SMD = `r round(SMD_S_OB[['beta']], 3)` , (95% CI: `r round(SMD_S_OB[['ci.lb']], 3)` to `r round(SMD_S_OB[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_OB)$pi.lb, 3)` to `r round(predict(SMD_S_OB)$pi.ub, 3)`).
-
-`r SMD_S_OB[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_OB$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_OB$data$StudyId))` publications and involving `r length(unique(SMD_S_OB$data$Strain))` different animal strain(s).
-
-The following table structure is used throughout this report and is used to show the different levels contributing to that analysis, the number of unique categories in those levels, and the variance contributed by that level of analysis. Because levels are only included in the analysis where there are five or more unique categories, for some analyses the number of categories is 0, and the variance attributed to those levels in not applicable. Because the model is hierarchical, where for instance there are **Studies** which include different **Strains**, the number of categories for **Study x Strain** will exceed the number of Studies (by which we mean unique publications) referred to in the text.
-
-|            Level            |                                             Number of categories for that level included in this analysis                                              |                                                                 Attributable variance                                                                  |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OB$s.names, SMD_S_OB$s.nlevels[[which(SMD_S_OB$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OB$s.names, SMD_S_OB$sigma2[[which(SMD_S_OB$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OB$s.names, SMD_S_OB$s.nlevels[[which(SMD_S_OB$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OB$s.names, SMD_S_OB$sigma2[[which(SMD_S_OB$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB$s.names, SMD_S_OB$s.nlevels[[which(SMD_S_OB$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB$s.names, SMD_S_OB$sigma2[[which(SMD_S_OB$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OB$s.names, SMD_S_OB$s.nlevels[[which(SMD_S_OB$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OB$s.names, SMD_S_OB$sigma2[[which(SMD_S_OB$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB$s.names, SMD_S_OB$s.nlevels[[which(SMD_S_OB$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB$s.names, SMD_S_OB$sigma2[[which(SMD_S_OB$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-### 2.4.4 Subgroup analyses and meta-regressions
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-options(scipen=100, digits=3)
-```
-
-For each outcome, the covariates of interest for subgroup analyses and meta-regressions were:
-
--   **Sex**
-
-We also conducted subgroup analyses using **(1) SyRCLE Risk of Bias** and **(2) ARRIVE reporting completeness** assessment scores as covariates to evaluate their influence on effect size estimates. These were not specified in the study protocol, but evaluation of risk of bias is required for the Summary of Evidence table, and no studies were considered entirely at low risk of bias or of high reporting completeness to allow such a sensitivity analysis
-
-The significance (p-value) reported is that for a test of whether the moderators are significantly different one from another, rather than whether the effect is significantly different from 0.
-
-#### **Sex**
-
-Figure 2.4.4.1 displays the estimates for the pooled SMD's when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
-
-**Figure 2.4.4.1**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_OB_sex <- subgroup_analysis(df, "CvS", "Other behavioural", "Sex", 0.5)
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_OB_sex$plotdata, "Sex", "Other behavioural","Sex","CvS")
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_OB_sex_noI <- subgroup_SMD(df, "CvS", "Other behavioural", "Sex", 0.5)
-```
-
-The p-value for the association between the sex of animal groups used and outcome reported was `r round(SMD_S_OB_sex_noI$QMp,3)`.
-
-|            Level            |                                                                 Number of categories for that level included in this analysis                                                                 |                                                                                     Attributable variance                                                                                     |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$s.nlevels[[which(SMD_S_OB_sex$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$sigma2[[which(SMD_S_OB_sex$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$s.nlevels[[which(SMD_S_OB_sex$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$sigma2[[which(SMD_S_OB_sex$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$s.nlevels[[which(SMD_S_OB_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$sigma2[[which(SMD_S_OB_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$s.nlevels[[which(SMD_S_OB_sex$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$sigma2[[which(SMD_S_OB_sex$analysis$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$s.nlevels[[which(SMD_S_OB_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$sigma2[[which(SMD_S_OB_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-#### **SyRCLE RoB assessment considered as a categorical variable**
-
-Figure 2.4.4.3 displays the estimates for the pooled SMD's when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
-
-**Figure 2.4.4.3**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
-SMD_S_OB_SyRCLERoB <- subgroup_analysis(df, "CvS", "Other behavioural", "RoBScore", 0.5)
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_OB_SyRCLERoB$plotdata, "RoBScore", "Other behavioural","SyRCLE RoB score", "CvS")
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_OB_SyRCLERoB_noI <- subgroup_SMD(df, "CvS", "Other behavioural", "RoBScore", 0.5)
-```
-
-The p-value for the association between SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_OB_SyRCLERoB_noI$QMp,3)`.
-
-|            Level            |                                                                          Number of categories for that level included in this analysis                                                                          |                                                                                              Attributable variance                                                                                              |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$sigma2[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$sigma2[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$sigma2[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$sigma2[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$sigma2[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-#### **SyRCLE RoB assessment considering those studies where any item is at low risk of bias**
-
-Figure 2.4.4.4 displays the estimates for the pooled SMD's when comparisons are stratified by whether of not any of the SyRCLE Risk of bias domains were rated as low risk of bias. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
-
-**Figure 2.4.4.4**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
-SMD_S_OB_SyRCLERoBTF <- subgroup_analysis(df, "CvS", "Other behavioural", "RoBTF", 0.5)
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_OB_SyRCLERoBTF$plotdata, "RoBTF", "Other behavioural","RoB score", "CvS")
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_OB_SyRCLERoBTF_noI <- subgroup_SMD(df, "CvS", "Other behavioural", "RoBTF", 0.5)
-```
-
-The p-value for the association between low SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_OB_SyRCLERoBTF_noI$QMp,3)`.
-
-|            Level            |                                                                             Number of categories for that level included in this analysis                                                                             |                                                                                                 Attributable variance                                                                                                 |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-#### **ARRIVE reporting completeness guidelines**
-
-We provide a meta-regression where the number of ARRIVE items met is considered as a continuous variable.
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_OB_ARR2 <- metaregression_analysis(df, "CvS", "Other behavioural", "ARRIVEScore", 0.5)
-
-```
-
-**Figure 2.4.4.5**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE,}
-SMD_S_OB_ARR2$regression_plot
-```
-
-The p-value for the association between ARRIVE reporting completeness and outcome reported was `r  round(SMD_S_OB_ARR2$metaregression_summary$pval[2],3)`.
-
-|            Level            |                                                                                       Number of categories for that level included in this analysis                                                                                        |                                                                                                           Attributable variance                                                                                                            |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$sigma2[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$sigma2[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$sigma2[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$sigma2[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$sigma2[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-#### **Heterogeneity explained by covariates (Effect of modelling on Behaviour not otherwise specified)**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
-SMD_S_OB_sexI <- subgroup_SMDI(df, "CvS", "Other behavioural", "Sex", 0.5)
-SMD_S_OB_SyRCLERoBI <- subgroup_SMDI(df, "CvS", "Other behavioural", "RoBScore", 0.5)
-SMD_S_OB_ARRIVEI <- subgroup_SMDI(df, "CvS", "Other behavioural", "ARRIVEScoreCat", 0.5)
-```
-
-The table below shows which of the covariates, if any, explain some of the heterogeneity observed in the effect of model induction on other behavioural outcomes. We present marginal R^2^, which measures the proportion of variance explained by including moderators in the model (the % change in the between-studies variance when the covariate is included in the model, in other words the % of the heterogeneity explained by the variable). The coefficients are derived form an RMA model fitted with an intercept (and so represent, for each category, the point estimate and 95% CIs of the effect in that category).
-
-|       Moderator        |      Category       |                     $\beta$                      |                                                 95% CI                                                 |                     Marginal R^2^ (%)                      |
-|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |         \-          |               `r SMD_S_OB$beta[1]`               |                                `r SMD_S_OB$ci.lb` to `r SMD_S_OB$ci.ub`                                |                             \-                             |
-|          Sex           |         \-          |                        \-                        |                                                   \-                                                   |        `r round((r2_ml(SMD_S_OB_sexI)[1]*100),1)`%         |
-|           \-           |      *Female*       |            `r SMD_S_OB_sexI$beta[1]`             |                        `r SMD_S_OB_sexI$ci.lb[1]` to `r SMD_S_OB_sexI$ci.ub[1]`                        |                             \-                             |
-|           \-           |       *Male*        |            `r SMD_S_OB_sexI$beta[2]`             |                        `r SMD_S_OB_sexI$ci.lb[2]` to `r SMD_S_OB_sexI$ci.ub[2]`                        |                             \-                             |
-|      Risk of Bias      |         \-          |                        \-                        |                                                   \-                                                   |     `r round((r2_ml(SMD_S_OB_SyRCLERoBI)[1]*100),1)`%      |
-|           \-           |  *0 criteria met*   |         `r SMD_S_OB_SyRCLERoBI$beta[1]`          |                  `r SMD_S_OB_SyRCLERoBI$ci.lb[1]` to `r SMD_S_OB_SyRCLERoBI$ci.ub[1]`                  |                             \-                             |
-|           \-           |  *1 criteria met*   |         `r SMD_S_OB_SyRCLERoBI$beta[2]`          |                  `r SMD_S_OB_SyRCLERoBI$ci.lb[2]` to `r SMD_S_OB_SyRCLERoBI$ci.ub[2]`                  |                             \-                             |
-| Reporting completeness |         \-          |                        \-                        |                                                   \-                                                   | `r round((r2_ml(SMD_S_OB_ARR2$metaregression)[1]*100),1)`% |
-|           \-           | *per unit increase* | `r SMD_S_OB_ARR2$metaregression_summary$beta[2]` | `r SMD_S_OB_ARR2$metaregression_summary$ci.lb[2]` to `r SMD_S_OB_ARR2$metaregression_summary$ci.ub[2]` |                             \-                             |
-
-### 2.4.5 Sensitivity Analyses
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-options(scipen = 100, digits = 2)
-```
-
-We examine the robustness of the findings for other behaviours by performing the following sensitivity analyses.
-
-#### Imputed rho values of 0.2 and 0.8
-
-In the previous analyses for the effect of single prolonged stress on other behaviours, we imputed a $\rho$ value - the imputed within-study correlation between observed effect sizes - of 0.5. Here, we examine the effect of imputing $\rho$ values of 0.2 and 0.8.
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_OB_rho0.2 <- run_ML_SMD(df, "CvS", "Other behavioural", 0.2)
-```
-
-When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on other behaviours of **SMD = `r SMD_S_OB_rho0.2[["beta"]]`** (95% CI: `r SMD_S_OB_rho0.2[["ci.lb"]]` to `r SMD_S_OB_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OB_rho0.2)$pi.lb` to `r predict(SMD_S_OB_rho0.2)$pi.ub`).
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_OB_rho0.8 <- run_ML_SMD(df, "CvS", "Other behavioural", 0.8)
-```
-
-When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on other behaviours of **SMD = `r SMD_S_OB_rho0.8[["beta"]]`** (95% CI: `r SMD_S_OB_rho0.8[["ci.lb"]]` to `r SMD_S_OB_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OB_rho0.8)$pi.lb` to `r predict(SMD_S_OB_rho0.8)$pi.ub`).
-
-For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_OB[["beta"]]` (95% CI: `r SMD_S_OB[["ci.lb"]]` to `r SMD_S_OB[["ci.ub"]]`).
-
-### 2.4.6 Reporting bias/small-study effects
-
-Because of the relationship between SMD effect sizes and variance inherent in their calculation, where study size is small the standard approach to seeking evidence of small-study effects (regression based tests including Egger's regression test for multilevel meta-analysis) can lead to over-estimation of small-study effect (see for instance [10.7554/eLife.24260](10.7554/eLife.24260)). To address this we used Egger's regression test for multilevel meta-analysis, with regression of SMD effect size against 1/√N, where N is the total number of animals involved in an experiment.
-
-```{r warning=FALSE, eval = TRUE, echo = FALSE}
-run_sse_plot_SMD_L(df, 'CvS', 'Other behavioural')
-#run_sse_NMD(df)
-```
-
-Egger regression based on `r run_sse_SMD_L(df, 'CvS', 'Other behavioural')[["k"]]` studies of modelling of depression where sucrose preference was measured showed a coefficient for a small study effect of `r run_sse_SMD_L(df, 'CvS', 'Other behavioural')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'Other behavioural')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'CvS', 'Other behavioural')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'Other behavioural')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'Other behavioural')[["pval"]][2]))`).
-
-## 2.5 Outcome 5: BDNF
-
-### 2.5.1 Risks of bias
-
-Figure 2.5.1 shows the risk of bias summary for studies investigating the effect of single prolonged stress on sucrose preference in animals. The risk of bias assessment was performed using the SyRCLE RoB tool.
-
-**Figure 2.5.1**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
-SyRCLE_RoB_traffic(df, "CvS", "BDNF")
-```
-
-### 2.5.2 Reporting completeness
-
-Figure 2.5.2 shows the reporting completeness summary for studies investigating the effect of single prolonged stress on sucrose preference in animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
-
-**Figure 2.5.2**
-
-```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 10}
-ARRIVE_traffic(df, "CvS", "Stress response")
-```
-
-### 2.5.3 Meta-analysis
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_B <- run_ML_SMD(df, "CvS", "BDNF", 0.5)
-```
-
-The effect of single prolonged stress on other behaviours in animals using SMD as the effect size is shown in Figure 2.5.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
-
-**Figure 2.5.3**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
-forest_metafor(SMD_S_B, "CvS", "BDNF")
-```
-
-Single prolonged stress had a pooled effect on other behaviours of SMD = `r round(SMD_S_B[['beta']], 3)` , (95% CI: `r round(SMD_S_B[['ci.lb']], 3)` to `r round(SMD_S_B[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_B)$pi.lb, 3)` to `r round(predict(SMD_S_B)$pi.ub, 3)`).
-
-`r SMD_S_B[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_B$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_B$data$StudyId))` publications and involving `r length(unique(SMD_S_B$data$Strain))` different animal strain(s).
-
-|            Level            |                                            Number of categories for that level included in this analysis                                            |                                                                Attributable variance                                                                |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_B$s.names, SMD_S_B$s.nlevels[[which(SMD_S_B$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_B$s.names, SMD_S_B$sigma2[[which(SMD_S_B$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_B$s.names, SMD_S_B$s.nlevels[[which(SMD_S_B$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_B$s.names, SMD_S_B$sigma2[[which(SMD_S_B$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B$s.names, SMD_S_B$s.nlevels[[which(SMD_S_B$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B$s.names, SMD_S_B$sigma2[[which(SMD_S_B$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_B$s.names, SMD_S_B$s.nlevels[[which(SMD_S_B$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_B$s.names, SMD_S_B$sigma2[[which(SMD_S_B$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B$s.names, SMD_S_B$s.nlevels[[which(SMD_S_B$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B$s.names, SMD_S_B$sigma2[[which(SMD_S_B$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-### 2.5.4 Subgroup analyses and meta-regressions
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-options(scipen=100, digits=3)
-```
-
-For each outcome, the covariates of interest for subgroup analyses and meta-regressions were:
-
--   **Sex**
-
-We also conducted subgroup analyses using **(1) SyRCLE Risk of Bias** and **(2) ARRIVE reporting completeness** assessment scores as covariates to evaluate their influence on effect size estimates. These were not specified in the study protocol, but evaluation of risk of bias is required for the Summary of Evidence table, and no studies were considered entirely at low risk of bias or of high reporting completeness to allow such a sensitivity analysis
-
-The significance (p-value) reported is that for a test of whether the moderators are significantly different one from another, rather than whether the effect is significantly different from 0.
-
-#### **Sex**
-
-Figure 2.5.4.1 displays the estimates for the pooled SMD's when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
-
-**Figure 2.5.4.1**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_B_sex <- subgroup_analysis(df, "CvS", "BDNF", "Sex", 0.5)
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_B_sex$plotdata, "Sex", "BDNF","Sex","CvS")
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_B_sex_noI <- subgroup_SMD(df, "CvS", "BDNF", "Sex", 0.5)
-```
-
-The p-value for the association between the sex of animal groups used and outcome reported was `r round(SMD_S_B_sex_noI$QMp,3)`.
-
-|            Level            |                                                               Number of categories for that level included in this analysis                                                                |                                                                                   Attributable variance                                                                                    |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$s.nlevels[[which(SMD_S_B_sex$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$sigma2[[which(SMD_S_B_sex$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$s.nlevels[[which(SMD_S_B_sex$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$sigma2[[which(SMD_S_B_sex$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$s.nlevels[[which(SMD_S_B_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$sigma2[[which(SMD_S_B_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$s.nlevels[[which(SMD_S_B_sex$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$sigma2[[which(SMD_S_B_sex$analysis$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$s.nlevels[[which(SMD_S_B_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$sigma2[[which(SMD_S_B_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-#### **SyRCLE RoB assessment considered as a categorical variable**
-
-No studies met any RoB criteria
-
-#### **SyRCLE RoB assessment considering those studies where any item is at low risk of bias**
-
-No studies met any RoB criteria
-
-#### **ARRIVE reporting completeness guidelines**
-
-We provide a meta-regression where the number of ARRIVE items met is considered as a continuous variable.
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_B_ARR2 <- metaregression_analysis(df, "CvS", "BDNF", "ARRIVEScore", 0.5)
-
-```
-
-**Figure 2.5.4.5**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE,}
-SMD_S_B_ARR2$regression_plot
-```
-
-The p-value for the association between ARRIVE reporting completeness and outcome reported was `r  round(SMD_S_B_ARR2$metaregression_summary$pval[2],3)`.
-
-|            Level            |                                                                                      Number of categories for that level included in this analysis                                                                                      |                                                                                                          Attributable variance                                                                                                          |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$sigma2[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$sigma2[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$sigma2[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                                  `r ifelse('StudyId' %in% SMD_S_B_ARR2$s.names, SMD_S_B_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'StudyId')]], 0)`                                   |                       `r ifelse('StudyId' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$sigma2[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$sigma2[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-#### **Heterogeneity explained by covariates (Effect of modelling on BDNF)**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
-SMD_S_B_sexI <- subgroup_SMDI(df, "CvS", "BDNF", "Sex", 0.5)
-SMD_S_B_SyRCLERoBI <- subgroup_SMDI(df, "CvS", "BDNF", "RoBScore", 0.5)
-SMD_S_B_ARRIVEI <- subgroup_SMDI(df, "CvS", "BDNF", "ARRIVEScoreCat", 0.5)
-```
-
-The table below shows which of the covariates, if any, explain some of the heterogeneity observed in the effect of modelling on BDNF. We present marginal R^2^, which measures the proportion of variance explained by including moderators in the model (the % change in the between-studies variance when the covariate is included in the model, in other words the % of the heterogeneity explained by the variable). The coefficients are derived form an RMA model fitted with an intercept (and so represent, for each category, the point estimate and 95% CIs of the effect in that category).
-
-|       Moderator        |      Category       |                     $\beta$                     |                                                95% CI                                                |                     Marginal R^2^ (%)                     |
-|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |         \-          |               `r SMD_S_B$beta[1]`               |                                `r SMD_S_B$ci.lb` to `r SMD_S_B$ci.ub`                                |                            \-                             |
-|          Sex           |         \-          |                       \-                        |                                                  \-                                                  |        `r round((r2_ml(SMD_S_B_sexI)[1]*100),1)`%         |
-|           \-           |      *Female*       |            `r SMD_S_B_sexI$beta[1]`             |                        `r SMD_S_B_sexI$ci.lb[1]` to `r SMD_S_B_sexI$ci.ub[1]`                        |                            \-                             |
-|           \-           |       *Male*        |            `r SMD_S_B_sexI$beta[2]`             |                        `r SMD_S_B_sexI$ci.lb[2]` to `r SMD_S_B_sexI$ci.ub[2]`                        |                            \-                             |
-| Reporting completeness |         \-          |                       \-                        |                                                  \-                                                  | `r round((r2_ml(SMD_S_B_ARR2$metaregression)[1]*100),1)`% |
-|           \-           | *per unit increase* | `r SMD_S_B_ARR2$metaregression_summary$beta[2]` | `r SMD_S_B_ARR2$metaregression_summary$ci.lb[2]` to `r SMD_S_B_ARR2$metaregression_summary$ci.ub[2]` |                            \-                             |
-
-### 2.5.5 Sensitivity Analyses
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-options(scipen = 100, digits = 2)
-```
-
-We examine the robustness of the findings for BDNF by performing the following sensitivity analyses.
-
-#### Imputed rho values of 0.2 and 0.8
-
-In the previous analyses for the effect of single prolonged stress on BDNF, we imputed a $\rho$ value - the imputed within-study correlation between observed effect sizes - of 0.5. Here, we examine the effect of imputing $\rho$ values of 0.2 and 0.8.
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_B_rho0.2 <- run_ML_SMD(df, "CvS", "BDNF", 0.2)
-```
-
-When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on BDNF of **SMD = `r SMD_S_B_rho0.2[["beta"]]`** (95% CI: `r SMD_S_B_rho0.2[["ci.lb"]]` to `r SMD_S_B_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_B_rho0.2)$pi.lb` to `r predict(SMD_S_B_rho0.2)$pi.ub`).
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_B_rho0.8 <- run_ML_SMD(df, "CvS", "BDNF", 0.8)
-```
-
-When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on BDNF of **SMD = `r SMD_S_B_rho0.8[["beta"]]`** (95% CI: `r SMD_S_B_rho0.8[["ci.lb"]]` to `r SMD_S_B_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_B_rho0.8)$pi.lb` to `r predict(SMD_S_B_rho0.8)$pi.ub`).
-
-For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_B[["beta"]]` (95% CI: `r SMD_S_B[["ci.lb"]]` to `r SMD_S_B[["ci.ub"]]`).
-
-### 2.5.6 Reporting bias/small-study effects
-
-Because of the relationship between SMD effect sizes and variance inherent in their calculation, where study size is small the standard approach to seeking evidence of small-study effects (regression based tests including Egger's regression test for multilevel meta-analysis) can lead to over-estimation of small-study effect (see for instance [10.7554/eLife.24260](10.7554/eLife.24260)). To address this we used Egger's regression test for multilevel meta-analysis, with regression of SMD effect size against 1/√N, where N is the total number of animals involved in an experiment.
-
-```{r warning=FALSE, eval = TRUE, echo = FALSE}
-run_sse_plot_SMD_L(df, 'CvS', 'BDNF')
-#run_sse_NMD(df)
-```
-
-Egger regression based on `r run_sse_SMD_L(df, 'CvS', 'BDNF')[["k"]]` studies of modelling of depression where sucrose preference was measured showed a coefficient for a small study effect of `r run_sse_SMD_L(df, 'CvS', 'BDNF')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'BDNF')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'CvS', 'BDNF')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'BDNF')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'BDNF')[["pval"]][2]))`).
-
-## 2.6 Outcome 6: Biological stress response
-
-### 2.6.1 Risks of bias
-
-Figure 2.6.1 shows the risk of bias summary for studies investigating the effect of model induction on biological stress response in animals. The risk of bias assessment was performed using the SyRCLE RoB tool.
-
-**Figure 2.6.1**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
-SyRCLE_RoB_traffic(df, "CvS", "Stress response")
-```
-
-### 2.6.2 Reporting completeness
-
-Figure 2.6.2 shows the reporting completeness summary for studies investigating the effect of model induction on biological stress response in animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
-
-**Figure 2.6.2**
-
-```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=10}
-ARRIVE_traffic(df, "CvS", "Stress response")
-```
-
-### 2.6.3 Meta-analysis
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_StR <- run_ML_SMD(df, "CvS", "Stress response", 0.5)
-```
-
-The effect of single prolonged stress on the biological stress response in animals using SMD as the effect size is shown in Figure 2.6.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
-
-**Figure 2.6.3**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
-forest_metafor(SMD_S_StR, "CvS", "Stress response")
-```
-
-Single prolonged stress had a pooled effect on biological stress response of SMD = `r round(SMD_S_StR[['beta']], 3)` , (95% CI: `r round(SMD_S_StR[['ci.lb']], 3)` to `r round(SMD_S_StR[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_StR)$pi.lb, 3)` to `r round(predict(SMD_S_StR)$pi.ub, 3)`).
-
-`r SMD_S_StR[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_StR$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_StR$data$StudyId))` publications and involving `r length(unique(SMD_S_StR$data$Strain))` different animal strain(s).
-
-|            Level            |                                               Number of categories for that level included in this analysis                                               |                                                                   Attributable variance                                                                   |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-### 2.6.4 Subgroup analyses and meta-regressions
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-options(scipen=100, digits=3)
-```
-
-For each outcome, the covariates of interest for subgroup analyses and meta-regressions were:
-
--   **Sex**
-
-We also conducted subgroup analyses using **(1) SyRCLE Risk of Bias** and **(2) ARRIVE reporting completeness** assessment scores as covariates to evaluate their influence on effect size estimates. These were not specified in the study protocol, but evaluation of risk of bias is required for the Summary of Evidence table, and no studies were considered entirely at low risk of bias or of high reporting completeness to allow such a sensitivity analysis.
-
-The significance (p-value) reported is that for a test of whether the moderators are significantly different one from another, rather than whether the effect is significantly different from 0.
-
-#### **Sex**
-
-Figure 2.6.4.1 displays the estimates for the pooled SMD's when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
-
-**Figure 2.6.4.1**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_StR_sex <- subgroup_analysis(df, "CvS", "Stress response", "Sex", 0.5)
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_StR_sex$plotdata, "Sex", "Stress response","Sex","CvS")
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_StR_sex_noI <- subgroup_SMD(df, "CvS", "Stress response", "Sex", 0.5)
-```
-
-The p-value for the association between the sex of animal groups used and outcome reported was `r round(SMD_S_StR_sex_noI$QMp,3)`.
-
-|            Level            |                                                                  Number of categories for that level included in this analysis                                                                   |                                                                                      Attributable variance                                                                                       |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$s.nlevels[[which(SMD_S_StR_sex$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$sigma2[[which(SMD_S_StR_sex$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$s.nlevels[[which(SMD_S_StR_sex$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$sigma2[[which(SMD_S_StR_sex$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$s.nlevels[[which(SMD_S_StR_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$sigma2[[which(SMD_S_StR_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$s.nlevels[[which(SMD_S_StR_sex$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$sigma2[[which(SMD_S_StR_sex$analysis$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$s.nlevels[[which(SMD_S_StR_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$sigma2[[which(SMD_S_StR_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-#### **SyRCLE RoB assessment considered as a categorical variable**
-
-Figure 2.6.4.3 displays the estimates for the pooled SMD when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
-
-**Figure 2.6.4.3**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
-SMD_S_StR_SyRCLERoB <- subgroup_analysis(df, "CvS", "Stress response", "RoBScore", 0.5)
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_StR_SyRCLERoB$plotdata, "RoBScore", "Stress response","SyRCLE RoB score", "CvS")
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_StR_SyRCLERoB_noI <- subgroup_SMD(df, "CvS", "Stress response", "RoBScore", 0.5)
-```
-
-The p-value for the association between SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_StR_SyRCLERoB_noI$QMp,3)`.
-
-|            Level            |                                                                           Number of categories for that level included in this analysis                                                                            |                                                                                               Attributable variance                                                                                                |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$sigma2[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$sigma2[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$sigma2[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$sigma2[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$sigma2[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-#### **SyRCLE RoB assessment considering those studies where any item is at low risk of bias**
-
-Figure 2.6.4.4 displays the estimates for the pooled SMD when comparisons are stratified by whether of not any of the SyRCLE Risk of bias domains were rated as low risk of bias. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
-
-**Figure 2.6.4.4**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
-SMD_S_StR_SyRCLERoBTF <- subgroup_analysis(df, "CvS", "Stress response", "RoBTF", 0.5)
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_StR_SyRCLERoBTF$plotdata, "RoBTF", "Stress response","RoB score", "CvS")
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_StR_SyRCLERoBTF_noI <- subgroup_SMD(df, "CvS", "Stress response", "RoBTF", 0.5)
-```
-
-The p-value for the association between low SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_StR_SyRCLERoBTF_noI$QMp,3)`.
-
-|            Level            |                                                                              Number of categories for that level included in this analysis                                                                               |                                                                                                  Attributable variance                                                                                                   |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-#### **ARRIVE reporting completeness guidelines**
-
-We provide a meta-regression where the number of ARRIVE items met is considered as a continuous variable.
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_StR_ARR2 <- metaregression_analysis(df, "CvS", "Stress response", "ARRIVEScore", 0.5)
-
-```
-
-**Figure 2.6.4.5**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE,}
-SMD_S_StR_ARR2$regression_plot
-```
-
-The p-value for the association between ARRIVE reporting completeness and outcome reported was `r round(SMD_S_StR_ARR2$metaregression_summary$pval[2],3)`.
-
-|            Level            |                                                                                         Number of categories for that level included in this analysis                                                                                         |                                                                                                             Attributable variance                                                                                                             |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$sigma2[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$sigma2[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$sigma2[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$sigma2[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$sigma2[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-#### **Heterogeneity explained by covariates (Effect of modelling on Biological stress response)**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
-SMD_S_StR_sexI <- subgroup_SMDI(df, "CvS", "Stress response", "Sex", 0.5)
-SMD_S_StR_SyRCLERoBI <- subgroup_SMDI(df, "CvS", "Stress response", "RoBScore", 0.5)
-SMD_S_StR_ARRIVEI <- subgroup_SMDI(df, "CvS", "Stress response", "ARRIVEScoreCat", 0.5)
-```
-
-The table below shows which of the covariates, if any, explain some of the heterogeneity observed in the effect of model induction on biological stress response. We present marginal R^2^, which measures the proportion of variance explained by including moderators in the model (the % change in the between-studies variance when the covariate is included in the model, in other words the % of the heterogeneity explained by the variable). The coefficients are derived form an RMA model fitted with an intercept (and so represent, for each category, the point estimate and 95% CIs of the effect in that category).
-
-|       Moderator        |      Category       |                      $\beta$                      |                                                  95% CI                                                  |                      Marginal R^2^ (%)                      |
-|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |         \-          |               `r SMD_S_StR$beta[1]`               |                                `r SMD_S_StR$ci.lb` to `r SMD_S_StR$ci.ub`                                |                             \-                              |
-|          Sex           |         \-          |                        \-                         |                                                    \-                                                    |        `r round((r2_ml(SMD_S_StR_sexI)[1]*100),1)`%         |
-|           \-           |      *Female*       |            `r SMD_S_StR_sexI$beta[1]`             |                        `r SMD_S_StR_sexI$ci.lb[1]` to `r SMD_S_StR_sexI$ci.ub[1]`                        |                             \-                              |
-|           \-           |       *Male*        |            `r SMD_S_StR_sexI$beta[2]`             |                        `r SMD_S_StR_sexI$ci.lb[2]` to `r SMD_S_StR_sexI$ci.ub[2]`                        |                             \-                              |
-|      Risk of Bias      |         \-          |                        \-                         |                                                    \-                                                    |     `r round((r2_ml(SMD_S_StR_SyRCLERoBI)[1]*100),1)`%      |
-|           \-           |  *0 criteria met*   |         `r SMD_S_StR_SyRCLERoBI$beta[1]`          |                  `r SMD_S_StR_SyRCLERoBI$ci.lb[1]` to `r SMD_S_StR_SyRCLERoBI$ci.ub[1]`                  |                             \-                              |
-|           \-           |  *1 criteria met*   |         `r SMD_S_StR_SyRCLERoBI$beta[2]`          |                  `r SMD_S_StR_SyRCLERoBI$ci.lb[2]` to `r SMD_S_StR_SyRCLERoBI$ci.ub[2]`                  |                             \-                              |
-| Reporting completeness |         \-          |                        \-                         |                                                    \-                                                    | `r round((r2_ml(SMD_S_StR_ARR2$metaregression)[1]*100),1)`% |
-|           \-           | *per unit increase* | `r SMD_S_StR_ARR2$metaregression_summary$beta[2]` | `r SMD_S_StR_ARR2$metaregression_summary$ci.lb[2]` to `r SMD_S_StR_ARR2$metaregression_summary$ci.ub[2]` |                             \-                              |
-
-### 2.6.5 Sensitivity Analyses
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-options(scipen = 100, digits = 2)
-```
-
-We examine the robustness of the findings for biological stress response by performing the following sensitivity analyses.
-
-#### Imputed rho values of 0.2 and 0.8
-
-In the previous analyses for the effect of single prolonged stress on biological stress response, we imputed a $\rho$ value - the imputed within-study correlation between observed effect sizes - of 0.5. Here, we examine the effect of imputing $\rho$ values of 0.2 and 0.8.
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_StR_rho0.2 <- run_ML_SMD(df, "CvS", "Stress response", 0.2)
-```
-
-When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.2[["beta"]]`** (95% CI: `r SMD_S_StR_rho0.2[["ci.lb"]]` to `r SMD_S_StR_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_StR_rho0.2)$pi.lb` to `r predict(SMD_S_StR_rho0.2)$pi.ub`).
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_StR_rho0.8 <- run_ML_SMD(df, "CvS", "Stress response", 0.8)
-```
-
-When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.8[["beta"]]`** (95% CI: `r SMD_S_StR_rho0.8[["ci.lb"]]` to `r SMD_S_StR_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_StR_rho0.8)$pi.lb` to `r predict(SMD_S_StR_rho0.8)$pi.ub`).
-
-For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_StR[["beta"]]` (95% CI: `r SMD_S_StR[["ci.lb"]]` to `r SMD_S_StR[["ci.ub"]]`).
-
-### 2.6.6 Reporting bias/small-study effects
-
-Because of the relationship between SMD effect sizes and variance inherent in their calculation, where study size is small the standard approach to seeking evidence of small-study effects (regression based tests including Egger's regression test for multilevel meta-analysis) can lead to over-estimation of small-study effect (see for instance [10.7554/eLife.24260](10.7554/eLife.24260)). To address this we used Egger's regression test for multilevel meta-analysis, with regression of SMD effect size against 1/√N, where N is the total number of animals involved in an experiment.
-
-```{r warning=FALSE, eval = TRUE, echo = FALSE}
-run_sse_plot_SMD_L(df, 'CvS', 'Stress response')
-#run_sse_NMD(df)
-```
-
-Egger regression based on `r run_sse_SMD_L(df, 'CvS', 'Stress response')[["k"]]` studies of modelling of depression where sucrose preference was measured showed a coefficient for a small study effect of `r run_sse_SMD_L(df, 'CvS', 'Stress response')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'Stress response')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'CvS', 'Stress response')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'Stress response')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'Stress response')[["pval"]][2]))`).
-
-## 2.7 Outcome 7: Neurotransmitter levels
-
-No outcomes were presented
-
-## 2.8 Outcome 8: Other neurobiological outcomes
-
-### 2.8.1 Risks of bias
-
-Figure 2.8.1 shows the risk of bias summary for studies investigating the effect of single prolonged stress on other neurobiological outcomes in animals. The risk of bias assessment was performed using the SyRCLE RoB tool.
-
-**Figure 2.8.1**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
-SyRCLE_RoB_traffic(df, "CvS", "Other neurobiological")
-```
-
-### 2.8.2 Reporting completeness
-
-Figure 2.8.2 shows the reporting completeness summary for studies investigating the effect of single prolonged stress on other neurobiological outcomes in animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
-
-**Figure 2.8.2**
-
-```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 10}
-ARRIVE_traffic(df, "CvS", "Other neurobiological")
-```
-
-### 2.8.3 Meta-analysis
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_OthN <- run_ML_SMD(df, "CvS", "Other neurobiological", 0.5)
-```
-
-The effect of single prolonged stress on other neurobiological outcomes in animals using SMD as the effect size is shown in Figure 2.1.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
-
-**Figure 2.8.3**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=15}
-forest_metafor(SMD_S_OthN, "CvS", "Other neurobiological")
-```
-
-Single prolonged stress had a pooled effect on other neurobiological outcomes of SMD = `r round(SMD_S_OthN[['beta']], 3)` , (95% CI: `r round(SMD_S_OthN[['ci.lb']], 3)` to `r round(SMD_S_OthN[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_OthN)$pi.lb, 3)` to `r round(predict(SMD_S_OthN)$pi.ub, 3)`).
-
-`r SMD_S_OthN[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_OthN$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_OthN$data$StudyId))` publications and involving `r length(unique(SMD_S_OthN$data$Strain))` different animal strain(s).
-
-|            Level            |                                                Number of categories for that level included in this analysis                                                 |                                                                    Attributable variance                                                                     |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-### 2.8.4 Subgroup analyses and meta-regressions
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-options(scipen=100, digits=3)
-```
-
-For each outcome, the covariates of interest for subgroup analyses and meta-regressions were:
-
--   **Sex**
-
-We also conducted subgroup analyses using **(1) SyRCLE Risk of Bias** and **(2) ARRIVE reporting completeness** assessment scores as covariates to evaluate their influence on effect size estimates. These were not specified in the study protocol, but evaluation of risk of bias is required for the Summary of Evidence table, and no studies were considered entirely at low risk of bias or of high reporting completeness to allow such a sensitivity analysis.
-
-The significance (p-value) reported is that for a test of whether the moderators are significantly different one from another, rather than whether the effect is significantly different from 0.
-
-#### **Sex**
-
-Figure 2.8.4.1 displays the estimates for the pooled SMD when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
-
-**Figure 2.8.4.1**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_OthN_sex <- subgroup_analysis(df, "CvS", "Other neurobiological", "Sex", 0.5)
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_OthN_sex$plotdata, "Sex", "Other neurobiological","Sex","CvS")
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_OthN_sex_noI <- subgroup_SMD(df, "CvS", "Other neurobiological", "Sex", 0.5)
-```
-
-The p-value for the association between the sex of animal groups used and outcome reported was `r round(SMD_S_B_sex_noI$QMp,3)`.
-
-|            Level            |                                                                    Number of categories for that level included in this analysis                                                                    |                                                                                        Attributable variance                                                                                        |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$s.nlevels[[which(SMD_S_OthN_sex$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$sigma2[[which(SMD_S_OthN_sex$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$s.nlevels[[which(SMD_S_OthN_sex$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$sigma2[[which(SMD_S_OthN_sex$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$s.nlevels[[which(SMD_S_OthN_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$sigma2[[which(SMD_S_OthN_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$s.nlevels[[which(SMD_S_OthN_sex$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$sigma2[[which(SMD_S_OthN_sex$analysis$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$s.nlevels[[which(SMD_S_OthN_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$sigma2[[which(SMD_S_OthN_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-#### **SyRCLE RoB assessment considered as a categorical variable**
-
-No studies met any RoB criteria.
-
-#### **SyRCLE RoB assessment considering those studies where any item is at low risk of bias**
-
-No studies met any RoB criteria.
-
-#### **ARRIVE reporting completeness guidelines**
-
-We provide a meta-regression where the number of ARRIVE items met is considered as a continuous variable.
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_OthN_ARR2 <- metaregression_analysis(df, "CvS", "Other neurobiological", "ARRIVEScore", 0.5)
-
-```
-
-**Figure 2.8.4.5**
-
-```{r 2_8_4_5, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
-SMD_S_OthN_ARR2$regression_plot
-```
-
-The p-value for the association between ARRIVE reporting completeness and outcome reported was `r round(SMD_S_OthN_ARR2$metaregression_summary$pval[2],3)`.
-
-|            Level            |                                                                                          Number of categories for that level included in this analysis                                                                                           |                                                                                                              Attributable variance                                                                                                               |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$sigma2[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$sigma2[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$sigma2[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$sigma2[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$sigma2[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
-
-#### **Heterogeneity explained by covariates (Effect of modelling on other neurobiological outcomes)**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
-SMD_S_OthN_sexI <- subgroup_SMDI(df, "CvS", "Other neurobiological", "Sex", 0.5)
-SMD_S_OthN_SyRCLERoBI <- subgroup_SMDI(df, "CvS", "Other neurobiological", "RoBScore", 0.5)
-SMD_S_OthN_ARRIVEI <- subgroup_SMDI(df, "CvS", "Other neurobiological", "ARRIVEScoreCat", 0.5)
-```
-
-The table below shows which of the covariates, if any, explain some of the heterogeneity observed in the effect of modelling on other neurobiological outcomes. We present marginal R^2^, which measures the proportion of variance explained by including moderators in the model (the % change in the between-studies variance when the covariate is included in the model, in other words the % of the heterogeneity explained by the variable). The coefficients are derived form an RMA model fitted with an intercept (and so represent, for each category, the point estimate and 95% CIs of the effect in that category).
-
-|       Moderator        |      Category       |                      $\beta$                       |                                                   95% CI                                                   |                      Marginal R^2^ (%)                       |
-|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |         \-          |               `r SMD_S_OthN$beta[1]`               |                                `r SMD_S_OthN$ci.lb` to `r SMD_S_OthN$ci.ub`                                |                              \-                              |
-|          Sex           |         \-          |                         \-                         |                                                     \-                                                     |        `r round((r2_ml(SMD_S_OthN_sexI)[1]*100),1)`%         |
-|           \-           |      *Female*       |            `r SMD_S_OthN_sexI$beta[1]`             |                        `r SMD_S_OthN_sexI$ci.lb[1]` to `r SMD_S_OthN_sexI$ci.ub[1]`                        |                              \-                              |
-|           \-           |       *Male*        |            `r SMD_S_OthN_sexI$beta[2]`             |                        `r SMD_S_OthN_sexI$ci.lb[2]` to `r SMD_S_OthN_sexI$ci.ub[2]`                        |                              \-                              |
-| Reporting completeness |         \-          |                         \-                         |                                                     \-                                                     | `r round((r2_ml(SMD_S_OthN_ARR2$metaregression)[1]*100),1)`% |
-|           \-           | *per unit increase* | `r SMD_S_OthN_ARR2$metaregression_summary$beta[2]` | `r SMD_S_OthN_ARR2$metaregression_summary$ci.lb[2]` to `r SMD_S_OthN_ARR2$metaregression_summary$ci.ub[2]` |                              \-                              |
-
-### 2.8.5 Sensitivity Analyses
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-options(scipen = 100, digits = 2)
-```
-
-We examine the robustness of the findings for other neurobiological outcomes by performing the following sensitivity analyses
-
-#### Imputed rho values of 0.2 and 0.8
-
-In the previous analyses for the effect of single prolonged stress on other neurobiological outcomes, we imputed a $\rho$ value - the imputed within-study correlation between observed effect sizes - of 0.5. Here, we examine the effect of imputing $\rho$ values of 0.2 and 0.8.
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_OthN_rho0.2 <- run_ML_SMD(df, "CvS", "Other neurobiological", 0.2)
-```
-
-When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on other neurobiological outcomes of **SMD = `r SMD_S_OthN_rho0.2[["beta"]]`** (95% CI: `r SMD_S_OthN_rho0.2[["ci.lb"]]` to `r SMD_S_OthN_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OthN_rho0.2)$pi.lb` to `r predict(SMD_S_OthN_rho0.2)$pi.ub`).
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_OthN_rho0.8 <- run_ML_SMD(df, "CvS", "Other neurobiological", 0.8)
-```
-
-When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on other neurobiological outomes of **SMD = `r SMD_S_OthN_rho0.8[["beta"]]`** (95% CI: `r SMD_S_OthN_rho0.8[["ci.lb"]]` to `r SMD_S_OthN_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OthN_rho0.8)$pi.lb` to `r predict(SMD_S_OthN_rho0.8)$pi.ub`).
-
-For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_OthN[["beta"]]` (95% CI: `r SMD_S_OthN[["ci.lb"]]` to `r SMD_S_OthN[["ci.ub"]]`).
-
-### 2.8.6 Reporting bias/small-study effects
-
-Because of the relationship between SMD effect sizes and variance inherent in their calculation, where study size is small the standard approach to seeking evidence of small-study effects (regression based tests including Egger's regression test for multilevel meta-analysis) can lead to over-estimation of small-study effect (see for instance [10.7554/eLife.24260](10.7554/eLife.24260)). To address this we used Egger's regression test for multilevel meta-analysis, with regression of SMD effect size against 1/√N, where N is the total number of animals involved in an experiment.
-
-```{r warning=FALSE, eval = TRUE, echo = FALSE}
-run_sse_plot_SMD_L(df, 'CvS', 'Other neurobiological')
-#run_sse_NMD(df)
-```
-
-Egger regression based on `r run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["k"]]` studies of modelling of depression where other neurobiological outcomes was measured showed a coefficient for a small study effect of `r run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["pval"]][2]))`).
-
 # 3 Exercise v Control
 
 ```{r # Split df by experiment and outcome type into dataframes to simply inline code below - Exercise v Control, eval = TRUE, echo = FALSE}
@@ -2527,6 +1632,903 @@ run_sse_plot_SMD_L(df, 'TvC', 'Other neurobiological')
 ```
 
 Egger regression based on `r run_sse_SMD_L(df, 'TvC', 'Other neurobiological')[["k"]]` studies of modelling of depression where other neurobiological outcomes was measured showed a coefficient for a small-study effect of `r run_sse_SMD_L(df, 'TvC', 'Other neurobiological')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'TvC', 'Other neurobiological')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'TvC', 'Other neurobiological')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'TvC', 'Other neurobiological')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'TvC', 'Other neurobiological')[["pval"]][2]))`).
+
+# 2 Effects of model induction (SPS)
+
+```{r # Split df by experiment and outcome type into dataframes to simply inline code below - Control v Sham, eval = TRUE, echo = FALSE}
+df_S <- filter(df, SortLabel == "CvS")
+df_S_NT <- filter_experiment_outcome_type(df, "CvS", "Neuotransmitter levels")
+df_S_L <- filter_experiment_outcome_type(df, "CvS", "Locomotor")
+df_S_B <- filter_experiment_outcome_type(df, "CvS", "BDNF")
+df_S_OB <- filter_experiment_outcome_type(df, "CvS", "Other behavioural")
+df_S_OthN <- filter_experiment_outcome_type(df, "CvS", "Other neurobiological")
+df_S_FM <- filter_experiment_outcome_type(df, "CvS", "Fear memory")
+df_S_Fr <- filter_experiment_outcome_type(df, "CvS", "Freezing")
+df_S_StR<- filter_experiment_outcome_type(df, "CvS", "Stress response")
+```
+
+`r length(table(df_S$StudyId))` studies (`r nrow(df%>%filter(SortLabel == "CvS"))` comparisons) investigated the effects of model induction. The number of studies and individual effect sizes for each outcome were:
+
+-   Locomotor outcomes: `r length(table(df_S_L$StudyId))` studies and `r nrow(df_S_L)` comparisons in `r {strains <- unique(df_S_L$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
+
+-   Fear Memory `r length(table(df_S_FM$StudyId))` studies and `r nrow(df_S_FM)` comparisons in `r {strains <- unique(df_S_FM$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
+
+-   Freezing: `r length(table(df_S_Fr$StudyId))` studies and `r nrow(df_S_Fr)` comparisons in `r {strains <- unique(df_S_Fr$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
+
+-   Other behaviours: `r length(table(df_S_OB$StudyId))` studies and `r nrow(df_S_OB)` comparisons in `r {strains <- unique(df_S_OB$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
+
+-   BDNF: `r length(table(df_S_B$StudyId))` studies and `r nrow(df_S_B)` comparisons in `r {strains <- unique(df_S_B$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
+
+-   Neurotransmitter levels: `r length(table(df_S_NT$StudyId))` studies and `r nrow(df_S_NT)` comparisons in `r {strains <- unique(df_S_NT$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
+
+-   Biochemical stress responses: `r length(table(df_S_StR$StudyId))` studies and `r nrow(df_S_StR)` comparisons in `r {strains <- unique(df_S_StR$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
+
+-   Other neurobiological outcomes: `r length(table(df_S_OthN$StudyId))` studies and `r nrow(df_S_OthN)` comparisons in `r {strains <- unique(df_S_OthN$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
+
+## 2.1 Outcome 1: Locomotor activity
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_L <- run_SMD(df, "CvS", "Locomotor")
+#levels 4,4,2 so stop
+```
+
+Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_L[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_L$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_L$data$StudyId))` publications and involving `r length(unique(SMD_S_L$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed.
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+forest_metafor(SMD_S_L, "CvS", "Locomotor")
+```
+
+## 2.2 Outcome 2: Fear memory
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_FM <- run_SMD(df, "CvS", "Fear memory")
+#levels 4-4-1
+```
+
+Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_FM[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_FM$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_FM$data$StudyId))` publications and involving `r length(unique(SMD_S_FM$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed.
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+forest_metafor(SMD_S_FM, "CvS", "Locomotor")
+```
+
+## 2.3 Outcome 3: Freezing
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_Fr <- run_SMD(df, "CvS", "Freezing")
+# levels 3-3-2
+```
+
+Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_Fr[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_Fr$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_Fr$data$StudyId))` publications and involving `r length(unique(SMD_S_Fr$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed.
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+forest_metafor(SMD_S_Fr, "CvS", "Freezing")
+```
+
+## 2.4 Outcome 4: Other behavioural outcomes
+
+### 2.4.1 Risks of bias
+
+Figure 2.4.1 shows the risk of bias summary for studies investigating the effect of single prolonged stress on other behavioural outcomes in animals. The risk of bias assessment was performed using the SyRCLE RoB tool.
+
+**Figure 2.4.1**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
+SyRCLE_RoB_traffic(df, "CvS", "Other behavioural")
+```
+
+### 2.4.2 Reporting completeness
+
+Figure 2.4.2 shows the reporting completeness summary for studies investigating the effect of single prolonged stress on sucrose preference in animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
+
+**Figure 2.4.2**
+
+```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 10}
+ARRIVE_traffic(df, "CvS", "Other behavioural")
+```
+
+### 2.4.3 Meta-analysis
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_OB <- run_ML_SMD(df, "CvS", "Other behavioural", 0.5)
+```
+
+The effect of single prolonged stress on other bevaiours in animals using SMD as the effect size is shown in Figure 2.4.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
+
+**Figure 2.4.3**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 12}
+forest_metafor(SMD_S_OB, "CvS", "Other behavioural")
+```
+
+Single prolonged stress had a pooled effect on other behaviours of SMD = `r round(SMD_S_OB[['beta']], 3)` , (95% CI: `r round(SMD_S_OB[['ci.lb']], 3)` to `r round(SMD_S_OB[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_OB)$pi.lb, 3)` to `r round(predict(SMD_S_OB)$pi.ub, 3)`).
+
+`r SMD_S_OB[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_OB$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_OB$data$StudyId))` publications and involving `r length(unique(SMD_S_OB$data$Strain))` different animal strain(s).
+
+The following table structure is used throughout this report and is used to show the different levels contributing to that analysis, the number of unique categories in those levels, and the variance contributed by that level of analysis. Because levels are only included in the analysis where there are five or more unique categories, for some analyses the number of categories is 0, and the variance attributed to those levels in not applicable. Because the model is hierarchical, where for instance there are **Studies** which include different **Strains**, the number of categories for **Study x Strain** will exceed the number of Studies (by which we mean unique publications) referred to in the text.
+
+|            Level            |                                             Number of categories for that level included in this analysis                                              |                                                                 Attributable variance                                                                  |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OB$s.names, SMD_S_OB$s.nlevels[[which(SMD_S_OB$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OB$s.names, SMD_S_OB$sigma2[[which(SMD_S_OB$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OB$s.names, SMD_S_OB$s.nlevels[[which(SMD_S_OB$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OB$s.names, SMD_S_OB$sigma2[[which(SMD_S_OB$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB$s.names, SMD_S_OB$s.nlevels[[which(SMD_S_OB$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB$s.names, SMD_S_OB$sigma2[[which(SMD_S_OB$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OB$s.names, SMD_S_OB$s.nlevels[[which(SMD_S_OB$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OB$s.names, SMD_S_OB$sigma2[[which(SMD_S_OB$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB$s.names, SMD_S_OB$s.nlevels[[which(SMD_S_OB$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB$s.names, SMD_S_OB$sigma2[[which(SMD_S_OB$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+### 2.4.4 Subgroup analyses and meta-regressions
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+options(scipen=100, digits=3)
+```
+
+For each outcome, the covariates of interest for subgroup analyses and meta-regressions were:
+
+-   **Sex**
+
+We also conducted subgroup analyses using **(1) SyRCLE Risk of Bias** and **(2) ARRIVE reporting completeness** assessment scores as covariates to evaluate their influence on effect size estimates. These were not specified in the study protocol, but evaluation of risk of bias is required for the Summary of Evidence table, and no studies were considered entirely at low risk of bias or of high reporting completeness to allow such a sensitivity analysis
+
+The significance (p-value) reported is that for a test of whether the moderators are significantly different one from another, rather than whether the effect is significantly different from 0.
+
+#### **Sex**
+
+Figure 2.4.4.1 displays the estimates for the pooled SMD's when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
+
+**Figure 2.4.4.1**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_OB_sex <- subgroup_analysis(df, "CvS", "Other behavioural", "Sex", 0.5)
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+forest_subgroup(SMD_S_OB_sex$plotdata, "Sex", "Other behavioural","Sex","CvS")
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_OB_sex_noI <- subgroup_SMD(df, "CvS", "Other behavioural", "Sex", 0.5)
+```
+
+The p-value for the association between the sex of animal groups used and outcome reported was `r round(SMD_S_OB_sex_noI$QMp,3)`.
+
+|            Level            |                                                                 Number of categories for that level included in this analysis                                                                 |                                                                                     Attributable variance                                                                                     |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$s.nlevels[[which(SMD_S_OB_sex$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$sigma2[[which(SMD_S_OB_sex$analysis$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$s.nlevels[[which(SMD_S_OB_sex$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$sigma2[[which(SMD_S_OB_sex$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$s.nlevels[[which(SMD_S_OB_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$sigma2[[which(SMD_S_OB_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$s.nlevels[[which(SMD_S_OB_sex$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$sigma2[[which(SMD_S_OB_sex$analysis$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$s.nlevels[[which(SMD_S_OB_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_sex$analysis$s.names, SMD_S_OB_sex$analysis$sigma2[[which(SMD_S_OB_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+#### **SyRCLE RoB assessment considered as a categorical variable**
+
+Figure 2.4.4.3 displays the estimates for the pooled SMD's when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
+
+**Figure 2.4.4.3**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
+SMD_S_OB_SyRCLERoB <- subgroup_analysis(df, "CvS", "Other behavioural", "RoBScore", 0.5)
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+forest_subgroup(SMD_S_OB_SyRCLERoB$plotdata, "RoBScore", "Other behavioural","SyRCLE RoB score", "CvS")
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_OB_SyRCLERoB_noI <- subgroup_SMD(df, "CvS", "Other behavioural", "RoBScore", 0.5)
+```
+
+The p-value for the association between SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_OB_SyRCLERoB_noI$QMp,3)`.
+
+|            Level            |                                                                          Number of categories for that level included in this analysis                                                                          |                                                                                              Attributable variance                                                                                              |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$sigma2[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$sigma2[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$sigma2[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$sigma2[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoB$analysis$s.names, SMD_S_OB_SyRCLERoB$analysis$sigma2[[which(SMD_S_OB_SyRCLERoB$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+#### **SyRCLE RoB assessment considering those studies where any item is at low risk of bias**
+
+Figure 2.4.4.4 displays the estimates for the pooled SMD's when comparisons are stratified by whether of not any of the SyRCLE Risk of bias domains were rated as low risk of bias. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
+
+**Figure 2.4.4.4**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
+SMD_S_OB_SyRCLERoBTF <- subgroup_analysis(df, "CvS", "Other behavioural", "RoBTF", 0.5)
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+forest_subgroup(SMD_S_OB_SyRCLERoBTF$plotdata, "RoBTF", "Other behavioural","RoB score", "CvS")
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_OB_SyRCLERoBTF_noI <- subgroup_SMD(df, "CvS", "Other behavioural", "RoBTF", 0.5)
+```
+
+The p-value for the association between low SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_OB_SyRCLERoBTF_noI$QMp,3)`.
+
+|            Level            |                                                                             Number of categories for that level included in this analysis                                                                             |                                                                                                 Attributable variance                                                                                                 |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_SyRCLERoBTF$analysis$s.names, SMD_S_OB_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_OB_SyRCLERoBTF$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+#### **ARRIVE reporting completeness guidelines**
+
+We provide a meta-regression where the number of ARRIVE items met is considered as a continuous variable.
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_OB_ARR2 <- metaregression_analysis(df, "CvS", "Other behavioural", "ARRIVEScore", 0.5)
+
+```
+
+**Figure 2.4.4.5**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE,}
+SMD_S_OB_ARR2$regression_plot
+```
+
+The p-value for the association between ARRIVE reporting completeness and outcome reported was `r  round(SMD_S_OB_ARR2$metaregression_summary$pval[2],3)`.
+
+|            Level            |                                                                                       Number of categories for that level included in this analysis                                                                                        |                                                                                                           Attributable variance                                                                                                            |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$sigma2[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$sigma2[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$sigma2[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$sigma2[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB_ARR2$metaregression_summary$s.names, SMD_S_OB_ARR2$metaregression_summary$sigma2[[which(SMD_S_OB_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+#### **Heterogeneity explained by covariates (Effect of modelling on Behaviour not otherwise specified)**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
+SMD_S_OB_sexI <- subgroup_SMDI(df, "CvS", "Other behavioural", "Sex", 0.5)
+SMD_S_OB_SyRCLERoBI <- subgroup_SMDI(df, "CvS", "Other behavioural", "RoBScore", 0.5)
+SMD_S_OB_ARRIVEI <- subgroup_SMDI(df, "CvS", "Other behavioural", "ARRIVEScoreCat", 0.5)
+```
+
+The table below shows which of the covariates, if any, explain some of the heterogeneity observed in the effect of model induction on other behavioural outcomes. We present marginal R^2^, which measures the proportion of variance explained by including moderators in the model (the % change in the between-studies variance when the covariate is included in the model, in other words the % of the heterogeneity explained by the variable). The coefficients are derived form an RMA model fitted with an intercept (and so represent, for each category, the point estimate and 95% CIs of the effect in that category).
+
+|       Moderator        |      Category       |                     $\beta$                      |                                                 95% CI                                                 |                     Marginal R^2^ (%)                      |
+|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
+|     Overall effect     |         \-          |               `r SMD_S_OB$beta[1]`               |                                `r SMD_S_OB$ci.lb` to `r SMD_S_OB$ci.ub`                                |                             \-                             |
+|          Sex           |         \-          |                        \-                        |                                                   \-                                                   |        `r round((r2_ml(SMD_S_OB_sexI)[1]*100),1)`%         |
+|           \-           |      *Female*       |            `r SMD_S_OB_sexI$beta[1]`             |                        `r SMD_S_OB_sexI$ci.lb[1]` to `r SMD_S_OB_sexI$ci.ub[1]`                        |                             \-                             |
+|           \-           |       *Male*        |            `r SMD_S_OB_sexI$beta[2]`             |                        `r SMD_S_OB_sexI$ci.lb[2]` to `r SMD_S_OB_sexI$ci.ub[2]`                        |                             \-                             |
+|      Risk of Bias      |         \-          |                        \-                        |                                                   \-                                                   |     `r round((r2_ml(SMD_S_OB_SyRCLERoBI)[1]*100),1)`%      |
+|           \-           |  *0 criteria met*   |         `r SMD_S_OB_SyRCLERoBI$beta[1]`          |                  `r SMD_S_OB_SyRCLERoBI$ci.lb[1]` to `r SMD_S_OB_SyRCLERoBI$ci.ub[1]`                  |                             \-                             |
+|           \-           |  *1 criteria met*   |         `r SMD_S_OB_SyRCLERoBI$beta[2]`          |                  `r SMD_S_OB_SyRCLERoBI$ci.lb[2]` to `r SMD_S_OB_SyRCLERoBI$ci.ub[2]`                  |                             \-                             |
+| Reporting completeness |         \-          |                        \-                        |                                                   \-                                                   | `r round((r2_ml(SMD_S_OB_ARR2$metaregression)[1]*100),1)`% |
+|           \-           | *per unit increase* | `r SMD_S_OB_ARR2$metaregression_summary$beta[2]` | `r SMD_S_OB_ARR2$metaregression_summary$ci.lb[2]` to `r SMD_S_OB_ARR2$metaregression_summary$ci.ub[2]` |                             \-                             |
+
+### 2.4.5 Sensitivity Analyses
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+options(scipen = 100, digits = 2)
+```
+
+We examine the robustness of the findings for other behaviours by performing the following sensitivity analyses.
+
+#### Imputed rho values of 0.2 and 0.8
+
+In the previous analyses for the effect of single prolonged stress on other behaviours, we imputed a $\rho$ value - the imputed within-study correlation between observed effect sizes - of 0.5. Here, we examine the effect of imputing $\rho$ values of 0.2 and 0.8.
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_OB_rho0.2 <- run_ML_SMD(df, "CvS", "Other behavioural", 0.2)
+```
+
+When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on other behaviours of **SMD = `r SMD_S_OB_rho0.2[["beta"]]`** (95% CI: `r SMD_S_OB_rho0.2[["ci.lb"]]` to `r SMD_S_OB_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OB_rho0.2)$pi.lb` to `r predict(SMD_S_OB_rho0.2)$pi.ub`).
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_OB_rho0.8 <- run_ML_SMD(df, "CvS", "Other behavioural", 0.8)
+```
+
+When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on other behaviours of **SMD = `r SMD_S_OB_rho0.8[["beta"]]`** (95% CI: `r SMD_S_OB_rho0.8[["ci.lb"]]` to `r SMD_S_OB_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OB_rho0.8)$pi.lb` to `r predict(SMD_S_OB_rho0.8)$pi.ub`).
+
+For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_OB[["beta"]]` (95% CI: `r SMD_S_OB[["ci.lb"]]` to `r SMD_S_OB[["ci.ub"]]`).
+
+### 2.4.6 Reporting bias/small-study effects
+
+Because of the relationship between SMD effect sizes and variance inherent in their calculation, where study size is small the standard approach to seeking evidence of small-study effects (regression based tests including Egger's regression test for multilevel meta-analysis) can lead to over-estimation of small-study effect (see for instance [10.7554/eLife.24260](10.7554/eLife.24260)). To address this we used Egger's regression test for multilevel meta-analysis, with regression of SMD effect size against 1/√N, where N is the total number of animals involved in an experiment.
+
+```{r warning=FALSE, eval = TRUE, echo = FALSE}
+run_sse_plot_SMD_L(df, 'CvS', 'Other behavioural')
+#run_sse_NMD(df)
+```
+
+Egger regression based on `r run_sse_SMD_L(df, 'CvS', 'Other behavioural')[["k"]]` studies of modelling of depression where sucrose preference was measured showed a coefficient for a small study effect of `r run_sse_SMD_L(df, 'CvS', 'Other behavioural')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'Other behavioural')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'CvS', 'Other behavioural')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'Other behavioural')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'Other behavioural')[["pval"]][2]))`).
+
+## 2.5 Outcome 5: BDNF
+
+### 2.5.1 Risks of bias
+
+Figure 2.5.1 shows the risk of bias summary for studies investigating the effect of single prolonged stress on sucrose preference in animals. The risk of bias assessment was performed using the SyRCLE RoB tool.
+
+**Figure 2.5.1**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+SyRCLE_RoB_traffic(df, "CvS", "BDNF")
+```
+
+### 2.5.2 Reporting completeness
+
+Figure 2.5.2 shows the reporting completeness summary for studies investigating the effect of single prolonged stress on sucrose preference in animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
+
+**Figure 2.5.2**
+
+```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 10}
+ARRIVE_traffic(df, "CvS", "Stress response")
+```
+
+### 2.5.3 Meta-analysis
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_B <- run_ML_SMD(df, "CvS", "BDNF", 0.5)
+```
+
+The effect of single prolonged stress on other behaviours in animals using SMD as the effect size is shown in Figure 2.5.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
+
+**Figure 2.5.3**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+forest_metafor(SMD_S_B, "CvS", "BDNF")
+```
+
+Single prolonged stress had a pooled effect on other behaviours of SMD = `r round(SMD_S_B[['beta']], 3)` , (95% CI: `r round(SMD_S_B[['ci.lb']], 3)` to `r round(SMD_S_B[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_B)$pi.lb, 3)` to `r round(predict(SMD_S_B)$pi.ub, 3)`).
+
+`r SMD_S_B[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_B$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_B$data$StudyId))` publications and involving `r length(unique(SMD_S_B$data$Strain))` different animal strain(s).
+
+|            Level            |                                            Number of categories for that level included in this analysis                                            |                                                                Attributable variance                                                                |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_B$s.names, SMD_S_B$s.nlevels[[which(SMD_S_B$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_B$s.names, SMD_S_B$sigma2[[which(SMD_S_B$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_B$s.names, SMD_S_B$s.nlevels[[which(SMD_S_B$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_B$s.names, SMD_S_B$sigma2[[which(SMD_S_B$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B$s.names, SMD_S_B$s.nlevels[[which(SMD_S_B$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B$s.names, SMD_S_B$sigma2[[which(SMD_S_B$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_B$s.names, SMD_S_B$s.nlevels[[which(SMD_S_B$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_B$s.names, SMD_S_B$sigma2[[which(SMD_S_B$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B$s.names, SMD_S_B$s.nlevels[[which(SMD_S_B$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B$s.names, SMD_S_B$sigma2[[which(SMD_S_B$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+### 2.5.4 Subgroup analyses and meta-regressions
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+options(scipen=100, digits=3)
+```
+
+For each outcome, the covariates of interest for subgroup analyses and meta-regressions were:
+
+-   **Sex**
+
+We also conducted subgroup analyses using **(1) SyRCLE Risk of Bias** and **(2) ARRIVE reporting completeness** assessment scores as covariates to evaluate their influence on effect size estimates. These were not specified in the study protocol, but evaluation of risk of bias is required for the Summary of Evidence table, and no studies were considered entirely at low risk of bias or of high reporting completeness to allow such a sensitivity analysis
+
+The significance (p-value) reported is that for a test of whether the moderators are significantly different one from another, rather than whether the effect is significantly different from 0.
+
+#### **Sex**
+
+Figure 2.5.4.1 displays the estimates for the pooled SMD's when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
+
+**Figure 2.5.4.1**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_B_sex <- subgroup_analysis(df, "CvS", "BDNF", "Sex", 0.5)
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+forest_subgroup(SMD_S_B_sex$plotdata, "Sex", "BDNF","Sex","CvS")
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_B_sex_noI <- subgroup_SMD(df, "CvS", "BDNF", "Sex", 0.5)
+```
+
+The p-value for the association between the sex of animal groups used and outcome reported was `r round(SMD_S_B_sex_noI$QMp,3)`.
+
+|            Level            |                                                               Number of categories for that level included in this analysis                                                                |                                                                                   Attributable variance                                                                                    |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$s.nlevels[[which(SMD_S_B_sex$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$sigma2[[which(SMD_S_B_sex$analysis$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$s.nlevels[[which(SMD_S_B_sex$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$sigma2[[which(SMD_S_B_sex$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$s.nlevels[[which(SMD_S_B_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$sigma2[[which(SMD_S_B_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$s.nlevels[[which(SMD_S_B_sex$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$sigma2[[which(SMD_S_B_sex$analysis$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$s.nlevels[[which(SMD_S_B_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B_sex$analysis$s.names, SMD_S_B_sex$analysis$sigma2[[which(SMD_S_B_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+#### **SyRCLE RoB assessment considered as a categorical variable**
+
+No studies met any RoB criteria
+
+#### **SyRCLE RoB assessment considering those studies where any item is at low risk of bias**
+
+No studies met any RoB criteria
+
+#### **ARRIVE reporting completeness guidelines**
+
+We provide a meta-regression where the number of ARRIVE items met is considered as a continuous variable.
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_B_ARR2 <- metaregression_analysis(df, "CvS", "BDNF", "ARRIVEScore", 0.5)
+
+```
+
+**Figure 2.5.4.5**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE,}
+SMD_S_B_ARR2$regression_plot
+```
+
+The p-value for the association between ARRIVE reporting completeness and outcome reported was `r  round(SMD_S_B_ARR2$metaregression_summary$pval[2],3)`.
+
+|            Level            |                                                                                      Number of categories for that level included in this analysis                                                                                      |                                                                                                          Attributable variance                                                                                                          |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$sigma2[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$sigma2[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$sigma2[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                                  `r ifelse('StudyId' %in% SMD_S_B_ARR2$s.names, SMD_S_B_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'StudyId')]], 0)`                                   |                       `r ifelse('StudyId' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$sigma2[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B_ARR2$metaregression_summary$s.names, SMD_S_B_ARR2$metaregression_summary$sigma2[[which(SMD_S_B_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+#### **Heterogeneity explained by covariates (Effect of modelling on BDNF)**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
+SMD_S_B_sexI <- subgroup_SMDI(df, "CvS", "BDNF", "Sex", 0.5)
+SMD_S_B_SyRCLERoBI <- subgroup_SMDI(df, "CvS", "BDNF", "RoBScore", 0.5)
+SMD_S_B_ARRIVEI <- subgroup_SMDI(df, "CvS", "BDNF", "ARRIVEScoreCat", 0.5)
+```
+
+The table below shows which of the covariates, if any, explain some of the heterogeneity observed in the effect of modelling on BDNF. We present marginal R^2^, which measures the proportion of variance explained by including moderators in the model (the % change in the between-studies variance when the covariate is included in the model, in other words the % of the heterogeneity explained by the variable). The coefficients are derived form an RMA model fitted with an intercept (and so represent, for each category, the point estimate and 95% CIs of the effect in that category).
+
+|       Moderator        |      Category       |                     $\beta$                     |                                                95% CI                                                |                     Marginal R^2^ (%)                     |
+|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
+|     Overall effect     |         \-          |               `r SMD_S_B$beta[1]`               |                                `r SMD_S_B$ci.lb` to `r SMD_S_B$ci.ub`                                |                            \-                             |
+|          Sex           |         \-          |                       \-                        |                                                  \-                                                  |        `r round((r2_ml(SMD_S_B_sexI)[1]*100),1)`%         |
+|           \-           |      *Female*       |            `r SMD_S_B_sexI$beta[1]`             |                        `r SMD_S_B_sexI$ci.lb[1]` to `r SMD_S_B_sexI$ci.ub[1]`                        |                            \-                             |
+|           \-           |       *Male*        |            `r SMD_S_B_sexI$beta[2]`             |                        `r SMD_S_B_sexI$ci.lb[2]` to `r SMD_S_B_sexI$ci.ub[2]`                        |                            \-                             |
+| Reporting completeness |         \-          |                       \-                        |                                                  \-                                                  | `r round((r2_ml(SMD_S_B_ARR2$metaregression)[1]*100),1)`% |
+|           \-           | *per unit increase* | `r SMD_S_B_ARR2$metaregression_summary$beta[2]` | `r SMD_S_B_ARR2$metaregression_summary$ci.lb[2]` to `r SMD_S_B_ARR2$metaregression_summary$ci.ub[2]` |                            \-                             |
+
+### 2.5.5 Sensitivity Analyses
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+options(scipen = 100, digits = 2)
+```
+
+We examine the robustness of the findings for BDNF by performing the following sensitivity analyses.
+
+#### Imputed rho values of 0.2 and 0.8
+
+In the previous analyses for the effect of single prolonged stress on BDNF, we imputed a $\rho$ value - the imputed within-study correlation between observed effect sizes - of 0.5. Here, we examine the effect of imputing $\rho$ values of 0.2 and 0.8.
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_B_rho0.2 <- run_ML_SMD(df, "CvS", "BDNF", 0.2)
+```
+
+When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on BDNF of **SMD = `r SMD_S_B_rho0.2[["beta"]]`** (95% CI: `r SMD_S_B_rho0.2[["ci.lb"]]` to `r SMD_S_B_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_B_rho0.2)$pi.lb` to `r predict(SMD_S_B_rho0.2)$pi.ub`).
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_B_rho0.8 <- run_ML_SMD(df, "CvS", "BDNF", 0.8)
+```
+
+When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on BDNF of **SMD = `r SMD_S_B_rho0.8[["beta"]]`** (95% CI: `r SMD_S_B_rho0.8[["ci.lb"]]` to `r SMD_S_B_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_B_rho0.8)$pi.lb` to `r predict(SMD_S_B_rho0.8)$pi.ub`).
+
+For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_B[["beta"]]` (95% CI: `r SMD_S_B[["ci.lb"]]` to `r SMD_S_B[["ci.ub"]]`).
+
+### 2.5.6 Reporting bias/small-study effects
+
+Because of the relationship between SMD effect sizes and variance inherent in their calculation, where study size is small the standard approach to seeking evidence of small-study effects (regression based tests including Egger's regression test for multilevel meta-analysis) can lead to over-estimation of small-study effect (see for instance [10.7554/eLife.24260](10.7554/eLife.24260)). To address this we used Egger's regression test for multilevel meta-analysis, with regression of SMD effect size against 1/√N, where N is the total number of animals involved in an experiment.
+
+```{r warning=FALSE, eval = TRUE, echo = FALSE}
+run_sse_plot_SMD_L(df, 'CvS', 'BDNF')
+#run_sse_NMD(df)
+```
+
+Egger regression based on `r run_sse_SMD_L(df, 'CvS', 'BDNF')[["k"]]` studies of modelling of depression where sucrose preference was measured showed a coefficient for a small study effect of `r run_sse_SMD_L(df, 'CvS', 'BDNF')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'BDNF')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'CvS', 'BDNF')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'BDNF')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'BDNF')[["pval"]][2]))`).
+
+## 2.6 Outcome 6: Biological stress response
+
+### 2.6.1 Risks of bias
+
+Figure 2.6.1 shows the risk of bias summary for studies investigating the effect of model induction on biological stress response in animals. The risk of bias assessment was performed using the SyRCLE RoB tool.
+
+**Figure 2.6.1**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+SyRCLE_RoB_traffic(df, "CvS", "Stress response")
+```
+
+### 2.6.2 Reporting completeness
+
+Figure 2.6.2 shows the reporting completeness summary for studies investigating the effect of model induction on biological stress response in animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
+
+**Figure 2.6.2**
+
+```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=10}
+ARRIVE_traffic(df, "CvS", "Stress response")
+```
+
+### 2.6.3 Meta-analysis
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_StR <- run_ML_SMD(df, "CvS", "Stress response", 0.5)
+```
+
+The effect of single prolonged stress on the biological stress response in animals using SMD as the effect size is shown in Figure 2.6.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
+
+**Figure 2.6.3**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+forest_metafor(SMD_S_StR, "CvS", "Stress response")
+```
+
+Single prolonged stress had a pooled effect on biological stress response of SMD = `r round(SMD_S_StR[['beta']], 3)` , (95% CI: `r round(SMD_S_StR[['ci.lb']], 3)` to `r round(SMD_S_StR[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_StR)$pi.lb, 3)` to `r round(predict(SMD_S_StR)$pi.ub, 3)`).
+
+`r SMD_S_StR[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_StR$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_StR$data$StudyId))` publications and involving `r length(unique(SMD_S_StR$data$Strain))` different animal strain(s).
+
+|            Level            |                                               Number of categories for that level included in this analysis                                               |                                                                   Attributable variance                                                                   |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+### 2.6.4 Subgroup analyses and meta-regressions
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+options(scipen=100, digits=3)
+```
+
+For each outcome, the covariates of interest for subgroup analyses and meta-regressions were:
+
+-   **Sex**
+
+We also conducted subgroup analyses using **(1) SyRCLE Risk of Bias** and **(2) ARRIVE reporting completeness** assessment scores as covariates to evaluate their influence on effect size estimates. These were not specified in the study protocol, but evaluation of risk of bias is required for the Summary of Evidence table, and no studies were considered entirely at low risk of bias or of high reporting completeness to allow such a sensitivity analysis.
+
+The significance (p-value) reported is that for a test of whether the moderators are significantly different one from another, rather than whether the effect is significantly different from 0.
+
+#### **Sex**
+
+Figure 2.6.4.1 displays the estimates for the pooled SMD's when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
+
+**Figure 2.6.4.1**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_StR_sex <- subgroup_analysis(df, "CvS", "Stress response", "Sex", 0.5)
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+forest_subgroup(SMD_S_StR_sex$plotdata, "Sex", "Stress response","Sex","CvS")
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_StR_sex_noI <- subgroup_SMD(df, "CvS", "Stress response", "Sex", 0.5)
+```
+
+The p-value for the association between the sex of animal groups used and outcome reported was `r round(SMD_S_StR_sex_noI$QMp,3)`.
+
+|            Level            |                                                                  Number of categories for that level included in this analysis                                                                   |                                                                                      Attributable variance                                                                                       |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$s.nlevels[[which(SMD_S_StR_sex$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$sigma2[[which(SMD_S_StR_sex$analysis$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$s.nlevels[[which(SMD_S_StR_sex$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$sigma2[[which(SMD_S_StR_sex$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$s.nlevels[[which(SMD_S_StR_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$sigma2[[which(SMD_S_StR_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$s.nlevels[[which(SMD_S_StR_sex$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$sigma2[[which(SMD_S_StR_sex$analysis$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$s.nlevels[[which(SMD_S_StR_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_sex$analysis$s.names, SMD_S_StR_sex$analysis$sigma2[[which(SMD_S_StR_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+#### **SyRCLE RoB assessment considered as a categorical variable**
+
+Figure 2.6.4.3 displays the estimates for the pooled SMD when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
+
+**Figure 2.6.4.3**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
+SMD_S_StR_SyRCLERoB <- subgroup_analysis(df, "CvS", "Stress response", "RoBScore", 0.5)
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+forest_subgroup(SMD_S_StR_SyRCLERoB$plotdata, "RoBScore", "Stress response","SyRCLE RoB score", "CvS")
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_StR_SyRCLERoB_noI <- subgroup_SMD(df, "CvS", "Stress response", "RoBScore", 0.5)
+```
+
+The p-value for the association between SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_StR_SyRCLERoB_noI$QMp,3)`.
+
+|            Level            |                                                                           Number of categories for that level included in this analysis                                                                            |                                                                                               Attributable variance                                                                                                |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$sigma2[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$sigma2[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$sigma2[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$sigma2[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoB$analysis$s.names, SMD_S_StR_SyRCLERoB$analysis$sigma2[[which(SMD_S_StR_SyRCLERoB$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+#### **SyRCLE RoB assessment considering those studies where any item is at low risk of bias**
+
+Figure 2.6.4.4 displays the estimates for the pooled SMD when comparisons are stratified by whether of not any of the SyRCLE Risk of bias domains were rated as low risk of bias. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
+
+**Figure 2.6.4.4**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
+SMD_S_StR_SyRCLERoBTF <- subgroup_analysis(df, "CvS", "Stress response", "RoBTF", 0.5)
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+forest_subgroup(SMD_S_StR_SyRCLERoBTF$plotdata, "RoBTF", "Stress response","RoB score", "CvS")
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_StR_SyRCLERoBTF_noI <- subgroup_SMD(df, "CvS", "Stress response", "RoBTF", 0.5)
+```
+
+The p-value for the association between low SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_StR_SyRCLERoBTF_noI$QMp,3)`.
+
+|            Level            |                                                                              Number of categories for that level included in this analysis                                                                               |                                                                                                  Attributable variance                                                                                                   |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_SyRCLERoBTF$analysis$s.names, SMD_S_StR_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_StR_SyRCLERoBTF$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+#### **ARRIVE reporting completeness guidelines**
+
+We provide a meta-regression where the number of ARRIVE items met is considered as a continuous variable.
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_StR_ARR2 <- metaregression_analysis(df, "CvS", "Stress response", "ARRIVEScore", 0.5)
+
+```
+
+**Figure 2.6.4.5**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE,}
+SMD_S_StR_ARR2$regression_plot
+```
+
+The p-value for the association between ARRIVE reporting completeness and outcome reported was `r round(SMD_S_StR_ARR2$metaregression_summary$pval[2],3)`.
+
+|            Level            |                                                                                         Number of categories for that level included in this analysis                                                                                         |                                                                                                             Attributable variance                                                                                                             |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$sigma2[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$sigma2[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$sigma2[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$sigma2[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR_ARR2$metaregression_summary$s.names, SMD_S_StR_ARR2$metaregression_summary$sigma2[[which(SMD_S_StR_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+#### **Heterogeneity explained by covariates (Effect of modelling on Biological stress response)**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
+SMD_S_StR_sexI <- subgroup_SMDI(df, "CvS", "Stress response", "Sex", 0.5)
+SMD_S_StR_SyRCLERoBI <- subgroup_SMDI(df, "CvS", "Stress response", "RoBScore", 0.5)
+SMD_S_StR_ARRIVEI <- subgroup_SMDI(df, "CvS", "Stress response", "ARRIVEScoreCat", 0.5)
+```
+
+The table below shows which of the covariates, if any, explain some of the heterogeneity observed in the effect of model induction on biological stress response. We present marginal R^2^, which measures the proportion of variance explained by including moderators in the model (the % change in the between-studies variance when the covariate is included in the model, in other words the % of the heterogeneity explained by the variable). The coefficients are derived form an RMA model fitted with an intercept (and so represent, for each category, the point estimate and 95% CIs of the effect in that category).
+
+|       Moderator        |      Category       |                      $\beta$                      |                                                  95% CI                                                  |                      Marginal R^2^ (%)                      |
+|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
+|     Overall effect     |         \-          |               `r SMD_S_StR$beta[1]`               |                                `r SMD_S_StR$ci.lb` to `r SMD_S_StR$ci.ub`                                |                             \-                              |
+|          Sex           |         \-          |                        \-                         |                                                    \-                                                    |        `r round((r2_ml(SMD_S_StR_sexI)[1]*100),1)`%         |
+|           \-           |      *Female*       |            `r SMD_S_StR_sexI$beta[1]`             |                        `r SMD_S_StR_sexI$ci.lb[1]` to `r SMD_S_StR_sexI$ci.ub[1]`                        |                             \-                              |
+|           \-           |       *Male*        |            `r SMD_S_StR_sexI$beta[2]`             |                        `r SMD_S_StR_sexI$ci.lb[2]` to `r SMD_S_StR_sexI$ci.ub[2]`                        |                             \-                              |
+|      Risk of Bias      |         \-          |                        \-                         |                                                    \-                                                    |     `r round((r2_ml(SMD_S_StR_SyRCLERoBI)[1]*100),1)`%      |
+|           \-           |  *0 criteria met*   |         `r SMD_S_StR_SyRCLERoBI$beta[1]`          |                  `r SMD_S_StR_SyRCLERoBI$ci.lb[1]` to `r SMD_S_StR_SyRCLERoBI$ci.ub[1]`                  |                             \-                              |
+|           \-           |  *1 criteria met*   |         `r SMD_S_StR_SyRCLERoBI$beta[2]`          |                  `r SMD_S_StR_SyRCLERoBI$ci.lb[2]` to `r SMD_S_StR_SyRCLERoBI$ci.ub[2]`                  |                             \-                              |
+| Reporting completeness |         \-          |                        \-                         |                                                    \-                                                    | `r round((r2_ml(SMD_S_StR_ARR2$metaregression)[1]*100),1)`% |
+|           \-           | *per unit increase* | `r SMD_S_StR_ARR2$metaregression_summary$beta[2]` | `r SMD_S_StR_ARR2$metaregression_summary$ci.lb[2]` to `r SMD_S_StR_ARR2$metaregression_summary$ci.ub[2]` |                             \-                              |
+
+### 2.6.5 Sensitivity Analyses
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+options(scipen = 100, digits = 2)
+```
+
+We examine the robustness of the findings for biological stress response by performing the following sensitivity analyses.
+
+#### Imputed rho values of 0.2 and 0.8
+
+In the previous analyses for the effect of single prolonged stress on biological stress response, we imputed a $\rho$ value - the imputed within-study correlation between observed effect sizes - of 0.5. Here, we examine the effect of imputing $\rho$ values of 0.2 and 0.8.
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_StR_rho0.2 <- run_ML_SMD(df, "CvS", "Stress response", 0.2)
+```
+
+When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.2[["beta"]]`** (95% CI: `r SMD_S_StR_rho0.2[["ci.lb"]]` to `r SMD_S_StR_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_StR_rho0.2)$pi.lb` to `r predict(SMD_S_StR_rho0.2)$pi.ub`).
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_StR_rho0.8 <- run_ML_SMD(df, "CvS", "Stress response", 0.8)
+```
+
+When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.8[["beta"]]`** (95% CI: `r SMD_S_StR_rho0.8[["ci.lb"]]` to `r SMD_S_StR_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_StR_rho0.8)$pi.lb` to `r predict(SMD_S_StR_rho0.8)$pi.ub`).
+
+For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_StR[["beta"]]` (95% CI: `r SMD_S_StR[["ci.lb"]]` to `r SMD_S_StR[["ci.ub"]]`).
+
+### 2.6.6 Reporting bias/small-study effects
+
+Because of the relationship between SMD effect sizes and variance inherent in their calculation, where study size is small the standard approach to seeking evidence of small-study effects (regression based tests including Egger's regression test for multilevel meta-analysis) can lead to over-estimation of small-study effect (see for instance [10.7554/eLife.24260](10.7554/eLife.24260)). To address this we used Egger's regression test for multilevel meta-analysis, with regression of SMD effect size against 1/√N, where N is the total number of animals involved in an experiment.
+
+```{r warning=FALSE, eval = TRUE, echo = FALSE}
+run_sse_plot_SMD_L(df, 'CvS', 'Stress response')
+#run_sse_NMD(df)
+```
+
+Egger regression based on `r run_sse_SMD_L(df, 'CvS', 'Stress response')[["k"]]` studies of modelling of depression where sucrose preference was measured showed a coefficient for a small study effect of `r run_sse_SMD_L(df, 'CvS', 'Stress response')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'Stress response')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'CvS', 'Stress response')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'Stress response')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'Stress response')[["pval"]][2]))`).
+
+## 2.7 Outcome 7: Neurotransmitter levels
+
+No outcomes were presented
+
+## 2.8 Outcome 8: Other neurobiological outcomes
+
+### 2.8.1 Risks of bias
+
+Figure 2.8.1 shows the risk of bias summary for studies investigating the effect of single prolonged stress on other neurobiological outcomes in animals. The risk of bias assessment was performed using the SyRCLE RoB tool.
+
+**Figure 2.8.1**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+SyRCLE_RoB_traffic(df, "CvS", "Other neurobiological")
+```
+
+### 2.8.2 Reporting completeness
+
+Figure 2.8.2 shows the reporting completeness summary for studies investigating the effect of single prolonged stress on other neurobiological outcomes in animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
+
+**Figure 2.8.2**
+
+```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 10}
+ARRIVE_traffic(df, "CvS", "Other neurobiological")
+```
+
+### 2.8.3 Meta-analysis
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_OthN <- run_ML_SMD(df, "CvS", "Other neurobiological", 0.5)
+```
+
+The effect of single prolonged stress on other neurobiological outcomes in animals using SMD as the effect size is shown in Figure 2.1.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
+
+**Figure 2.8.3**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=15}
+forest_metafor(SMD_S_OthN, "CvS", "Other neurobiological")
+```
+
+Single prolonged stress had a pooled effect on other neurobiological outcomes of SMD = `r round(SMD_S_OthN[['beta']], 3)` , (95% CI: `r round(SMD_S_OthN[['ci.lb']], 3)` to `r round(SMD_S_OthN[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_OthN)$pi.lb, 3)` to `r round(predict(SMD_S_OthN)$pi.ub, 3)`).
+
+`r SMD_S_OthN[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_OthN$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_OthN$data$StudyId))` publications and involving `r length(unique(SMD_S_OthN$data$Strain))` different animal strain(s).
+
+|            Level            |                                                Number of categories for that level included in this analysis                                                 |                                                                    Attributable variance                                                                     |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+### 2.8.4 Subgroup analyses and meta-regressions
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+options(scipen=100, digits=3)
+```
+
+For each outcome, the covariates of interest for subgroup analyses and meta-regressions were:
+
+-   **Sex**
+
+We also conducted subgroup analyses using **(1) SyRCLE Risk of Bias** and **(2) ARRIVE reporting completeness** assessment scores as covariates to evaluate their influence on effect size estimates. These were not specified in the study protocol, but evaluation of risk of bias is required for the Summary of Evidence table, and no studies were considered entirely at low risk of bias or of high reporting completeness to allow such a sensitivity analysis.
+
+The significance (p-value) reported is that for a test of whether the moderators are significantly different one from another, rather than whether the effect is significantly different from 0.
+
+#### **Sex**
+
+Figure 2.8.4.1 displays the estimates for the pooled SMD when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
+
+**Figure 2.8.4.1**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_OthN_sex <- subgroup_analysis(df, "CvS", "Other neurobiological", "Sex", 0.5)
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+forest_subgroup(SMD_S_OthN_sex$plotdata, "Sex", "Other neurobiological","Sex","CvS")
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_OthN_sex_noI <- subgroup_SMD(df, "CvS", "Other neurobiological", "Sex", 0.5)
+```
+
+The p-value for the association between the sex of animal groups used and outcome reported was `r round(SMD_S_B_sex_noI$QMp,3)`.
+
+|            Level            |                                                                    Number of categories for that level included in this analysis                                                                    |                                                                                        Attributable variance                                                                                        |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$s.nlevels[[which(SMD_S_OthN_sex$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$sigma2[[which(SMD_S_OthN_sex$analysis$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$s.nlevels[[which(SMD_S_OthN_sex$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$sigma2[[which(SMD_S_OthN_sex$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$s.nlevels[[which(SMD_S_OthN_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$sigma2[[which(SMD_S_OthN_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$s.nlevels[[which(SMD_S_OthN_sex$analysis$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$sigma2[[which(SMD_S_OthN_sex$analysis$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$s.nlevels[[which(SMD_S_OthN_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN_sex$analysis$s.names, SMD_S_OthN_sex$analysis$sigma2[[which(SMD_S_OthN_sex$analysis$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+#### **SyRCLE RoB assessment considered as a categorical variable**
+
+No studies met any RoB criteria.
+
+#### **SyRCLE RoB assessment considering those studies where any item is at low risk of bias**
+
+No studies met any RoB criteria.
+
+#### **ARRIVE reporting completeness guidelines**
+
+We provide a meta-regression where the number of ARRIVE items met is considered as a continuous variable.
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_OthN_ARR2 <- metaregression_analysis(df, "CvS", "Other neurobiological", "ARRIVEScore", 0.5)
+
+```
+
+**Figure 2.8.4.5**
+
+```{r 2_8_4_5, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+SMD_S_OthN_ARR2$regression_plot
+```
+
+The p-value for the association between ARRIVE reporting completeness and outcome reported was `r round(SMD_S_OthN_ARR2$metaregression_summary$pval[2],3)`.
+
+|            Level            |                                                                                          Number of categories for that level included in this analysis                                                                                           |                                                                                                              Attributable variance                                                                                                               |
+|:----------------------:|:----------------------:|:----------------------:|
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$sigma2[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$sigma2[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$sigma2[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$sigma2[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN_ARR2$metaregression_summary$s.names, SMD_S_OthN_ARR2$metaregression_summary$sigma2[[which(SMD_S_OthN_ARR2$metaregression_summary$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+
+#### **Heterogeneity explained by covariates (Effect of modelling on other neurobiological outcomes)**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
+SMD_S_OthN_sexI <- subgroup_SMDI(df, "CvS", "Other neurobiological", "Sex", 0.5)
+SMD_S_OthN_SyRCLERoBI <- subgroup_SMDI(df, "CvS", "Other neurobiological", "RoBScore", 0.5)
+SMD_S_OthN_ARRIVEI <- subgroup_SMDI(df, "CvS", "Other neurobiological", "ARRIVEScoreCat", 0.5)
+```
+
+The table below shows which of the covariates, if any, explain some of the heterogeneity observed in the effect of modelling on other neurobiological outcomes. We present marginal R^2^, which measures the proportion of variance explained by including moderators in the model (the % change in the between-studies variance when the covariate is included in the model, in other words the % of the heterogeneity explained by the variable). The coefficients are derived form an RMA model fitted with an intercept (and so represent, for each category, the point estimate and 95% CIs of the effect in that category).
+
+|       Moderator        |      Category       |                      $\beta$                       |                                                   95% CI                                                   |                      Marginal R^2^ (%)                       |
+|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
+|     Overall effect     |         \-          |               `r SMD_S_OthN$beta[1]`               |                                `r SMD_S_OthN$ci.lb` to `r SMD_S_OthN$ci.ub`                                |                              \-                              |
+|          Sex           |         \-          |                         \-                         |                                                     \-                                                     |        `r round((r2_ml(SMD_S_OthN_sexI)[1]*100),1)`%         |
+|           \-           |      *Female*       |            `r SMD_S_OthN_sexI$beta[1]`             |                        `r SMD_S_OthN_sexI$ci.lb[1]` to `r SMD_S_OthN_sexI$ci.ub[1]`                        |                              \-                              |
+|           \-           |       *Male*        |            `r SMD_S_OthN_sexI$beta[2]`             |                        `r SMD_S_OthN_sexI$ci.lb[2]` to `r SMD_S_OthN_sexI$ci.ub[2]`                        |                              \-                              |
+| Reporting completeness |         \-          |                         \-                         |                                                     \-                                                     | `r round((r2_ml(SMD_S_OthN_ARR2$metaregression)[1]*100),1)`% |
+|           \-           | *per unit increase* | `r SMD_S_OthN_ARR2$metaregression_summary$beta[2]` | `r SMD_S_OthN_ARR2$metaregression_summary$ci.lb[2]` to `r SMD_S_OthN_ARR2$metaregression_summary$ci.ub[2]` |                              \-                              |
+
+### 2.8.5 Sensitivity Analyses
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+options(scipen = 100, digits = 2)
+```
+
+We examine the robustness of the findings for other neurobiological outcomes by performing the following sensitivity analyses
+
+#### Imputed rho values of 0.2 and 0.8
+
+In the previous analyses for the effect of single prolonged stress on other neurobiological outcomes, we imputed a $\rho$ value - the imputed within-study correlation between observed effect sizes - of 0.5. Here, we examine the effect of imputing $\rho$ values of 0.2 and 0.8.
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_OthN_rho0.2 <- run_ML_SMD(df, "CvS", "Other neurobiological", 0.2)
+```
+
+When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on other neurobiological outcomes of **SMD = `r SMD_S_OthN_rho0.2[["beta"]]`** (95% CI: `r SMD_S_OthN_rho0.2[["ci.lb"]]` to `r SMD_S_OthN_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OthN_rho0.2)$pi.lb` to `r predict(SMD_S_OthN_rho0.2)$pi.ub`).
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_OthN_rho0.8 <- run_ML_SMD(df, "CvS", "Other neurobiological", 0.8)
+```
+
+When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on other neurobiological outomes of **SMD = `r SMD_S_OthN_rho0.8[["beta"]]`** (95% CI: `r SMD_S_OthN_rho0.8[["ci.lb"]]` to `r SMD_S_OthN_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OthN_rho0.8)$pi.lb` to `r predict(SMD_S_OthN_rho0.8)$pi.ub`).
+
+For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_OthN[["beta"]]` (95% CI: `r SMD_S_OthN[["ci.lb"]]` to `r SMD_S_OthN[["ci.ub"]]`).
+
+### 2.8.6 Reporting bias/small-study effects
+
+Because of the relationship between SMD effect sizes and variance inherent in their calculation, where study size is small the standard approach to seeking evidence of small-study effects (regression based tests including Egger's regression test for multilevel meta-analysis) can lead to over-estimation of small-study effect (see for instance [10.7554/eLife.24260](10.7554/eLife.24260)). To address this we used Egger's regression test for multilevel meta-analysis, with regression of SMD effect size against 1/√N, where N is the total number of animals involved in an experiment.
+
+```{r warning=FALSE, eval = TRUE, echo = FALSE}
+run_sse_plot_SMD_L(df, 'CvS', 'Other neurobiological')
+#run_sse_NMD(df)
+```
+
+Egger regression based on `r run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["k"]]` studies of modelling of depression where other neurobiological outcomes was measured showed a coefficient for a small study effect of `r run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["pval"]][2]))`).
+
+
 
 # 4. Observed relationships between different outcomes measures in the same cohorts of animals
 
