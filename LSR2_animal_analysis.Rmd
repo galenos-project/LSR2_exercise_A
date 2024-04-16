@@ -306,7 +306,7 @@ The scales and units used to measure outcomes in preclinical studies often diffe
 
 ```{r # Split df by experiment and outcome type into dataframes to simply inline code below - Exercise v Control, eval = TRUE, echo = FALSE}
 df_S <- filter(df, SortLabel == "TvC")
-df_S_NT <- filter_experiment_outcome_type(df, "TvC", "Neuotransmitter levels")
+df_S_NT <- filter_experiment_outcome_type(df, "TvC", "Neurotransmitter levels")
 df_S_L <- filter_experiment_outcome_type(df, "TvC", "Locomotor")
 df_S_B <- filter_experiment_outcome_type(df, "TvC", "BDNF")
 df_S_OB <- filter_experiment_outcome_type(df, "TvC", "Other behavioural")
@@ -1658,7 +1658,7 @@ Egger regression based on `r run_sse_SMD_L(df, 'TvC', 'Other neurobiological')[[
 
 ```{r # Split df by experiment and outcome type into dataframes to simply inline code below - Control v Sham, eval = TRUE, echo = FALSE}
 df_S <- filter(df, SortLabel == "CvS")
-df_S_NT <- filter_experiment_outcome_type(df, "CvS", "Neuotransmitter levels")
+df_S_NT <- filter_experiment_outcome_type(df, "CvS", "Neurotransmitter levels")
 df_S_L <- filter_experiment_outcome_type(df, "CvS", "Locomotor")
 df_S_B <- filter_experiment_outcome_type(df, "CvS", "BDNF")
 df_S_OB <- filter_experiment_outcome_type(df, "CvS", "Other behavioural")
