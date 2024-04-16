@@ -865,6 +865,8 @@ df <-  df %>%
     `Type of outcome` == "Stress response"  ~ "Stress response",
   )) 
 
+
+
 #RoB - first get rid of duplicates
 df <-df[,-c(186:218, 346:378)]
 
@@ -919,6 +921,16 @@ df <- subset(df4, !df4$OutcomeError_I == 999)
 
 df <- df %>% 
   mutate_all(~replace(., . == 999, NA))
+
+df <- df %>%
+  mutate(out_cat = case_when(outcome_type == 'Locomotor' ~ "Behavioural",
+                             outcome_type == 'Fear memory' ~ "Behavioural",
+                             outcome_type == 'Freezing' ~ "Behavioural",
+                             outcome_type == 'Other behavioural' ~ "Behavioural",
+                             outcome_type == 'BDNF' ~ "Neurobiological",
+                             outcome_type == 'Stress response' ~ "Neurobiological",
+                             outcome_type == 'Neurotransmitter levels' ~ "Neurobiological",
+                             outcome_type == 'Other neurobiological' ~ "Neurobiological"))
 
 # SAVE FILE
 savefile_output <- paste0(LSR,'_','clean_data_',Sys.Date(),'.csv')
