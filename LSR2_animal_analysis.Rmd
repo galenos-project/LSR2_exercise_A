@@ -347,6 +347,13 @@ Multilevel analysis is only performed if there are 5 levels or more for at least
 forest_metafor(SMD_S_L, "TvC", "Locomotor")
 ```
 
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+# since locomotor actvity no longer considered separately, edit df to 'other behavioural'
+column_name <- 'outcome_type'
+condition <- df$SortLabel == "TvC" & df$outcome_type == "Locomotor"
+df[condition, column_name] <- 'Other behavioural'
+```
+
 ## 2.2 Outcome 2: Fear memory
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -357,7 +364,14 @@ SMD_S_FM <- run_SMD(df, "TvC", "Fear memory")
 Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_FM[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_FM[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_FM[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_FM[["SMD_ML"]]$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed. We also now include these fear memory outcomes under the 'other behavioural' heading below.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
-forest_metafor(SMD_S_FM, "TvC", "Locomotor")
+forest_metafor(SMD_S_FM, "TvC", "Fear memory")
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+# since fear memory no longer considered separately, edit df to 'other behavioural'
+column_name <- 'outcome_type'
+condition <- df$SortLabel == "TvC" & df$outcome_type == "Fear memory"
+df[condition, column_name] <- 'Other behavioural'
 ```
 
 ## 2.3 Outcome 2: Freezing
@@ -371,6 +385,13 @@ Multilevel analysis is only performed if there are 5 levels or more for at least
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 forest_metafor(SMD_S_Fr, "TvC", "Freezing")
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+# since freezing no longer considered separately, edit df to 'other behavioural'
+column_name <- 'outcome_type'
+condition <- df$SortLabel == "TvC" & df$outcome_type == "Freezing"
+df[condition, column_name] <- 'Other behavioural'
 ```
 
 ## 2.4 Outcome 4: Other behavioural outcomes
@@ -1678,6 +1699,13 @@ Multilevel analysis is only performed if there are 5 levels or more for at least
 forest_metafor(SMD_S_L, "CvS", "Locomotor")
 ```
 
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+# since locomotor no longer considered separately, edit df to 'other behavioural'
+column_name <- 'outcome_type'
+condition <- df$SortLabel == "CvS" & df$outcome_type == "Locomotor"
+df[condition, column_name] <- 'Other behavioural'
+```
+
 ## 3.2 Outcome 2: Fear memory
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1688,7 +1716,14 @@ SMD_S_FM <- run_SMD(df, "CvS", "Fear memory")
 Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_FM[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_FM[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_FM[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_FM[["SMD_ML"]]$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed. We also now include these fear memory outcomes under the 'other behavioural' heading below.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
-forest_metafor(SMD_S_FM, "CvS", "Locomotor")
+forest_metafor(SMD_S_FM, "CvS", "Fear memory")
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+# since freezing no longer considered separately, edit df to 'other behavioural'
+column_name <- 'outcome_type'
+condition <- df$SortLabel == "CvS" & df$outcome_type == "Fear memory"
+df[condition, column_name] <- 'Other behavioural'
 ```
 
 ## 3.3 Outcome 3: Freezing
@@ -1702,6 +1737,13 @@ Multilevel analysis is only performed if there are 5 levels or more for at least
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 forest_metafor(SMD_S_Fr, "CvS", "Freezing")
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+# since freezing no longer considered separately, edit df to 'other behavioural'
+column_name <- 'outcome_type'
+condition <- df$SortLabel == "CvS" & df$outcome_type == "Freezing"
+df[condition, column_name] <- 'Other behavioural'
 ```
 
 ## 3.4 Outcome 4: Other behavioural outcomes
