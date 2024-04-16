@@ -84,18 +84,53 @@ for (j in 2:(nrow(colu)-1)) {
         labelr <- paste0('correlation = ', sprintf("%.2f", summary(lm(res[, 3] ~ res[, 1], weights = 1/res[, 4]^2))$r.squared))
         # Your existing ggplot code
         # Your existing ggplot code
-        p <- ggplot(data = res, aes(x = res[, 1], y = res[, 3], color = res[,6])) +
-          geom_point(aes(size = res[, 5]), na.rm = TRUE) +  # Use res[, 5] as the size
-          geom_errorbar(aes(ymin = res[, 3] - res[, 4], ymax = res[, 3] + res[, 4], width = 0.2), na.rm = TRUE) +
-          geom_errorbar(aes(xmin = res[, 1] - res[, 2], xmax = res[, 1] + res[, 2], width = 0.2), na.rm = TRUE) +
+        resm <- subset(res, res$SortLabel == 'CvS')
+        resi <- subset(res, res$SortLabel == 'TvC')
+        labelx <- bquote(Delta ~ .(as.name(outcome1)))
+        labely <- bquote(Delta ~ .(as.name(outcome2)))
+        # Define a function to calculate weighted R-squared
+        calculate_weighted_r_squared <- function(response, predictor, weights) {
+          model <- lm(response ~ predictor, weight = weights)
+          return(sprintf("%.2f", summary(model)$r.squared))
+        }
+        
+        # Calculate weighted R-squared for the model and intervention
+        if(nrow(resm>2)){
+          model_r_squared <- calculate_weighted_r_squared(resm[, 3], resm[, 1], 1/sqrt((resm[, 4]^2) + (resm[, 2]^2)))
+        } else {
+            model_r_squared <- "NA"
+        }
+        
+        if(nrow(resi>2)){
+          intervention_r_squared <- calculate_weighted_r_squared(resi[, 3], resi[, 1], 1/sqrt((resi[, 4]^2) + (resi[, 2]^2)))
+       } else {
+         intervention_r_squared <- "NA"
+        }
+        
+        # Create the label with superscript 2 using bquote
+        labelr <- bquote(R^2~(model) == .(model_r_squared) * "; " * R^2~(intervention) == .(intervention_r_squared))
+        
+        # Your existing ggplot code
+        # Your existing ggplot code
+        
+        p <- ggplot() +
+          geom_point(aes(x = resi[, 1], y = resi[, 3], color = resi[,6], size = resi[, 5]), na.rm = TRUE) +  # Use resi[, 5] as the size
+          geom_errorbar(aes(x = resi[, 1], y = resi[, 3], ymin = resi[, 3] - resi[, 4], ymax = resi[, 3] + resi[, 4], width = 0.2), na.rm = TRUE) +
+          geom_errorbar(aes(x = resi[, 1], y = resi[, 3], xmin = resi[, 1] - resi[, 2], xmax = resi[, 1] + resi[, 2], width = 0.2), na.rm = TRUE) +
           geom_smooth(method = "lm", se = TRUE, formula = y ~ x, 
-                      aes(weight = 1/res[, 4]^2), color = "black", linetype = "dashed") +
+                      aes(x = resi[, 1], y = resi[, 3], weight = 1/sqrt((resi[, 4]^2) + (resi[,2]^2))), 
+                      color = "black", linetype = "dashed") +
+          geom_point(aes(x = resm[, 1], y = resm[, 3], color = resm[,6], size = resm[, 5]), na.rm = TRUE) +  # Use resm[, 5] as the size
+          geom_errorbar(aes(x = resm[, 1], y = resm[, 3], ymin = resm[, 3] - resm[, 4], ymax = resm[, 3] + resm[, 4], width = 0.2), na.rm = TRUE) +
+          geom_errorbar(aes(x = resm[, 1], y = resm[, 3], xmin = resm[, 1] - resm[, 2], xmax = resm[, 1] + resm[, 2], width = 0.2), na.rm = TRUE) +
+          geom_smooth(method = "lm", se = TRUE, formula = y ~ x, 
+                      aes(x = resm[, 1], y = resm[, 3], weight = 1/resm[, 4]^2), color = "black", linetype = "dashed") +
           labs(x = labelx, y = labely, title = labelr) +
           coord_cartesian(clip = "off") +
           scale_size_continuous(name = 'Number of comparisons') +  
           scale_color_manual(name = 'Experiment type', 
                              values = c("CvS" = "red", "TvC" = "green"),
-                             labels = c('Model', 'Drug')) +  # Set colors for SortLabel values
+                             labels = c('Model', 'Intervention')) +  # Set colors for SortLabel values
           expand_limits(y = 0) +
           expand_limits(x = 0)
         
@@ -105,13 +140,102 @@ ggsave(paste0("plot_", j, "_", k, ".png"), p, width = 8, height = 6)
   }
 }
 
-cormat <- read_csv("data/Book1.csv")
-# Assuming 'cor_matrix' is a matrix of pairwise correlation coefficients
-library(igraph)
-cormat <- cormat[,-1]
-cormat <- as.matrix(cormat)
-# Create an igraph graph object
-#graph <- graph.adjacency(cormat, mode = "undirected", weighted = TRUE, diag = FALSE)
+#get the n of cohorts with each outcome measure
+group_characteristics <- working %>%
+  group_by(GroupID, out_cat) %>%
+  summarise(count = n()) %>%
+  pivot_wider(names_from = out_cat, values_from = count, values_fill = 0) %>%
+  ungroup()
 
-# Visualize the graph
-#plot(graph, layout = layout_with_drl, edge.width = E(graph)$weight * 4, vertex_size = 1, edge.color = "gray", main = "Correlation network for\ndifferent outcome measures")
+group_characteristics$total <- rowSums(select(group_characteristics, -GroupID))
+group_characteristics$GroupID <- as.character(group_characteristics$GroupID)
+
+#put them in a grid
+l <- ncol(group_characteristics) - 2
+m <- l +1
+outcomes <- group_characteristics[, -c(1, m)]
+out_grid <- outcomes %>%
+  mutate(across(everything(), ~ . > 0, .names = "{.col}_TF"))
+out_grid <- out_grid[, -c(1:l)]
+
+row_counts <- rowSums(out_grid, na.rm = TRUE)
+result <- group_characteristics[row_counts >= 2, ]
+result <- result[,c(1,3,2)]
+colu <- as.data.frame(colnames(result))
+
+outcome1 <- 'Behavioural'
+outcome2 <- 'Neurobiological'
+
+target <- subset(result, result[[outcome1]] > 0 & result[[outcome2]] > 0)
+
+res <- data.frame()
+
+for (i in 1:nrow(target)) {
+  work3 <- working %>% filter(GroupID %in% target[i, 1])
+  work3 <- work3 %>% filter(out_cat == outcome1)
+  work3 <- work3 %>% filter(!is.na(SMDv))
+  work3$SMD <- as.numeric(work3$SMD)
+  work3$SMDv <- as.numeric(work3$SMDv)
+  
+  SMDx <- SMD(work3)
+  
+  res[i, 1] <- if (!is.null(SMDx)) SMDx$beta[[1]] else NA
+  res[i, 2] <- if (!is.null(SMDx)) SMDx$se[[1]] else NA
+  
+  work4 <- working %>% filter(GroupID %in% target[i, 1])
+  work4 <- work4 %>% filter(out_cat == outcome2)
+  work4 <- work4 %>% filter(!is.na(SMDv))
+  work4$SMD <- as.numeric(work4$SMD)
+  work4$SMDv <- as.numeric(work4$SMDv)
+  
+  SMDy <- SMD(work4)
+  cn <- which(names(work4) == 'SortLabel')
+  
+  res[i, 3] <- if (!is.null(SMDy)) SMDy$beta[[1]] else NA
+  res[i, 4] <- if (!is.null(SMDy)) SMDy$se[[1]] else NA
+  res[i, 5] <- if (!is.null(SMDy)) SMDy$k[[1]] else NA
+  res[i, 6] <- if (!is.null(SMDy)) work4[1,cn] else NA
+}
+
+resm <- subset(res, res$SortLabel == 'CvS')
+resi <- subset(res, res$SortLabel == 'TvC')
+labelx <- bquote(Delta ~ .(as.name(outcome1)))
+labely <- bquote(Delta ~ .(as.name(outcome2)))
+# Define a function to calculate weighted R-squared
+calculate_weighted_r_squared <- function(response, predictor, weights) {
+  model <- lm(response ~ predictor, weight = weights)
+  return(sprintf("%.2f", summary(model)$r.squared))
+}
+
+# Calculate weighted R-squared for the model and intervention
+model_r_squared <- calculate_weighted_r_squared(resm[, 3], resm[, 1], 1/sqrt((resm[, 4]^2) + (resm[, 2]^2)))
+intervention_r_squared <- calculate_weighted_r_squared(resi[, 3], resi[, 1], 1/sqrt((resi[, 4]^2) + (resi[, 2]^2)))
+
+# Create the label with superscript 2 using bquote
+labelr <- bquote(R^2~(model) == .(model_r_squared) * "; " * R^2~(intervention) == .(intervention_r_squared))
+
+# Your existing ggplot code
+# Your existing ggplot code
+
+p <- ggplot() +
+  geom_point(aes(x = resi[, 1], y = resi[, 3], color = resi[,6], size = resi[, 5]), na.rm = TRUE) +  # Use resi[, 5] as the size
+  geom_errorbar(aes(x = resi[, 1], y = resi[, 3], ymin = resi[, 3] - resi[, 4], ymax = resi[, 3] + resi[, 4], width = 0.2), na.rm = TRUE) +
+  geom_errorbar(aes(x = resi[, 1], y = resi[, 3], xmin = resi[, 1] - resi[, 2], xmax = resi[, 1] + resi[, 2], width = 0.2), na.rm = TRUE) +
+  geom_smooth(method = "lm", se = TRUE, formula = y ~ x, 
+              aes(x = resi[, 1], y = resi[, 3], weight = 1/sqrt((resi[, 4]^2) + (resi[,2]^2))), 
+              color = "black", linetype = "dashed") +
+  geom_point(aes(x = resm[, 1], y = resm[, 3], color = resm[,6], size = resm[, 5]), na.rm = TRUE) +  # Use resm[, 5] as the size
+  geom_errorbar(aes(x = resm[, 1], y = resm[, 3], ymin = resm[, 3] - resm[, 4], ymax = resm[, 3] + resm[, 4], width = 0.2), na.rm = TRUE) +
+  geom_errorbar(aes(x = resm[, 1], y = resm[, 3], xmin = resm[, 1] - resm[, 2], xmax = resm[, 1] + resm[, 2], width = 0.2), na.rm = TRUE) +
+  geom_smooth(method = "lm", se = TRUE, formula = y ~ x, 
+              aes(x = resm[, 1], y = resm[, 3], weight = 1/resm[, 4]^2), color = "black", linetype = "dashed") +
+  labs(x = labelx, y = labely, title = labelr) +
+  coord_cartesian(clip = "off") +
+  scale_size_continuous(name = 'Number of comparisons') +  
+  scale_color_manual(name = 'Experiment type', 
+                     values = c("CvS" = "red", "TvC" = "green"),
+                     labels = c('Model', 'Intervention')) +  # Set colors for SortLabel values
+  expand_limits(y = 0) +
+  expand_limits(x = 0)
+
+ggsave(paste0("BvN.png"), p, width = 8, height = 6)
