@@ -409,9 +409,9 @@ The effect of exercise on other behavioural outcomes in animals using SMD as the
 forest_metafor(SMD_S_OB, "TvC", "other behavioural")
 ```
 
-Exercise interventions had a pooled effect on other behavioural outcomes induced by single prolonged stress of SMD = `r round(SMD_S_OB[['beta']], 3)` , (95% CI: `r round(SMD_S_OB[['ci.lb']], 3)` to `r round(SMD_S_OB[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_OB)$pi.lb, 3)` to `r round(predict(SMD_S_OB)$pi.ub, 3)`).
+Exercise interventions had a pooled effect on other behavioural outcomes induced by single prolonged stress of SMD = `r round(SMD_S_OB$SMD_ML[['beta']], 3)` , (95% CI: `r round(SMD_S_OB$SMD_ML[['ci.lb']], 3)` to `r round(SMD_S_OB$SMD_ML[['ci.ub']], 3)`; 95% PrI: `r round(SMD_S_OB[["pred_interval"]][["pi.lb"]], 3)` to `r round(SMD_S_OB[["pred_interval"]][["pi.ub"]], 3)`).
 
-`r SMD_S_OB[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_OB$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_OB$data$StudyId))` publications and involving `r length(unique(SMD_S_OB$data$Strain))` different animal strain(s).
+`r SMD_S_OB$SMD_ML[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_OB$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_OB$data$StudyId))` publications and involving `r length(unique(SMD_S_OB$data$Strain))` different animal strain(s).
 
 |            Level            |                                             Number of categories for that level included in this analysis                                              |                                                                 Attributable variance                                                                  |
 |:----------------------:|:----------------------:|:----------------------:|
@@ -450,7 +450,7 @@ SMD_S_OB_sex <- subgroup_analysis(df, "TvC", "Other behavioural", "Sex", 0.5)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_OB_sex$plotdata, "Sex", "Other behavioural","Sex","TvC")
+plot_subgroup_analysis(df, "TvC", "Other behavioural", "Sex", SMD_S_OB_sex, SMD_S_OB)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -478,7 +478,7 @@ SMD_S_OB_VoF <- subgroup_analysis(df, "TvC", "Other behavioural", "VoF", 0.5)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_OB_VoF$plotdata, "VoF", "Other behavioural","VoF","TvC")
+plot_subgroup_analysis(df, "TvC", "Other behavioural", "VoF", SMD_S_OB_VoF, SMD_S_OB)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -581,7 +581,7 @@ SMD_S_OB_SyRCLERoB <- subgroup_analysis(df, "TvC", "Other behavioural", "RoBScor
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_OB_SyRCLERoB$plotdata, "RoBScore", "Other behavioural","SyRCLE RoB score", "TvC")
+plot_subgroup_analysis(df, "TvC", "Other behavioural", "RoBScore", SMD_S_OB_SyRCLERoB, SMD_S_OB)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -609,7 +609,7 @@ SMD_S_OB_SyRCLERoBTF <- subgroup_analysis(df, "TvC", "Other behavioural", "RoBTF
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_OB_SyRCLERoBTF$plotdata, "RoBTF", "Other behavioural","RoB score", "TvC")
+plot_subgroup_analysis(df, "TvC", "Other behavioural", "RoBTF", SMD_S_OB_SyRCLERoBTF, SMD_S_OB)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -698,15 +698,15 @@ In the previous analyses for the effect of exercise on other behavioural outcome
 SMD_S_OB_rho0.2 <- run_ML_SMD(df, "TvC", "Other behavioural", 0.2)
 ```
 
-When the $\rho$ value is assumed to be 0.2, exercise had a pooled effect on other behavioural outcomes of **SMD = `r SMD_S_OB_rho0.2[["beta"]]`** (95% CI: `r SMD_S_OB_rho0.2[["ci.lb"]]` to `r SMD_S_OB_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OB_rho0.2)$pi.lb` to `r predict(SMD_S_OB_rho0.2)$pi.ub`).
+When the $\rho$ value is assumed to be 0.2, exercise had a pooled effect on other behavioural outcomes of **SMD = `r round(SMD_S_OB_rho0.2[["SMD_ML"]][["beta"]],3)`** (95% CI: `r round(SMD_S_OB_rho0.2[["SMD_ML"]][["ci.lb"]],3)` to `r round(SMD_S_OB_rho0.2[["SMD_ML"]][["ci.ub"]],3)`; 95% PrI: `r round(SMD_S_OB_rho0.2[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_OB_rho0.2[["pred_interval"]][["pi.ub"]],3)`).
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_OB_rho0.8 <- run_ML_SMD(df, "TvC", "Other behavioural", 0.8)
 ```
 
-When the $\rho$ value is assumed to be 0.8, exercise had a pooled effect on other behavioural outcomes of **SMD = `r SMD_S_OB_rho0.8[["beta"]]`** (95% CI: `r SMD_S_OB_rho0.8[["ci.lb"]]` to `r SMD_S_OB_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OB_rho0.8)$pi.lb` to `r predict(SMD_S_OB_rho0.8)$pi.ub`).
+When the $\rho$ value is assumed to be 0.8, exercise had a pooled effect on other behavioural outcomes of **SMD = `r SMD_S_OB_rho0.8[["SMD_ML"]][["beta"]]`** (95% CI: `r SMD_S_OB_rho0.8[["SMD_ML"]][["ci.lb"]]` to `r SMD_S_OB_rho0.8[["SMD_ML"]][["ci.ub"]]`; 95% PrI: `r round(SMD_S_OB_rho0.8[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_OB_rho0.8[["pred_interval"]][["pi.ub"]],3)`).
 
-For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_OB[["beta"]]` (95% CI: `r SMD_S_OB[["ci.lb"]]` to `r SMD_S_OB[["ci.ub"]]`).
+For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_OB[["SMD_ML"]][["beta"]]` (95% CI: `r SMD_S_OB[["SMD_ML"]][["ci.lb"]]` to `r SMD_S_OB[["SMD_ML"]][["ci.ub"]]`).
 
 ### 3.4.6 Reporting bias/small-study effects
 
@@ -755,9 +755,9 @@ The effect of exercise on BDNF in animals using SMD as the effect size is shown 
 forest_metafor(SMD_S_B, "TvC", "BDNF")
 ```
 
-Exercise had a pooled effect on BDNF of SMD = `r round(SMD_S_B[['beta']], 3)` , (95% CI: `r round(SMD_S_B[['ci.lb']], 3)` to `r round(SMD_S_B[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_B)$pi.lb, 3)` to `r round(predict(SMD_S_B)$pi.ub, 3)`).
+Exercise had a pooled effect on BDNF of SMD = `r round(SMD_S_B[["SMD_ML"]][['beta']], 3)` , (95% CI: `r round(SMD_S_B[["SMD_ML"]][['ci.lb']], 3)` to `r round(SMD_S_B[["SMD_ML"]][['ci.ub']], 3)`; 95% PrI: `r round(SMD_S_B[["pred_interval"]][["pi.lb"]], 3)` to `r round(SMD_S_B[["pred_interval"]][["pi.lb"]], 3)`).
 
-`r SMD_S_B[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_B$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_B$data$StudyId))` publications and involving `r length(unique(SMD_S_B$data$Strain))` different animal strain(s).
+`r SMD_S_B[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_B[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_B[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_B[["SMD_ML"]]$data$Strain))` different animal strain(s).
 
 |            Level            |                                            Number of categories for that level included in this analysis                                            |                                                                Attributable variance                                                                |
 |:----------------------:|:----------------------:|:----------------------:|
@@ -796,7 +796,7 @@ SMD_S_B_sex <- subgroup_analysis(df, "TvC", "BDNF", "Sex", 0.5)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_B_sex$plotdata, "Sex", "BDNF","Sex","TvC")
+plot_subgroup_analysis(df, "TvC", "BDNF", "Sex", SMD_S_B_sex, SMD_S_B)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -824,7 +824,7 @@ SMD_S_B_VoF <- subgroup_analysis(df, "TvC", "BDNF", "VoF", 0.5)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_B_VoF$plotdata, "VoF", "BDNF","VoF","TvC")
+plot_subgroup_analysis(df, "TvC", "BDNF", "VoF", SMD_S_B_VoF, SMD_S_B)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -993,13 +993,13 @@ In the previous analyses for the effect of exercise on BDNF, we imputed a $\rho$
 SMD_S_B_rho0.2 <- run_ML_SMD(df, "TvC", "BDNF", 0.2)
 ```
 
-When the $\rho$ value is assumed to be 0.2, exercise had a pooled effect on BDNF of **SMD = `r SMD_S_B_rho0.2[["beta"]]`** (95% CI: `r SMD_S_B_rho0.2[["ci.lb"]]` to `r SMD_S_B_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_B_rho0.2)$pi.lb` to `r predict(SMD_S_B_rho0.2)$pi.ub`).
+When the $\rho$ value is assumed to be 0.2, exercise had a pooled effect on BDNF of **SMD = `r round(SMD_S_B_rho0.2[["SMD_ML"]][["beta"]],3)`** (95% CI: `r round(SMD_S_B_rho0.2[["SMD_ML"]][["ci.lb"]],3)` to `r round(SMD_S_B_rho0.2[["SMD_ML"]][["ci.ub"]],3)`; 95% PrI: `r round(SMD_S_B_rho0.2[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_B_rho0.2[["pred_interval"]][["pi.ub"]],3)`).
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_B_rho0.8 <- run_ML_SMD(df, "TvC", "BDNF", 0.8)
 ```
 
-When the $\rho$ value is assumed to be 0.8, exercise had a pooled effect on BDNF of **SMD = `r SMD_S_B_rho0.8[["beta"]]`** (95% CI: `r SMD_S_B_rho0.8[["ci.lb"]]` to `r SMD_S_B_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_B_rho0.8)$pi.lb` to `r predict(SMD_S_B_rho0.8)$pi.ub`).
+When the $\rho$ value is assumed to be 0.8, exercise had a pooled effect on BDNF of **SMD = `r SMD_S_B_rho0.2[["SMD_ML"]][["beta"]]`** (95% CI: `r SMD_S_B_rho0.2[["SMD_ML"]][["ci.lb"]]` to `r SMD_S_B_rho0.2[["SMD_ML"]][["ci.ub"]]`; 95% PrI: `r round(SMD_S_B_rho0.8[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_B_rho0.8[["pred_interval"]][["pi.ub"]],3)`).
 
 For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_B[["beta"]]` (95% CI: `r SMD_S_B[["ci.lb"]]` to `r SMD_S_B[["ci.ub"]]`).
 
@@ -1050,17 +1050,17 @@ The effect of exercise on biological stress response in animals using SMD as the
 forest_metafor(SMD_S_StR, "TvC", "Stress response")
 ```
 
-Exercise interventions had a pooled effect on biological stress response induced by single prolonged stress of SMD = `r round(SMD_S_StR[['beta']], 3)` , (95% CI: `r round(SMD_S_StR[['ci.lb']], 3)` to `r round(SMD_S_StR[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_StR)$pi.lb, 3)` to `r round(predict(SMD_S_StR)$pi.ub, 3)`.
+Exercise interventions had a pooled effect on biological stress response induced by single prolonged stress of SMD = `r round(SMD_S_StR[["SMD_ML"]][['beta']], 3)` , (95% CI: `r round(SMD_S_StR[["SMD_ML"]][['ci.lb']], 3)` to `r round(SMD_S_StR[["SMD_ML"]][['ci.ub']], 3)`; 95% PrI: `r round(SMD_S_StR[["pred_interval"]][["pi.lb"]], 3)` to `r round(SMD_S_StR[["pred_interval"]][["pi.ub"]], 3)`.
 
-`r SMD_S_StR[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_StR$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_StR$data$StudyId))` publications and involving `r length(unique(SMD_S_StR$data$Strain))` different animal strain(s).
+`r SMD_S_StR[["SMD_M"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_StR[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_StR[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_StR[["SMD_ML"]]$data$Strain))` different animal strain(s).
 
 |            Level            |                                               Number of categories for that level included in this analysis                                               |                                                                   Attributable variance                                                                   |
 |:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$s.nlevels[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$sigma2[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$s.nlevels[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$sigma2[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$s.nlevels[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$sigma2[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$s.nlevels[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$sigma2[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$s.nlevels[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$sigma2[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
 
 ### 3.6.4 Subgroup analyses and meta-regressions
 
@@ -1091,7 +1091,7 @@ SMD_S_StR_sex <- subgroup_analysis(df, "TvC", "Stress response", "Sex", 0.5)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_StR_sex$plotdata, "Sex", "Stress response","Sex","TvC")
+plot_subgroup_analysis(df, "TvC", "Stress response", "Sex", SMD_S_StR_sex, SMD_S_StR)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1198,7 +1198,7 @@ SMD_S_StR_SyRCLERoB <- subgroup_analysis(df, "TvC", "Stress response", "RoBScore
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_StR_SyRCLERoB$plotdata, "RoBScore", "Stress response","SyRCLE RoB score", "TvC")
+plot_subgroup_analysis(df, "TvC", "Stress response", "RoBScore", SMD_S_StR_SyRCLERoB, SMD_S_StR)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1226,7 +1226,7 @@ SMD_S_StR_SyRCLERoBTF <- subgroup_analysis(df, "TvC", "Stress response", "RoBTF"
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_StR_SyRCLERoBTF$plotdata, "RoBTF", "Stress response","RoB score", "TvC")
+plot_subgroup_analysis(df, "TvC", "Stress response", "RoBTF", SMD_S_StR_SyRCLERoBTF, SMD_S_StR)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1281,7 +1281,7 @@ The table below shows which of the covariates, if any, explain some of the heter
 
 |       Moderator        |             Category              |                      $\beta$                      |                                                  95% CI                                                  |                      Marginal R^2^ (%)                      |
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |                \-                 |               `r SMD_S_StR$beta[1]`               |                                `r SMD_S_StR$ci.lb` to `r SMD_S_StR$ci.ub`                                |                             \-                              |
+|     Overall effect     |                \-                 |               `r SMD_S_StR[["SMD_ML"]]$beta[1]`               |                                `r SMD_S_StR[["SMD_ML"]]$ci.lb` to `r SMD_S_StR[["SMD_ML"]]$ci.ub`                                |                             \-                              |
 |          Sex           |                \-                 |                        \-                         |                                                    \-                                                    |        `r round((r2_ml(SMD_S_StR_sexI)[1]*100),1)`%         |
 |           \-           |             *Female*              |            `r SMD_S_StR_sexI$beta[1]`             |                        `r SMD_S_StR_sexI$ci.lb[1]` to `r SMD_S_StR_sexI$ci.ub[1]`                        |                             \-                              |
 |           \-           |              *Male*               |            `r SMD_S_StR_sexI$beta[2]`             |                        `r SMD_S_StR_sexI$ci.lb[2]` to `r SMD_S_StR_sexI$ci.ub[2]`                        |                             \-                              |
@@ -1314,15 +1314,15 @@ In the previous analyses for the effect of exercise on biological stress respons
 SMD_S_StR_rho0.2 <- run_ML_SMD(df, "TvC", "Stress response", 0.2)
 ```
 
-When the $\rho$ value is assumed to be 0.2, exercise had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.2[["beta"]]`** (95% CI: `r SMD_S_StR_rho0.2[["ci.lb"]]` to `r SMD_S_StR_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_StR_rho0.2)$pi.lb` to `r predict(SMD_S_StR_rho0.2)$pi.ub`).
+When the $\rho$ value is assumed to be 0.2, exercise had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.2[["beta"]]`** (95% CI: `r SMD_S_StR_rho0.2[["ci.lb"]]` to `r SMD_S_StR_rho0.2[["ci.ub"]]`; 95% PrI: `r round(SMD_S_StR_rho0.2[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_StR_rho0.2[["pred_interval"]][["pi.ub"]],3)`).
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_StR_rho0.8 <- run_ML_SMD(df, "TvC", "Stress response", 0.8)
 ```
 
-When the $\rho$ value is assumed to be 0.8, exercise had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.8[["beta"]]`** (95% CI: `r SMD_S_StR_rho0.8[["ci.lb"]]` to `r SMD_S_StR_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_StR_rho0.8)$pi.lb` to `r predict(SMD_S_StR_rho0.8)$pi.ub`).
+When the $\rho$ value is assumed to be 0.8, exercise had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.8[["beta"]]`** (95% CI: `r SMD_S_StR_rho0.8[["ci.lb"]]` to `r SMD_S_StR_rho0.8[["ci.ub"]]`; 95% PrI: `r round(SMD_S_StR_rho0.8[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_StR_rho0.8[["pred_interval"]][["pi.ub"]],3)`).
 
-For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_StR[["beta"]]` (95% CI: `r SMD_S_StR[["ci.lb"]]` to `r SMD_S_StR[["ci.ub"]]`).
+For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_StR[["SMD_M"]][["beta"]]` (95% CI: `r SMD_S_StR[["SMD_M"]][["ci.lb"]]` to `r SMD_S_StR[["SMD_M"]][["ci.ub"]]`).
 
 ### 3.6.6 Reporting bias/small-study effects
 
@@ -1374,17 +1374,17 @@ The effect of exercise on other neurobiological outcomes in animals using SMD as
 forest_metafor(SMD_S_OthN, "TvC", "Other neurobiological")
 ```
 
-Exercise had a pooled effect on other neurobiological outcomes of SMD = `r round(SMD_S_OthN[['beta']], 3)` , (95% CI: `r round(SMD_S_OthN[['ci.lb']], 3)` to `r round(SMD_S_OthN[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_OthN)$pi.lb, 3)` to `r round(predict(SMD_S_OthN)$pi.ub, 3)`).
+Exercise interventions had a pooled effect on biological stress response induced by single prolonged stress of SMD = `r round(SMD_S_OthN[["SMD_ML"]][['beta']], 3)` , (95% CI: `r round(SMD_S_OthN[["SMD_ML"]][['ci.lb']], 3)` to `r round(SMD_S_OthN[["SMD_ML"]][['ci.ub']], 3)`; 95% PrI: `r round(SMD_S_OthN[["pred_interval"]][["pi.lb"]], 3)` to `r round(SMD_S_OthN[["pred_interval"]][["pi.ub"]], 3)`.
 
-`r SMD_S_OthN[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_OthN$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_OthN$data$StudyId))` publications and involving `r length(unique(SMD_S_OthN$data$Strain))` different animal strain(s).
+`r SMD_S_OthN[['SMD_ML']][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_OthN[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_OthN[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_OthN[["SMD_ML"]]$data$Strain))` different animal strain(s).
 
 |            Level            |                                                Number of categories for that level included in this analysis                                                 |                                                                    Attributable variance                                                                     |
 |:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$s.nlevels[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$sigma2[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$s.nlevels[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$sigma2[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$s.nlevels[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$sigma2[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$s.nlevels[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$sigma2[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$s.nlevels[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$sigma2[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
 
 ### 3.8.4 Subgroup analyses and meta-regressions
 
@@ -1415,7 +1415,7 @@ SMD_S_OthN_sex <- subgroup_analysis(df, "TvC", "Other neurobiological", "Sex", 0
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_OthN_sex$plotdata, "Sex", "Other neurobiological","Sex","TvC")
+plot_subgroup_analysis(df, "TvC", "Other neurobiological", "Sex", SMD_S_OthN_sex, SMD_S_OthN)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1443,7 +1443,7 @@ SMD_S_OthN_VoF <- subgroup_analysis(df, "TvC", "Other neurobiological", "VoF", 0
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_OthN_VoF$plotdata, "VoF", "Other neurobiological","VoF","TvC")
+plot_subgroup_analysis(df, "TvC", "Other neurobiological", "VoF", SMD_S_OthN_VoF, SMD_S_OthN)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1580,7 +1580,7 @@ The table below shows which of the covariates, if any, explain some of the heter
 
 |       Moderator        |             Category              |                      $\beta$                       |                                                   95% CI                                                   |                      Marginal R^2^ (%)                       |
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |                \-                 |               `r SMD_S_OthN$beta[1]`               |                                `r SMD_S_OthN$ci.lb` to `r SMD_S_OthN$ci.ub`                                |                              \-                              |
+|     Overall effect     |                \-                 |               `r SMD_S_OthN[["SMD_ML"]]$beta[1]`               |                                `r SMD_S_OthN[["SMD_ML"]]$ci.lb` to `r SMD_S_OthN[["SMD_ML"]]$ci.ub`                                |                              \-                              |
 |          Sex           |                \-                 |                         \-                         |                                                     \-                                                     |        `r round((r2_ml(SMD_S_OthN_sexI)[1]*100),1)`%         |
 |           \-           |             *Female*              |            `r SMD_S_OthN_sexI$beta[1]`             |                        `r SMD_S_OthN_sexI$ci.lb[1]` to `r SMD_S_OthN_sexI$ci.ub[1]`                        |                              \-                              |
 |           \-           |              *Male*               |            `r SMD_S_OthN_sexI$beta[2]`             |                        `r SMD_S_OthN_sexI$ci.lb[2]` to `r SMD_S_OthN_sexI$ci.ub[2]`                        |                              \-                              |
@@ -1612,15 +1612,15 @@ In the previous analyses for the effect of exercise on other neurobiological out
 SMD_S_OthN_rho0.2 <- run_ML_SMD(df, "TvC", "Other neurobiological", 0.2)
 ```
 
-When the $\rho$ value is assumed to be 0.2, exercise had a pooled effect on other neurobiological outcomes of **SMD = `r SMD_S_OthN_rho0.2[["beta"]]`** (95% CI: `r SMD_S_OthN_rho0.2[["ci.lb"]]` to `r SMD_S_OthN_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OthN_rho0.2)$pi.lb` to `r predict(SMD_S_OthN_rho0.2)$pi.ub`).
+When the $\rho$ value is assumed to be 0.2, exercise had a pooled effect on other neurobiological outcomes of **SMD = `r round(SMD_S_OthN_rho0.2[["SMD_ML"]][["beta"]],3)`** (95% CI: `r round(SMD_S_OthN_rho0.2[["SMD_ML"]][["ci.lb"]],3)` to `r round(SMD_S_OthN_rho0.2[["SMD_ML"]][["ci.ub"]],3)`; 95% PrI: `r round(SMD_S_OthN_rho0.2[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_OthN_rho0.2[["pred_interval"]][["pi.ub"]],3)`).
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_OthN_rho0.8 <- run_ML_SMD(df, "TvC", "Other neurobiological", 0.8)
 ```
 
-When the $\rho$ value is assumed to be 0.8, exercise had a pooled effect on other neurobiological outcomes of **SMD = `r SMD_S_OthN_rho0.8[["beta"]]`** (95% CI: `r SMD_S_OthN_rho0.8[["ci.lb"]]` to `r SMD_S_OthN_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OthN_rho0.8)$pi.lb` to `r predict(SMD_S_OthN_rho0.8)$pi.ub`).
+When the $\rho$ value is assumed to be 0.8, exercise had a pooled effect on other neurobiological outcomes of **SMD = `r round(SMD_S_OthN_rho0.8[["SMD_ML"]][["beta"]],3)`** (95% CI: `r round(SMD_S_OthN_rho0.8[["SMD_ML"]][["ci.lb"]],3)` to `r round(SMD_S_OthN_rho0.8[["SMD_ML"]][["ci.ub"]],3)`; 95% PrI: `r round(SMD_S_OthN_rho0.8[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_OthN_rho0.8[["pred_interval"]][["pi.ub"]],3)`).
 
-For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_OthN[["beta"]]` (95% CI: `r SMD_S_OthN[["ci.lb"]]` to `r SMD_S_OthN[["ci.ub"]]`).
+For reference the pooled effect size when rho is assumed to be 0.5 is `r round(SMD_S_OthN[['SMD_ML']][["beta"]],3)` (95% CI: `r round(SMD_S_OthN[['SMD_ML']][["ci.lb"]],3)` to `r round(SMD_S_OthN[['SMD_ML']][["ci.ub"]],3)`.
 
 ### 3.8.6 Reporting bias/small-study effects
 
@@ -1740,19 +1740,19 @@ The effect of single prolonged stress on other bevaiours in animals using SMD as
 forest_metafor(SMD_S_OB, "CvS", "Other behavioural")
 ```
 
-Single prolonged stress had a pooled effect on other behaviours of SMD = `r round(SMD_S_OB[['beta']], 3)` , (95% CI: `r round(SMD_S_OB[['ci.lb']], 3)` to `r round(SMD_S_OB[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_OB)$pi.lb, 3)` to `r round(predict(SMD_S_OB)$pi.ub, 3)`).
+Single prolonged stress had a pooled effect on other behaviours of SMD = `r round(SMD_S_OB[["SMD_ML"]][['beta']], 3)` , (95% CI: `r round(SMD_S_OB[["SMD_ML"]][['ci.lb']], 3)` to `r round(SMD_S_OB[["SMD_ML"]][['ci.ub']], 3)`; 95% PrI: `r round(SMD_S_OB[["pred_interval"]][["pi.lb"]], 3)` to `r round(SMD_S_OB[["pred_interval"]][["pi.ub"]], 3)`).
 
-`r SMD_S_OB[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_OB$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_OB$data$StudyId))` publications and involving `r length(unique(SMD_S_OB$data$Strain))` different animal strain(s).
+`r SMD_S_OB[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_OB[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_OB[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_OB[["SMD_ML"]]$data$Strain))` different animal strain(s).
 
 The following table structure is used throughout this report and is used to show the different levels contributing to that analysis, the number of unique categories in those levels, and the variance contributed by that level of analysis. Because levels are only included in the analysis where there are five or more unique categories, for some analyses the number of categories is 0, and the variance attributed to those levels in not applicable. Because the model is hierarchical, where for instance there are **Studies** which include different **Strains**, the number of categories for **Study x Strain** will exceed the number of Studies (by which we mean unique publications) referred to in the text.
 
 |            Level            |                                             Number of categories for that level included in this analysis                                              |                                                                 Attributable variance                                                                  |
 |:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OB$s.names, SMD_S_OB$s.nlevels[[which(SMD_S_OB$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OB$s.names, SMD_S_OB$sigma2[[which(SMD_S_OB$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OB$s.names, SMD_S_OB$s.nlevels[[which(SMD_S_OB$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OB$s.names, SMD_S_OB$sigma2[[which(SMD_S_OB$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB$s.names, SMD_S_OB$s.nlevels[[which(SMD_S_OB$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB$s.names, SMD_S_OB$sigma2[[which(SMD_S_OB$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OB$s.names, SMD_S_OB$s.nlevels[[which(SMD_S_OB$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OB$s.names, SMD_S_OB$sigma2[[which(SMD_S_OB$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB$s.names, SMD_S_OB$s.nlevels[[which(SMD_S_OB$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB$s.names, SMD_S_OB$sigma2[[which(SMD_S_OB$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$s.nlevels[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$sigma2[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$s.nlevels[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$sigma2[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$s.nlevels[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$sigma2[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$s.nlevels[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$sigma2[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$s.nlevels[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$sigma2[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
 
 ### 2.4.4 Subgroup analyses and meta-regressions
 
@@ -1779,7 +1779,7 @@ SMD_S_OB_sex <- subgroup_analysis(df, "CvS", "Other behavioural", "Sex", 0.5)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_OB_sex$plotdata, "Sex", "Other behavioural","Sex","CvS")
+plot_subgroup_analysis(df, "CvS", "Other behavioural", "Sex", SMD_S_OB_sex, SMD_S_OB)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1807,7 +1807,7 @@ SMD_S_OB_SyRCLERoB <- subgroup_analysis(df, "CvS", "Other behavioural", "RoBScor
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_OB_SyRCLERoB$plotdata, "RoBScore", "Other behavioural","SyRCLE RoB score", "CvS")
+plot_subgroup_analysis(df, "CvS", "Other behavioural", "RoBScore", SMD_S_OB_SyRCLERoB, SMD_S_OB)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1835,7 +1835,7 @@ SMD_S_OB_SyRCLERoBTF <- subgroup_analysis(df, "CvS", "Other behavioural", "RoBTF
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_OB_SyRCLERoBTF$plotdata, "RoBTF", "Other behavioural","RoB score", "CvS")
+plot_subgroup_analysis(df, "CvS", "Other behavioural", "RoBTF", SMD_S_OB_SyRCLERoBTF, SMD_S_OB)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1915,13 +1915,13 @@ In the previous analyses for the effect of single prolonged stress on other beha
 SMD_S_OB_rho0.2 <- run_ML_SMD(df, "CvS", "Other behavioural", 0.2)
 ```
 
-When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on other behaviours of **SMD = `r SMD_S_OB_rho0.2[["beta"]]`** (95% CI: `r SMD_S_OB_rho0.2[["ci.lb"]]` to `r SMD_S_OB_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OB_rho0.2)$pi.lb` to `r predict(SMD_S_OB_rho0.2)$pi.ub`).
+When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on other behaviours of **SMD = `r SMD_S_OB_rho0.2[["beta"]]`** (95% CI: `r SMD_S_OB_rho0.2[["ci.lb"]]` to `r SMD_S_OB_rho0.2[["ci.ub"]]`; 95% PrI: `r round(SMD_S_OB_rho0.2[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_OB_rho0.2[["pred_interval"]][["pi.ub"]],3)`).
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_OB_rho0.8 <- run_ML_SMD(df, "CvS", "Other behavioural", 0.8)
 ```
 
-When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on other behaviours of **SMD = `r SMD_S_OB_rho0.8[["beta"]]`** (95% CI: `r SMD_S_OB_rho0.8[["ci.lb"]]` to `r SMD_S_OB_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OB_rho0.8)$pi.lb` to `r predict(SMD_S_OB_rho0.8)$pi.ub`).
+When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on other behaviours of **SMD = `r SMD_S_OB_rho0.8[["beta"]]`** (95% CI: `r SMD_S_OB_rho0.8[["ci.lb"]]` to `r SMD_S_OB_rho0.8[["ci.ub"]]`; 95% PrI: `r round(SMD_S_OB_rho0.8[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_OB_rho0.8[["pred_interval"]][["pi.ub"]],3)`).
 
 For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_OB[["beta"]]` (95% CI: `r SMD_S_OB[["ci.lb"]]` to `r SMD_S_OB[["ci.ub"]]`).
 
@@ -1972,17 +1972,17 @@ The effect of single prolonged stress on other behaviours in animals using SMD a
 forest_metafor(SMD_S_B, "CvS", "BDNF")
 ```
 
-Single prolonged stress had a pooled effect on other behaviours of SMD = `r round(SMD_S_B[['beta']], 3)` , (95% CI: `r round(SMD_S_B[['ci.lb']], 3)` to `r round(SMD_S_B[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_B)$pi.lb, 3)` to `r round(predict(SMD_S_B)$pi.ub, 3)`).
+Single prolonged stress had a pooled effect on other behaviours of SMD = `r round(SMD_S_B[["SMD_ML"]][['beta']], 3)` , (95% CI: `r round(SMD_S_B[["SMD_ML"]][['ci.lb']], 3)` to `r round(SMD_S_B[["SMD_ML"]][['ci.ub']], 3)`; 95% PrI: `r round(SMD_S_B[["pred_interval"]][["pi.lb"]], 3)` to `r round(SMD_S_B[["pred_interval"]][["pi.ub"]], 3)`).
 
-`r SMD_S_B[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_B$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_B$data$StudyId))` publications and involving `r length(unique(SMD_S_B$data$Strain))` different animal strain(s).
+`r SMD_S_B[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_B[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_B[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_B[["SMD_ML"]]$data$Strain))` different animal strain(s).
 
 |            Level            |                                            Number of categories for that level included in this analysis                                            |                                                                Attributable variance                                                                |
 |:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_B$s.names, SMD_S_B$s.nlevels[[which(SMD_S_B$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_B$s.names, SMD_S_B$sigma2[[which(SMD_S_B$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_B$s.names, SMD_S_B$s.nlevels[[which(SMD_S_B$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_B$s.names, SMD_S_B$sigma2[[which(SMD_S_B$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B$s.names, SMD_S_B$s.nlevels[[which(SMD_S_B$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B$s.names, SMD_S_B$sigma2[[which(SMD_S_B$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_B$s.names, SMD_S_B$s.nlevels[[which(SMD_S_B$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_B$s.names, SMD_S_B$sigma2[[which(SMD_S_B$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B$s.names, SMD_S_B$s.nlevels[[which(SMD_S_B$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B$s.names, SMD_S_B$sigma2[[which(SMD_S_B$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$s.nlevels[[which(SMD_S_B[["SMD_ML"]]$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$sigma2[[which(SMD_S_B[["SMD_ML"]]$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$s.nlevels[[which(SMD_S_B[["SMD_ML"]]$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$sigma2[[which(SMD_S_B[["SMD_ML"]]$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$s.nlevels[[which(SMD_S_B[["SMD_ML"]]$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$sigma2[[which(SMD_S_B[["SMD_ML"]]$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$s.nlevels[[which(SMD_S_B[["SMD_ML"]]$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$sigma2[[which(SMD_S_B[["SMD_ML"]]$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$s.nlevels[[which(SMD_S_B[["SMD_ML"]]$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$sigma2[[which(SMD_S_B[["SMD_ML"]]$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
 
 ### 2.5.4 Subgroup analyses and meta-regressions
 
@@ -2009,7 +2009,7 @@ SMD_S_B_sex <- subgroup_analysis(df, "CvS", "BDNF", "Sex", 0.5)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_B_sex$plotdata, "Sex", "BDNF","Sex","CvS")
+plot_subgroup_analysis(df, "CvS", "BDNF", "Sex", SMD_S_B_sex, SMD_S_B)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -2094,13 +2094,13 @@ In the previous analyses for the effect of single prolonged stress on BDNF, we i
 SMD_S_B_rho0.2 <- run_ML_SMD(df, "CvS", "BDNF", 0.2)
 ```
 
-When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on BDNF of **SMD = `r SMD_S_B_rho0.2[["beta"]]`** (95% CI: `r SMD_S_B_rho0.2[["ci.lb"]]` to `r SMD_S_B_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_B_rho0.2)$pi.lb` to `r predict(SMD_S_B_rho0.2)$pi.ub`).
+When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on BDNF of **SMD = `r SMD_S_B_rho0.2[["beta"]]`** (95% CI: `r SMD_S_B_rho0.2[["ci.lb"]]` to `r SMD_S_B_rho0.2[["ci.ub"]]`; 95% PrI: `r round(SMD_S_B_rho0.2[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_B_rho0.2[["pred_interval"]][["pi.ub"]],3)`).
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_B_rho0.8 <- run_ML_SMD(df, "CvS", "BDNF", 0.8)
 ```
 
-When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on BDNF of **SMD = `r SMD_S_B_rho0.8[["beta"]]`** (95% CI: `r SMD_S_B_rho0.8[["ci.lb"]]` to `r SMD_S_B_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_B_rho0.8)$pi.lb` to `r predict(SMD_S_B_rho0.8)$pi.ub`).
+When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on BDNF of **SMD = `r SMD_S_B_rho0.8[["beta"]]`** (95% CI: `r SMD_S_B_rho0.8[["ci.lb"]]` to `r SMD_S_B_rho0.8[["ci.ub"]]`; 95% PrI: `r round(SMD_S_B_rho0.8[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_B_rho0.8[["pred_interval"]][["pi.ub"]],3)`).
 
 For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_B[["beta"]]` (95% CI: `r SMD_S_B[["ci.lb"]]` to `r SMD_S_B[["ci.ub"]]`).
 
@@ -2151,17 +2151,17 @@ The effect of single prolonged stress on the biological stress response in anima
 forest_metafor(SMD_S_StR, "CvS", "Stress response")
 ```
 
-Single prolonged stress had a pooled effect on biological stress response of SMD = `r round(SMD_S_StR[['beta']], 3)` , (95% CI: `r round(SMD_S_StR[['ci.lb']], 3)` to `r round(SMD_S_StR[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_StR)$pi.lb, 3)` to `r round(predict(SMD_S_StR)$pi.ub, 3)`).
+Single prolonged stress had a pooled effect on biological stress response of SMD = `r round(SMD_S_StR[["SMD_ML"]][['beta']], 3)` , (95% CI: `r round(SMD_S_StR[["SMD_ML"]][['ci.lb']], 3)` to `r round(SMD_S_StR[["SMD_ML"]][['ci.ub']], 3)`; 95% PrI: `r round(SMD_S_StR[["pred_interval"]][["pi.lb"]], 3)` to `r round(SMD_S_StR[["pred_interval"]][["pi.ub"]], 3)`).
 
-`r SMD_S_StR[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_StR$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_StR$data$StudyId))` publications and involving `r length(unique(SMD_S_StR$data$Strain))` different animal strain(s).
+`r SMD_S_StR[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_StR[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_StR[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_StR[["SMD_ML"]]$data$Strain))` different animal strain(s).
 
 |            Level            |                                               Number of categories for that level included in this analysis                                               |                                                                   Attributable variance                                                                   |
 |:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$s.nlevels[[which(SMD_S_StR$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR$s.names, SMD_S_StR$sigma2[[which(SMD_S_StR$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$s.nlevels[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$sigma2[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$s.nlevels[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$sigma2[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$s.nlevels[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$sigma2[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$s.nlevels[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$sigma2[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$s.nlevels[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$sigma2[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
 
 ### 2.6.4 Subgroup analyses and meta-regressions
 
@@ -2188,7 +2188,7 @@ SMD_S_StR_sex <- subgroup_analysis(df, "CvS", "Stress response", "Sex", 0.5)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_StR_sex$plotdata, "Sex", "Stress response","Sex","CvS")
+plot_subgroup_analysis(df, "CvS", "Stress response", "Sex", SMD_S_StR_sex, SMD_S_StR)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -2216,7 +2216,7 @@ SMD_S_StR_SyRCLERoB <- subgroup_analysis(df, "CvS", "Stress response", "RoBScore
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_StR_SyRCLERoB$plotdata, "RoBScore", "Stress response","SyRCLE RoB score", "CvS")
+plot_subgroup_analysis(df, "CvS", "Stress response", "RoBScore", SMD_S_StR_SyRCLERoB, SMD_S_StR)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -2244,7 +2244,7 @@ SMD_S_StR_SyRCLERoBTF <- subgroup_analysis(df, "CvS", "Stress response", "RoBTF"
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_StR_SyRCLERoBTF$plotdata, "RoBTF", "Stress response","RoB score", "CvS")
+plot_subgroup_analysis(df, "CvS", "Stress response", "RoBTF", SMD_S_StR_SyRCLERoBTF, SMD_S_StR)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -2298,7 +2298,7 @@ The table below shows which of the covariates, if any, explain some of the heter
 
 |       Moderator        |      Category       |                      $\beta$                      |                                                  95% CI                                                  |                      Marginal R^2^ (%)                      |
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |         \-          |               `r SMD_S_StR$beta[1]`               |                                `r SMD_S_StR$ci.lb` to `r SMD_S_StR$ci.ub`                                |                             \-                              |
+|     Overall effect     |         \-          |               `r SMD_S_StR[["SMD_ML"]]$beta[1]`               |                                `r SMD_S_StR[["SMD_ML"]]$ci.lb` to `r SMD_S_StR[["SMD_ML"]]$ci.ub`                                |                             \-                              |
 |          Sex           |         \-          |                        \-                         |                                                    \-                                                    |        `r round((r2_ml(SMD_S_StR_sexI)[1]*100),1)`%         |
 |           \-           |      *Female*       |            `r SMD_S_StR_sexI$beta[1]`             |                        `r SMD_S_StR_sexI$ci.lb[1]` to `r SMD_S_StR_sexI$ci.ub[1]`                        |                             \-                              |
 |           \-           |       *Male*        |            `r SMD_S_StR_sexI$beta[2]`             |                        `r SMD_S_StR_sexI$ci.lb[2]` to `r SMD_S_StR_sexI$ci.ub[2]`                        |                             \-                              |
@@ -2324,15 +2324,15 @@ In the previous analyses for the effect of single prolonged stress on biological
 SMD_S_StR_rho0.2 <- run_ML_SMD(df, "CvS", "Stress response", 0.2)
 ```
 
-When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.2[["beta"]]`** (95% CI: `r SMD_S_StR_rho0.2[["ci.lb"]]` to `r SMD_S_StR_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_StR_rho0.2)$pi.lb` to `r predict(SMD_S_StR_rho0.2)$pi.ub`).
+When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.2[["beta"]]`** (95% CI: `r SMD_S_StR_rho0.2[["ci.lb"]]` to `r SMD_S_StR_rho0.2[["ci.ub"]]`; 95% PrI: `r round(SMD_S_StR_rho0.2[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_StR_rho0.2[["pred_interval"]][["pi.ub"]],3)`).
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_StR_rho0.8 <- run_ML_SMD(df, "CvS", "Stress response", 0.8)
 ```
 
-When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.8[["beta"]]`** (95% CI: `r SMD_S_StR_rho0.8[["ci.lb"]]` to `r SMD_S_StR_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_StR_rho0.8)$pi.lb` to `r predict(SMD_S_StR_rho0.8)$pi.ub`).
+When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.8[["beta"]]`** (95% CI: `r SMD_S_StR_rho0.8[["ci.lb"]]` to `r SMD_S_StR_rho0.8[["ci.ub"]]`; 95% PrI: `r round(SMD_S_StR_rho0.8[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_StR_rho0.8[["pred_interval"]][["pi.ub"]],3)`).
 
-For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_StR[["beta"]]` (95% CI: `r SMD_S_StR[["ci.lb"]]` to `r SMD_S_StR[["ci.ub"]]`).
+For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_StR[["SMD_M"]][["beta"]]` (95% CI: `r SMD_S_StR[["SMD_M"]][["ci.lb"]]` to `r SMD_S_StR[["SMD_M"]][["ci.ub"]]`).
 
 ### 2.6.6 Reporting bias/small-study effects
 
@@ -2385,17 +2385,17 @@ The effect of single prolonged stress on other neurobiological outcomes in anima
 forest_metafor(SMD_S_OthN, "CvS", "Other neurobiological")
 ```
 
-Single prolonged stress had a pooled effect on other neurobiological outcomes of SMD = `r round(SMD_S_OthN[['beta']], 3)` , (95% CI: `r round(SMD_S_OthN[['ci.lb']], 3)` to `r round(SMD_S_OthN[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_OthN)$pi.lb, 3)` to `r round(predict(SMD_S_OthN)$pi.ub, 3)`).
+Single prolonged stress had a pooled effect on other neurobiological outcomes of SMD = `r round(SMD_S_OthN[['SMD_ML']][['beta']], 3)` , (95% CI: `r round(SMD_S_OthN[['SMD_ML']][['ci.lb']], 3)` to `r round(SMD_S_OthN[['SMD_ML']][['ci.ub']], 3)`; 95% PrI: `r round(SMD_S_OthN[["pred_interval"]][["pi.lb"]], 3)` to `r round(SMD_S_OthN[["pred_interval"]][["pi.ub"]], 3)`).
 
-`r SMD_S_OthN[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_OthN$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_OthN$data$StudyId))` publications and involving `r length(unique(SMD_S_OthN$data$Strain))` different animal strain(s).
+`r SMD_S_OthN[['SMD_ML']][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_OthN[['SMD_ML']]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_OthN[['SMD_ML']]$data$StudyId))` publications and involving `r length(unique(SMD_S_OthN[['SMD_ML']]$data$Strain))` different animal strain(s).
 
 |            Level            |                                                Number of categories for that level included in this analysis                                                 |                                                                    Attributable variance                                                                     |
 |:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'StudyId')]], 'NA')`                       |
-|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$s.nlevels[[which(SMD_S_OthN$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN$s.names, SMD_S_OthN$sigma2[[which(SMD_S_OthN$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
+|           Strain            |                        `r ifelse('Strain' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$s.nlevels[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$sigma2[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain')]], NA)`                         |
+|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$s.nlevels[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$sigma2[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain/StudyId')]], NA)`                 |
+| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$s.nlevels[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$sigma2[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+|            Study            |                       `r ifelse('StudyId' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$s.nlevels[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'StudyId')]], 0)`                       |                       `r ifelse('StudyId' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$sigma2[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'StudyId')]], 'NA')`                       |
+|     Study x Experiment      |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$s.nlevels[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'StudyId/ExperimentID_I')]], 0)`        |        `r ifelse('StudyId/ExperimentID_I' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$sigma2[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'StudyId/ExperimentID_I')]], 'NA')`        |
 
 ### 2.8.4 Subgroup analyses and meta-regressions
 
@@ -2422,7 +2422,7 @@ SMD_S_OthN_sex <- subgroup_analysis(df, "CvS", "Other neurobiological", "Sex", 0
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_OthN_sex$plotdata, "Sex", "Other neurobiological","Sex","CvS")
+plot_subgroup_analysis(df, "CvS", "Other neurobiological", "Sex", SMD_S_OthN_sex, SMD_S_OthN)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -2484,7 +2484,7 @@ The table below shows which of the covariates, if any, explain some of the heter
 
 |       Moderator        |      Category       |                      $\beta$                       |                                                   95% CI                                                   |                      Marginal R^2^ (%)                       |
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |         \-          |               `r SMD_S_OthN$beta[1]`               |                                `r SMD_S_OthN$ci.lb` to `r SMD_S_OthN$ci.ub`                                |                              \-                              |
+|     Overall effect     |         \-          |               `r SMD_S_OthN[["SMD_ML"]]$beta[1]`               |                                `r SMD_S_OthN[["SMD_ML"]]$ci.lb` to `r SMD_S_OthN[["SMD_ML"]]$ci.ub`                                |                              \-                              |
 |          Sex           |         \-          |                         \-                         |                                                     \-                                                     |        `r round((r2_ml(SMD_S_OthN_sexI)[1]*100),1)`%         |
 |           \-           |      *Female*       |            `r SMD_S_OthN_sexI$beta[1]`             |                        `r SMD_S_OthN_sexI$ci.lb[1]` to `r SMD_S_OthN_sexI$ci.ub[1]`                        |                              \-                              |
 |           \-           |       *Male*        |            `r SMD_S_OthN_sexI$beta[2]`             |                        `r SMD_S_OthN_sexI$ci.lb[2]` to `r SMD_S_OthN_sexI$ci.ub[2]`                        |                              \-                              |
@@ -2507,15 +2507,15 @@ In the previous analyses for the effect of single prolonged stress on other neur
 SMD_S_OthN_rho0.2 <- run_ML_SMD(df, "CvS", "Other neurobiological", 0.2)
 ```
 
-When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on other neurobiological outcomes of **SMD = `r SMD_S_OthN_rho0.2[["beta"]]`** (95% CI: `r SMD_S_OthN_rho0.2[["ci.lb"]]` to `r SMD_S_OthN_rho0.2[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OthN_rho0.2)$pi.lb` to `r predict(SMD_S_OthN_rho0.2)$pi.ub`).
+When the $\rho$ value is assumed to be 0.2, single prolonged stress had a pooled effect on other neurobiological outcomes of **SMD = `r SMD_S_OthN_rho0.2[["beta"]]`** (95% CI: `r SMD_S_OthN_rho0.2[["ci.lb"]]` to `r SMD_S_OthN_rho0.2[["ci.ub"]]`; 95% PrI: `r round(SMD_S_OthN_rho0.2[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_OthN_rho0.2[["pred_interval"]][["pi.ub"]],3)`).
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_OthN_rho0.8 <- run_ML_SMD(df, "CvS", "Other neurobiological", 0.8)
 ```
 
-When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on other neurobiological outomes of **SMD = `r SMD_S_OthN_rho0.8[["beta"]]`** (95% CI: `r SMD_S_OthN_rho0.8[["ci.lb"]]` to `r SMD_S_OthN_rho0.8[["ci.ub"]]`; 95% PrI: `r predict(SMD_S_OthN_rho0.8)$pi.lb` to `r predict(SMD_S_OthN_rho0.8)$pi.ub`).
+When the $\rho$ value is assumed to be 0.8, single prolonged stress had a pooled effect on other neurobiological outomes of **SMD = `r round(SMD_S_OthN_rho0.8[["SMD_ML"]][["beta"]],3)`** (95% CI: `r round(SMD_S_OthN_rho0.8[["SMD_ML"]][["ci.lb"]],3)` to `r round(SMD_S_OthN_rho0.8[["SMD_ML"]][["ci.ub"]],3)`; 95% PrI: `r round(SMD_S_OthN_rho0.8[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_OthN_rho0.8[["pred_interval"]][["pi.ub"]],3)`).
 
-For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_OthN[["beta"]]` (95% CI: `r SMD_S_OthN[["ci.lb"]]` to `r SMD_S_OthN[["ci.ub"]]`).
+For reference the pooled effect size when rho is assumed to be 0.5 is `r round(SMD_S_OthN[['SMD_ML']][["beta"]],3)` (95% CI: `r round(SMD_S_OthN[['SMD_ML']][["ci.lb"]],3)` to `r round(SMD_S_OthN[['SMD_ML']][["ci.ub"]],3)`).
 
 ### 2.8.6 Reporting bias/small-study effects
 
