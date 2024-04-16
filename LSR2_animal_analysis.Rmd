@@ -96,7 +96,7 @@ PRISMA_flowdiagram(dfp, interactive=FALSE, previous=FALSE, other=FALSE,
                     arrow_colour="Black", arrow_head="normal", arrow_tail="none", side_boxes=TRUE )
 ```
 
-**Table 1** below gives a summary of the included studies for the effect of model induction. N represents an aggregate of animals contributing to outcomes reported from control and treatment groups, and if the same control group has contributed to more than one experiment, those animals will be counted more than once.
+
 
 ```{r Included studies, eval = TRUE, echo = FALSE, warning=FALSE, message=FALSE}
 RoB <- unique(df[,c(4,6,12)])
@@ -160,55 +160,8 @@ write.csv(tab2i, 'tab2i.csv')
 write.csv(tab2m, 'tab2m.csv')
 ```
 
-```{r results="asis", echo = FALSE, warning=FALSE, message=FALSE}
 
-tab2m <- read_csv("data/tab2m.csv")
-tab2m$N <- as.numeric(tab2m$N)
-
-original_data <- tab2m
-# Rows to have bold lines beneath
-rows_with_bold_lines <- c(1,4,5,6,7,8,10,11,12,13,14,15,16,19,20,23,24,25,26,27,28,31,32,33)
-
-# Generate HTML table with adjusted styles
-cat('<div style="text-align: center;">')
-cat('<table style="width: 100%; border-collapse: collapse;">')
-
-# Table header
-cat('<tr style="border-bottom: 2px solid black;">')
-for (col_name in names(original_data)) {
-  cat(paste('<th style="padding: 8px; text-align: center;">', col_name, '</th>', sep = ''))
-}
-cat('</tr>')
-
-# Table rows
-for (i in seq_len(nrow(original_data))) {
-  cat('<tr>')
-  for (j in seq_len(ncol(original_data))) {
-    cell_content <- original_data[i, j]
-    cell_style <- ifelse(i %in% rows_with_bold_lines, 'border-bottom: 2px solid black; padding: 8px; text-align: center;', 'border-bottom: 1px solid black; padding: 8px; text-align: center;')
-    if (j == 1) {
-      cell_style <- gsub('text-align: center;', 'text-align: left;', cell_style)
-    }
-    if (i == nrow(original_data)) {
-      cell_style <- gsub('border-bottom: 1px solid black;', 'border-bottom: 2px solid black;', cell_style)
-    }
-    cat(paste('<td style="', cell_style, '">', cell_content, '</td>', sep = ''))
-  }
-  cat('</tr>')
-}
-
-cat('</table>')
-cat('</div>')
-
-
-
-```
-
-## Glossary
-
-iuGC - intra-uterine glucocorticoid: CMS - chronic mild stress: CUMS - chronic unpredictable mild stress: CUS - chronic unpredicatble stress: PNS - prenatal stress: Defeat - social defeat stress: TBI - traumatic brain injury: LPS - intraperitoneal lipopolysaccharide: MCAO - middle cerebral artery occlusion: WAG/Rij = genetic model of absence epilepsy with co-morbid depression
-
-**Table 2** below gives a summary of the included studies for the effect of exercise interventions. N represents an aggregate of animals contributing to outcomes reported from control and treatment groups, and if the same control group has contributed to more than one experiment, it will be counted twice.
+**Table 1** below gives a summary of the included studies for the effect of exercise interventions. N represents an aggregate of animals contributing to outcomes reported from control and treatment groups, and if the same control group has contributed to more than one experiment, it will be counted twice.
 
 ```{r results="asis", echo = FALSE, warning=FALSE, message=FALSE}
 
@@ -253,6 +206,53 @@ cat('</div>')
 
 
 ```
+
+**Table 2** below gives a summary of the included studies for the effect of model induction. N represents an aggregate of animals contributing to outcomes reported from control and treatment groups, and if the same control group has contributed to more than one experiment, those animals will be counted more than once.
+
+```{r results="asis", echo = FALSE, warning=FALSE, message=FALSE}
+
+tab2m <- read_csv("data/tab2m.csv")
+tab2m$N <- as.numeric(tab2m$N)
+
+original_data <- tab2m
+# Rows to have bold lines beneath
+rows_with_bold_lines <- c(1,4,5,6,7,8,10,11,12,13,14,15,16,19,20,23,24,25,26,27,28,31,32,33)
+
+# Generate HTML table with adjusted styles
+cat('<div style="text-align: center;">')
+cat('<table style="width: 100%; border-collapse: collapse;">')
+
+# Table header
+cat('<tr style="border-bottom: 2px solid black;">')
+for (col_name in names(original_data)) {
+  cat(paste('<th style="padding: 8px; text-align: center;">', col_name, '</th>', sep = ''))
+}
+cat('</tr>')
+
+# Table rows
+for (i in seq_len(nrow(original_data))) {
+  cat('<tr>')
+  for (j in seq_len(ncol(original_data))) {
+    cell_content <- original_data[i, j]
+    cell_style <- ifelse(i %in% rows_with_bold_lines, 'border-bottom: 2px solid black; padding: 8px; text-align: center;', 'border-bottom: 1px solid black; padding: 8px; text-align: center;')
+    if (j == 1) {
+      cell_style <- gsub('text-align: center;', 'text-align: left;', cell_style)
+    }
+    if (i == nrow(original_data)) {
+      cell_style <- gsub('border-bottom: 1px solid black;', 'border-bottom: 2px solid black;', cell_style)
+    }
+    cat(paste('<td style="', cell_style, '">', cell_content, '</td>', sep = ''))
+  }
+  cat('</tr>')
+}
+
+cat('</table>')
+cat('</div>')
+
+
+
+```
+
 
 References of included studies are located in the appendix. Included studies used `r length(table(df$ModelID))` unique disease model induction procedures.
 
@@ -341,7 +341,7 @@ SMD_S_L <- run_SMD(df, "TvC", "Locomotor")
 #TvC levels 4,4,2 so stop
 ```
 
-Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_L[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_L$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_L$data$StudyId))` publications and involving `r length(unique(SMD_S_L$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed.
+Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_L[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_L[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_L[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_L[["SMD_ML"]]$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed. We also now include these locomotor outcomes under the 'other behavioural' heading below.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 forest_metafor(SMD_S_L, "TvC", "Locomotor")
@@ -354,7 +354,7 @@ SMD_S_FM <- run_SMD(df, "TvC", "Fear memory")
 #TvC levels 4-4-1
 ```
 
-Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_FM[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_FM$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_FM$data$StudyId))` publications and involving `r length(unique(SMD_S_FM$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed.
+Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_FM[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_FM[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_FM[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_FM[["SMD_ML"]]$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed. We also now include these fear memory outcomes under the 'other behavioural' heading below.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 forest_metafor(SMD_S_FM, "TvC", "Locomotor")
@@ -367,7 +367,7 @@ SMD_S_Fr <- run_SMD(df, "TvC", "Freezing")
 # TvC levels 3-3-2
 ```
 
-Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_Fr[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_Fr$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_Fr$data$StudyId))` publications and involving `r length(unique(SMD_S_Fr$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed.
+Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_Fr[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_Fr[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_Fr[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_Fr[["SMD_ML"]]$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed. We also now include these Freezing outcomes under the 'other behavioural' heading below.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 forest_metafor(SMD_S_Fr, "TvC", "Freezing")
@@ -1672,7 +1672,7 @@ SMD_S_L <- run_SMD(df, "CvS", "Locomotor")
 #levels 4,4,2 so stop
 ```
 
-Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_L[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_L$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_L$data$StudyId))` publications and involving `r length(unique(SMD_S_L$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed.
+Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_L[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_L[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_L[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_L[["SMD_ML"]]$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed. We also now include these locomotor outcomes under the 'other behavioural' heading below.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 forest_metafor(SMD_S_L, "CvS", "Locomotor")
@@ -1685,7 +1685,7 @@ SMD_S_FM <- run_SMD(df, "CvS", "Fear memory")
 #levels 4-4-1
 ```
 
-Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_FM[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_FM$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_FM$data$StudyId))` publications and involving `r length(unique(SMD_S_FM$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed.
+Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_FM[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_FM[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_FM[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_FM[["SMD_ML"]]$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed. We also now include these fear memory outcomes under the 'other behavioural' heading below.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 forest_metafor(SMD_S_FM, "CvS", "Locomotor")
@@ -1698,7 +1698,7 @@ SMD_S_Fr <- run_SMD(df, "CvS", "Freezing")
 # levels 3-3-2
 ```
 
-Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_Fr[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_Fr$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_Fr$data$StudyId))` publications and involving `r length(unique(SMD_S_Fr$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed.
+Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_Fr[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_Fr[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_Fr[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_Fr[["SMD_ML"]]$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed. We also now include these freezing outcomes under the 'other behavioural' heading below.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 forest_metafor(SMD_S_Fr, "CvS", "Freezing")
