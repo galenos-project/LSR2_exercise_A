@@ -96,8 +96,6 @@ PRISMA_flowdiagram(dfp, interactive=FALSE, previous=FALSE, other=FALSE,
                     arrow_colour="Black", arrow_head="normal", arrow_tail="none", side_boxes=TRUE )
 ```
 
-
-
 ```{r Included studies, eval = TRUE, echo = FALSE, warning=FALSE, message=FALSE}
 RoB <- unique(df[,c(4,6,12)])
 
@@ -159,7 +157,6 @@ tab2i <- tab2i %>%
 write.csv(tab2i, 'tab2i.csv')
 write.csv(tab2m, 'tab2m.csv')
 ```
-
 
 **Table 1** below gives a summary of the included studies for the effect of exercise interventions. N represents an aggregate of animals contributing to outcomes reported from control and treatment groups, and if the same control group has contributed to more than one experiment, it will be counted twice.
 
@@ -252,7 +249,6 @@ cat('</div>')
 
 
 ```
-
 
 References of included studies are located in the appendix. Included studies used `r length(table(df$ModelID))` unique disease model induction procedures.
 
@@ -402,13 +398,13 @@ Figure 2.4.1 shows the risk of bias summary for studies investigating the effect
 
 **Figure 2.4.1**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=8}
 SyRCLE_RoB_traffic(df, "TvC", "Other behavioural")
 ```
 
 ### 2.4.2 Reporting completeness
 
-Figure 2.4.2 shows the reporting completeness summary for studies investigating the effect of exercise on other behavioural outcomesin animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
+Figure 2.4.2 shows the reporting completeness summary for studies investigating the effect of exercise on other behavioural outcomes in animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
 
 **Figure 2.4.2**
 
@@ -434,7 +430,7 @@ Exercise interventions had a pooled effect on other behavioural outcomes induced
 
 `r SMD_S_OB$SMD_ML[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_OB[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_OB[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_OB[["SMD_ML"]]$data$Strain))` different animal strain(s).
 
-|            Level            |                                             Number of categories for that level included in this analysis                                              |                                                                 Attributable variance                                                                  |
+|            Level            |                                                               Number of categories for that level included in this analysis                                                                |                                                                                   Attributable variance                                                                                    |
 |:----------------------:|:----------------------:|:----------------------:|
 |           Strain            |                        `r ifelse('Strain' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$s.nlevels[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$sigma2[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'Strain')]], NA)`                         |
 |       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$s.nlevels[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$sigma2[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'Strain/StudyId')]], NA)`                 |
@@ -470,7 +466,7 @@ Figure 2.4.4.1 displays the estimates for the pooled SMD's when comparisons are 
 SMD_S_OB_sex <- subgroup_analysis(df, "TvC", "Other behavioural", "Sex", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "TvC", "Other behavioural", "Sex", SMD_S_OB_sex, SMD_S_OB)
 ```
 
@@ -498,7 +494,7 @@ Figure 2.4.4.2 displays the estimates for the pooled SMD when comparisons are st
 SMD_S_OB_VoF <- subgroup_analysis(df, "TvC", "Other behavioural", "VoF", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "TvC", "Other behavioural", "VoF", SMD_S_OB_VoF, SMD_S_OB)
 ```
 
@@ -593,7 +589,7 @@ The p-value for the association between total exercise and the outcome reported 
 
 #### **SyRCLE RoB assessment considered as a categorical variable**
 
-Figure 2.4.4.6 displays the estimates for the pooled SMD when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.4.4.6 displays the estimates for the pooled SMD when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
 
 **Figure 2.4.4.6**
 
@@ -601,7 +597,7 @@ Figure 2.4.4.6 displays the estimates for the pooled SMD when comparisons are st
 SMD_S_OB_SyRCLERoB <- subgroup_analysis(df, "TvC", "Other behavioural", "RoBScore", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "TvC", "Other behavioural", "RoBScore", SMD_S_OB_SyRCLERoB, SMD_S_OB)
 ```
 
@@ -629,7 +625,7 @@ Figure 2.4.4.4 displays the estimates for the pooled SMD when comparisons are st
 SMD_S_OB_SyRCLERoBTF <- subgroup_analysis(df, "TvC", "Other behavioural", "RoBTF", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "TvC", "Other behavioural", "RoBTF", SMD_S_OB_SyRCLERoBTF, SMD_S_OB)
 ```
 
@@ -684,7 +680,7 @@ The table below shows which of the covariates, if any, explain some of the heter
 
 |       Moderator        |             Category              |                     $\beta$                      |                                                 95% CI                                                 |                     Marginal R^2^ (%)                      |
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |                \-                 |               `r SMD_S_OB[["SMD_ML"]]$beta[1]`               |                                `r SMD_S_OB[["SMD_ML"]]$ci.lb` to `r SMD_S_OB[["SMD_ML"]]$ci.ub`                                |                             \-                             |
+|     Overall effect     |                \-                 |         `r SMD_S_OB[["SMD_ML"]]$beta[1]`         |                    `r SMD_S_OB[["SMD_ML"]]$ci.lb` to `r SMD_S_OB[["SMD_ML"]]$ci.ub`                    |                             \-                             |
 |          Sex           |                \-                 |                        \-                        |                                                   \-                                                   |        `r round((r2_ml(SMD_S_OB_sexI)[1]*100),1)`%         |
 |           \-           |             *Female*              |            `r SMD_S_OB_sexI$beta[1]`             |                        `r SMD_S_OB_sexI$ci.lb[1]` to `r SMD_S_OB_sexI$ci.ub[1]`                        |                             \-                             |
 |           \-           |              *Male*               |            `r SMD_S_OB_sexI$beta[2]`             |                        `r SMD_S_OB_sexI$ci.lb[2]` to `r SMD_S_OB_sexI$ci.ub[2]`                        |                             \-                             |
@@ -748,7 +744,7 @@ Figure 2.5.1 shows the risk of bias summary for studies investigating the effect
 
 **Figure 2.5.1**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 SyRCLE_RoB_traffic(df, "TvC", "BDNF")
 ```
 
@@ -758,7 +754,7 @@ Figure 2.5.2 shows the reporting completeness summary for studies investigating 
 
 **Figure 2.5.2**
 
-```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 10}
+```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=8}
 ARRIVE_traffic(df, "TvC", "BDNF")
 ```
 
@@ -772,7 +768,7 @@ The effect of exercise on BDNF in animals using SMD as the effect size is shown 
 
 **Figure 2.5.3**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=8}
 forest_metafor(SMD_S_B, "TvC", "BDNF")
 ```
 
@@ -780,7 +776,7 @@ Exercise had a pooled effect on BDNF of SMD = `r round(SMD_S_B[["SMD_ML"]][['bet
 
 `r SMD_S_B[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_B[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_B[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_B[["SMD_ML"]]$data$Strain))` different animal strain(s).
 
-|            Level            |                                            Number of categories for that level included in this analysis                                            |                                                                Attributable variance                                                                |
+|            Level            |                                                              Number of categories for that level included in this analysis                                                              |                                                                                  Attributable variance                                                                                  |
 |:----------------------:|:----------------------:|:----------------------:|
 |           Strain            |                        `r ifelse('Strain' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$s.nlevels[[which(SMD_S_B[["SMD_ML"]]$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$sigma2[[which(SMD_S_B[["SMD_ML"]]$s.names == 'Strain')]], NA)`                         |
 |       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$s.nlevels[[which(SMD_S_B[["SMD_ML"]]$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$sigma2[[which(SMD_S_B[["SMD_ML"]]$s.names == 'Strain/StudyId')]], NA)`                 |
@@ -816,7 +812,7 @@ Figure 2.5.4.1 displays the estimates for the pooled SMD when comparisons are st
 SMD_S_B_sex <- subgroup_analysis(df, "TvC", "BDNF", "Sex", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "TvC", "BDNF", "Sex", SMD_S_B_sex, SMD_S_B)
 ```
 
@@ -844,7 +840,7 @@ Figure 2.4.4.2 displays the estimates for the pooled SMD when comparisons are st
 SMD_S_B_VoF <- subgroup_analysis(df, "TvC", "BDNF", "VoF", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "TvC", "BDNF", "VoF", SMD_S_B_VoF, SMD_S_B)
 ```
 
@@ -982,7 +978,7 @@ The table below shows which of the covariates, if any, explain some of the heter
 
 |       Moderator        |             Category              |                     $\beta$                     |                                                95% CI                                                |                     Marginal R^2^ (%)                     |
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |                \-                 |               `r SMD_S_B[["SMD_ML"]]$beta[1]`               |                                `r SMD_S_B[["SMD_ML"]]$ci.lb` to `r SMD_S_B[["SMD_ML"]]$ci.ub`                                |                            \-                             |
+|     Overall effect     |                \-                 |         `r SMD_S_B[["SMD_ML"]]$beta[1]`         |                    `r SMD_S_B[["SMD_ML"]]$ci.lb` to `r SMD_S_B[["SMD_ML"]]$ci.ub`                    |                            \-                             |
 |          Sex           |                \-                 |                       \-                        |                                                  \-                                                  |        `r round((r2_ml(SMD_S_B_sexI)[1]*100),1)`%         |
 |           \-           |             *Female*              |            `r SMD_S_B_sexI$beta[1]`             |                        `r SMD_S_B_sexI$ci.lb[1]` to `r SMD_S_B_sexI$ci.ub[1]`                        |                            \-                             |
 |           \-           |              *Male*               |            `r SMD_S_B_sexI$beta[2]`             |                        `r SMD_S_B_sexI$ci.lb[2]` to `r SMD_S_B_sexI$ci.ub[2]`                        |                            \-                             |
@@ -1053,7 +1049,7 @@ Figure 2.6.2 shows the reporting completeness summary for studies investigating 
 
 **Figure 2.6.2**
 
-```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 10}
+```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=8}
 ARRIVE_traffic(df, "TvC", "Stress response")
 ```
 
@@ -1075,7 +1071,7 @@ Exercise interventions had a pooled effect on biological stress response induced
 
 `r SMD_S_StR[["SMD_M"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_StR[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_StR[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_StR[["SMD_ML"]]$data$Strain))` different animal strain(s).
 
-|            Level            |                                               Number of categories for that level included in this analysis                                               |                                                                   Attributable variance                                                                   |
+|            Level            |                                                                 Number of categories for that level included in this analysis                                                                 |                                                                                     Attributable variance                                                                                     |
 |:----------------------:|:----------------------:|:----------------------:|
 |           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$s.nlevels[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$sigma2[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain')]], NA)`                         |
 |       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$s.nlevels[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$sigma2[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain/StudyId')]], NA)`                 |
@@ -1111,7 +1107,7 @@ Figure 2.6.4.1 displays the estimates for the pooled SMD when comparisons are st
 SMD_S_StR_sex <- subgroup_analysis(df, "TvC", "Stress response", "Sex", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "TvC", "Stress response", "Sex", SMD_S_StR_sex, SMD_S_StR)
 ```
 
@@ -1218,7 +1214,7 @@ Figure 2.6.4.5 displays the estimates for the pooled SMD when comparisons are st
 SMD_S_StR_SyRCLERoB <- subgroup_analysis(df, "TvC", "Stress response", "RoBScore", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "TvC", "Stress response", "RoBScore", SMD_S_StR_SyRCLERoB, SMD_S_StR)
 ```
 
@@ -1302,7 +1298,7 @@ The table below shows which of the covariates, if any, explain some of the heter
 
 |       Moderator        |             Category              |                      $\beta$                      |                                                  95% CI                                                  |                      Marginal R^2^ (%)                      |
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |                \-                 |               `r SMD_S_StR[["SMD_ML"]]$beta[1]`               |                                `r SMD_S_StR[["SMD_ML"]]$ci.lb` to `r SMD_S_StR[["SMD_ML"]]$ci.ub`                                |                             \-                              |
+|     Overall effect     |                \-                 |         `r SMD_S_StR[["SMD_ML"]]$beta[1]`         |                    `r SMD_S_StR[["SMD_ML"]]$ci.lb` to `r SMD_S_StR[["SMD_ML"]]$ci.ub`                    |                             \-                              |
 |          Sex           |                \-                 |                        \-                         |                                                    \-                                                    |        `r round((r2_ml(SMD_S_StR_sexI)[1]*100),1)`%         |
 |           \-           |             *Female*              |            `r SMD_S_StR_sexI$beta[1]`             |                        `r SMD_S_StR_sexI$ci.lb[1]` to `r SMD_S_StR_sexI$ci.ub[1]`                        |                             \-                              |
 |           \-           |              *Male*               |            `r SMD_S_StR_sexI$beta[2]`             |                        `r SMD_S_StR_sexI$ci.lb[2]` to `r SMD_S_StR_sexI$ci.ub[2]`                        |                             \-                              |
@@ -1367,7 +1363,7 @@ Figure 2.8.1 shows the risk of bias summary for studies investigating the effect
 
 **Figure 2.8.1**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 SyRCLE_RoB_traffic(df, "TvC", "Other neurobiological")
 ```
 
@@ -1377,7 +1373,7 @@ Figure 2.8.2 shows the reporting completeness summary for studies investigating 
 
 **Figure 2.8.2**
 
-```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 10}
+```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
 ARRIVE_traffic(df, "TvC", "Other neurobiological")
 ```
 
@@ -1387,19 +1383,19 @@ ARRIVE_traffic(df, "TvC", "Other neurobiological")
 SMD_S_OthN <- run_ML_SMD(df, "TvC", "Other neurobiological", 0.5)
 ```
 
-The effect of exercise on other neurobiological outcomes in animals using SMD as the effect size is shown in Figure 2.1.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
+The effect of exercise on other neurobiological outcomes in animals using SMD as the effect size is shown in Figure 2.8.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
 
 **Figure 2.8.3**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=15}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=14}
 forest_metafor(SMD_S_OthN, "TvC", "Other neurobiological")
 ```
 
-Exercise interventions had a pooled effect on biological stress response induced by single prolonged stress of SMD = `r round(SMD_S_OthN[["SMD_ML"]][['beta']], 3)` , (95% CI: `r round(SMD_S_OthN[["SMD_ML"]][['ci.lb']], 3)` to `r round(SMD_S_OthN[["SMD_ML"]][['ci.ub']], 3)`; 95% PrI: `r round(SMD_S_OthN[["pred_interval"]][["pi.lb"]], 3)` to `r round(SMD_S_OthN[["pred_interval"]][["pi.ub"]], 3)`.
+Exercise interventions had a pooled effect on other neurobiological outcomes induced by single prolonged stress of SMD = `r round(SMD_S_OthN[["SMD_ML"]][['beta']], 3)` , (95% CI: `r round(SMD_S_OthN[["SMD_ML"]][['ci.lb']], 3)` to `r round(SMD_S_OthN[["SMD_ML"]][['ci.ub']], 3)`; 95% PrI: `r round(SMD_S_OthN[["pred_interval"]][["pi.lb"]], 3)` to `r round(SMD_S_OthN[["pred_interval"]][["pi.ub"]], 3)`.
 
 `r SMD_S_OthN[['SMD_ML']][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_OthN[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_OthN[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_OthN[["SMD_ML"]]$data$Strain))` different animal strain(s).
 
-|            Level            |                                                Number of categories for that level included in this analysis                                                 |                                                                    Attributable variance                                                                     |
+|            Level            |                                                                  Number of categories for that level included in this analysis                                                                   |                                                                                      Attributable variance                                                                                       |
 |:----------------------:|:----------------------:|:----------------------:|
 |           Strain            |                        `r ifelse('Strain' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$s.nlevels[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$sigma2[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain')]], NA)`                         |
 |       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$s.nlevels[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$sigma2[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain/StudyId')]], NA)`                 |
@@ -1435,7 +1431,7 @@ Figure 2.8.4.1 displays the estimates for the pooled SMD when comparisons are st
 SMD_S_OthN_sex <- subgroup_analysis(df, "TvC", "Other neurobiological", "Sex", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "TvC", "Other neurobiological", "Sex", SMD_S_OthN_sex, SMD_S_OthN)
 ```
 
@@ -1463,7 +1459,7 @@ Figure 2.8.4.2 displays the estimates for the pooled SMD when comparisons are st
 SMD_S_OthN_VoF <- subgroup_analysis(df, "TvC", "Other neurobiological", "VoF", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "TvC", "Other neurobiological", "VoF", SMD_S_OthN_VoF, SMD_S_OthN)
 ```
 
@@ -1601,7 +1597,7 @@ The table below shows which of the covariates, if any, explain some of the heter
 
 |       Moderator        |             Category              |                      $\beta$                       |                                                   95% CI                                                   |                      Marginal R^2^ (%)                       |
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |                \-                 |               `r SMD_S_OthN[["SMD_ML"]]$beta[1]`               |                                `r SMD_S_OthN[["SMD_ML"]]$ci.lb` to `r SMD_S_OthN[["SMD_ML"]]$ci.ub`                                |                              \-                              |
+|     Overall effect     |                \-                 |         `r SMD_S_OthN[["SMD_ML"]]$beta[1]`         |                    `r SMD_S_OthN[["SMD_ML"]]$ci.lb` to `r SMD_S_OthN[["SMD_ML"]]$ci.ub`                    |                              \-                              |
 |          Sex           |                \-                 |                         \-                         |                                                     \-                                                     |        `r round((r2_ml(SMD_S_OthN_sexI)[1]*100),1)`%         |
 |           \-           |             *Female*              |            `r SMD_S_OthN_sexI$beta[1]`             |                        `r SMD_S_OthN_sexI$ci.lb[1]` to `r SMD_S_OthN_sexI$ci.ub[1]`                        |                              \-                              |
 |           \-           |              *Male*               |            `r SMD_S_OthN_sexI$beta[2]`             |                        `r SMD_S_OthN_sexI$ci.lb[2]` to `r SMD_S_OthN_sexI$ci.ub[2]`                        |                              \-                              |
@@ -1754,7 +1750,7 @@ Figure 3.4.1 shows the risk of bias summary for studies investigating the effect
 
 **Figure 3.4.1**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=8}
 SyRCLE_RoB_traffic(df, "CvS", "Other behavioural")
 ```
 
@@ -1774,11 +1770,11 @@ ARRIVE_traffic(df, "CvS", "Other behavioural")
 SMD_S_OB <- run_ML_SMD(df, "CvS", "Other behavioural", 0.5)
 ```
 
-The effect of single prolonged stress on other bevaiours in animals using SMD as the effect size is shown in Figure 3.4.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
+The effect of single prolonged stress on other behaviours in animals using SMD as the effect size is shown in Figure 3.4.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
 
 **Figure 3.4.3**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 12}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 15}
 forest_metafor(SMD_S_OB, "CvS", "Other behavioural")
 ```
 
@@ -1788,7 +1784,7 @@ Single prolonged stress had a pooled effect on other behaviours of SMD = `r roun
 
 The following table structure is used throughout this report and is used to show the different levels contributing to that analysis, the number of unique categories in those levels, and the variance contributed by that level of analysis. Because levels are only included in the analysis where there are five or more unique categories, for some analyses the number of categories is 0, and the variance attributed to those levels in not applicable. Because the model is hierarchical, where for instance there are **Studies** which include different **Strains**, the number of categories for **Study x Strain** will exceed the number of Studies (by which we mean unique publications) referred to in the text.
 
-|            Level            |                                             Number of categories for that level included in this analysis                                              |                                                                 Attributable variance                                                                  |
+|            Level            |                                                               Number of categories for that level included in this analysis                                                                |                                                                                   Attributable variance                                                                                    |
 |:----------------------:|:----------------------:|:----------------------:|
 |           Strain            |                        `r ifelse('Strain' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$s.nlevels[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$sigma2[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'Strain')]], NA)`                         |
 |       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$s.nlevels[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OB[["SMD_ML"]]$s.names, SMD_S_OB[["SMD_ML"]]$sigma2[[which(SMD_S_OB[["SMD_ML"]]$s.names == 'Strain/StudyId')]], NA)`                 |
@@ -1820,7 +1816,7 @@ Figure 3.4.4.1 displays the estimates for the pooled SMD's when comparisons are 
 SMD_S_OB_sex <- subgroup_analysis(df, "CvS", "Other behavioural", "Sex", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "CvS", "Other behavioural", "Sex", SMD_S_OB_sex, SMD_S_OB)
 ```
 
@@ -1848,7 +1844,7 @@ Figure 3.4.4.3 displays the estimates for the pooled SMD's when comparisons are 
 SMD_S_OB_SyRCLERoB <- subgroup_analysis(df, "CvS", "Other behavioural", "RoBScore", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "CvS", "Other behavioural", "RoBScore", SMD_S_OB_SyRCLERoB, SMD_S_OB)
 ```
 
@@ -1876,7 +1872,7 @@ Figure 3.4.4.4 displays the estimates for the pooled SMD's when comparisons are 
 SMD_S_OB_SyRCLERoBTF <- subgroup_analysis(df, "CvS", "Other behavioural", "RoBTF", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "CvS", "Other behavioural", "RoBTF", SMD_S_OB_SyRCLERoBTF, SMD_S_OB)
 ```
 
@@ -1931,7 +1927,7 @@ The table below shows which of the covariates, if any, explain some of the heter
 
 |       Moderator        |      Category       |                     $\beta$                      |                                                 95% CI                                                 |                     Marginal R^2^ (%)                      |
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |         \-          |               `r SMD_S_OB[["SMD_ML"]]$beta[1]`               |                                `r SMD_S_OB[["SMD_ML"]]$ci.lb` to `r SMD_S_OB[["SMD_ML"]]$ci.ub`                                |                             \-                             |
+|     Overall effect     |         \-          |         `r SMD_S_OB[["SMD_ML"]]$beta[1]`         |                    `r SMD_S_OB[["SMD_ML"]]$ci.lb` to `r SMD_S_OB[["SMD_ML"]]$ci.ub`                    |                             \-                             |
 |          Sex           |         \-          |                        \-                        |                                                   \-                                                   |        `r round((r2_ml(SMD_S_OB_sexI)[1]*100),1)`%         |
 |           \-           |      *Female*       |            `r SMD_S_OB_sexI$beta[1]`             |                        `r SMD_S_OB_sexI$ci.lb[1]` to `r SMD_S_OB_sexI$ci.ub[1]`                        |                             \-                             |
 |           \-           |       *Male*        |            `r SMD_S_OB_sexI$beta[2]`             |                        `r SMD_S_OB_sexI$ci.lb[2]` to `r SMD_S_OB_sexI$ci.ub[2]`                        |                             \-                             |
@@ -1996,7 +1992,7 @@ Figure 3.5.2 shows the reporting completeness summary for studies investigating 
 
 **Figure 3.5.2**
 
-```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 10}
+```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 6}
 ARRIVE_traffic(df, "CvS", "Stress response")
 ```
 
@@ -2010,7 +2006,7 @@ The effect of single prolonged stress on other behaviours in animals using SMD a
 
 **Figure 3.5.3**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=8}
 forest_metafor(SMD_S_B, "CvS", "BDNF")
 ```
 
@@ -2018,7 +2014,7 @@ Single prolonged stress had a pooled effect on other behaviours of SMD = `r roun
 
 `r SMD_S_B[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_B[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_B[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_B[["SMD_ML"]]$data$Strain))` different animal strain(s).
 
-|            Level            |                                            Number of categories for that level included in this analysis                                            |                                                                Attributable variance                                                                |
+|            Level            |                                                              Number of categories for that level included in this analysis                                                              |                                                                                  Attributable variance                                                                                  |
 |:----------------------:|:----------------------:|:----------------------:|
 |           Strain            |                        `r ifelse('Strain' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$s.nlevels[[which(SMD_S_B[["SMD_ML"]]$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$sigma2[[which(SMD_S_B[["SMD_ML"]]$s.names == 'Strain')]], NA)`                         |
 |       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$s.nlevels[[which(SMD_S_B[["SMD_ML"]]$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_B[["SMD_ML"]]$s.names, SMD_S_B[["SMD_ML"]]$sigma2[[which(SMD_S_B[["SMD_ML"]]$s.names == 'Strain/StudyId')]], NA)`                 |
@@ -2050,7 +2046,7 @@ Figure 3.5.4.1 displays the estimates for the pooled SMD's when comparisons are 
 SMD_S_B_sex <- subgroup_analysis(df, "CvS", "BDNF", "Sex", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "CvS", "BDNF", "Sex", SMD_S_B_sex, SMD_S_B)
 ```
 
@@ -2113,7 +2109,7 @@ The table below shows which of the covariates, if any, explain some of the heter
 
 |       Moderator        |      Category       |                     $\beta$                     |                                                95% CI                                                |                     Marginal R^2^ (%)                     |
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |         \-          |               `r SMD_S_B[["SMD_ML"]]$beta[1]`               |                                `r SMD_S_B[["SMD_ML"]]$ci.lb` to `r SMD_S_B[["SMD_ML"]]$ci.ub`                                |                            \-                             |
+|     Overall effect     |         \-          |         `r SMD_S_B[["SMD_ML"]]$beta[1]`         |                    `r SMD_S_B[["SMD_ML"]]$ci.lb` to `r SMD_S_B[["SMD_ML"]]$ci.ub`                    |                            \-                             |
 |          Sex           |         \-          |                       \-                        |                                                  \-                                                  |        `r round((r2_ml(SMD_S_B_sexI)[1]*100),1)`%         |
 |           \-           |      *Female*       |            `r SMD_S_B_sexI$beta[1]`             |                        `r SMD_S_B_sexI$ci.lb[1]` to `r SMD_S_B_sexI$ci.ub[1]`                        |                            \-                             |
 |           \-           |       *Male*        |            `r SMD_S_B_sexI$beta[2]`             |                        `r SMD_S_B_sexI$ci.lb[2]` to `r SMD_S_B_sexI$ci.ub[2]`                        |                            \-                             |
@@ -2175,7 +2171,7 @@ Figure 3.6.2 shows the reporting completeness summary for studies investigating 
 
 **Figure 3.6.2**
 
-```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=10}
+```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=8}
 ARRIVE_traffic(df, "CvS", "Stress response")
 ```
 
@@ -2189,7 +2185,7 @@ The effect of single prolonged stress on the biological stress response in anima
 
 **Figure 3.6.3**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=6}
 forest_metafor(SMD_S_StR, "CvS", "Stress response")
 ```
 
@@ -2197,7 +2193,7 @@ Single prolonged stress had a pooled effect on biological stress response of SMD
 
 `r SMD_S_StR[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_StR[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_StR[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_StR[["SMD_ML"]]$data$Strain))` different animal strain(s).
 
-|            Level            |                                               Number of categories for that level included in this analysis                                               |                                                                   Attributable variance                                                                   |
+|            Level            |                                                                 Number of categories for that level included in this analysis                                                                 |                                                                                     Attributable variance                                                                                     |
 |:----------------------:|:----------------------:|:----------------------:|
 |           Strain            |                        `r ifelse('Strain' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$s.nlevels[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$sigma2[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain')]], NA)`                         |
 |       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$s.nlevels[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_StR[["SMD_ML"]]$s.names, SMD_S_StR[["SMD_ML"]]$sigma2[[which(SMD_S_StR[["SMD_ML"]]$s.names == 'Strain/StudyId')]], NA)`                 |
@@ -2229,7 +2225,7 @@ Figure 3.6.4.1 displays the estimates for the pooled SMD's when comparisons are 
 SMD_S_StR_sex <- subgroup_analysis(df, "CvS", "Stress response", "Sex", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "CvS", "Stress response", "Sex", SMD_S_StR_sex, SMD_S_StR)
 ```
 
@@ -2257,7 +2253,7 @@ Figure 3.6.4.3 displays the estimates for the pooled SMD when comparisons are st
 SMD_S_StR_SyRCLERoB <- subgroup_analysis(df, "CvS", "Stress response", "RoBScore", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "CvS", "Stress response", "RoBScore", SMD_S_StR_SyRCLERoB, SMD_S_StR)
 ```
 
@@ -2285,7 +2281,7 @@ Figure 3.6.4.4 displays the estimates for the pooled SMD when comparisons are st
 SMD_S_StR_SyRCLERoBTF <- subgroup_analysis(df, "CvS", "Stress response", "RoBTF", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "CvS", "Stress response", "RoBTF", SMD_S_StR_SyRCLERoBTF, SMD_S_StR)
 ```
 
@@ -2340,7 +2336,7 @@ The table below shows which of the covariates, if any, explain some of the heter
 
 |       Moderator        |      Category       |                      $\beta$                      |                                                  95% CI                                                  |                      Marginal R^2^ (%)                      |
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |         \-          |               `r SMD_S_StR[["SMD_ML"]]$beta[1]`               |                                `r SMD_S_StR[["SMD_ML"]]$ci.lb` to `r SMD_S_StR[["SMD_ML"]]$ci.ub`                                |                             \-                              |
+|     Overall effect     |         \-          |         `r SMD_S_StR[["SMD_ML"]]$beta[1]`         |                    `r SMD_S_StR[["SMD_ML"]]$ci.lb` to `r SMD_S_StR[["SMD_ML"]]$ci.ub`                    |                             \-                              |
 |          Sex           |         \-          |                        \-                         |                                                    \-                                                    |        `r round((r2_ml(SMD_S_StR_sexI)[1]*100),1)`%         |
 |           \-           |      *Female*       |            `r SMD_S_StR_sexI$beta[1]`             |                        `r SMD_S_StR_sexI$ci.lb[1]` to `r SMD_S_StR_sexI$ci.ub[1]`                        |                             \-                              |
 |           \-           |       *Male*        |            `r SMD_S_StR_sexI$beta[2]`             |                        `r SMD_S_StR_sexI$ci.lb[2]` to `r SMD_S_StR_sexI$ci.ub[2]`                        |                             \-                              |
@@ -2389,7 +2385,7 @@ Egger regression based on `r run_sse_SMD_L(df, 'CvS', 'Stress response')[["k"]]`
 
 ## 3.7 Outcome 7: Neurotransmitter levels
 
-No outcomes were presented
+No outcomes were presented.
 
 ## 3.8 Outcome 8: Other neurobiological outcomes
 
@@ -2409,7 +2405,7 @@ Figure 3.8.2 shows the reporting completeness summary for studies investigating 
 
 **Figure 3.8.2**
 
-```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 10}
+```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
 ARRIVE_traffic(df, "CvS", "Other neurobiological")
 ```
 
@@ -2423,7 +2419,7 @@ The effect of single prolonged stress on other neurobiological outcomes in anima
 
 **Figure 3.8.3**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=15}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=12}
 forest_metafor(SMD_S_OthN, "CvS", "Other neurobiological")
 ```
 
@@ -2431,7 +2427,7 @@ Single prolonged stress had a pooled effect on other neurobiological outcomes of
 
 `r SMD_S_OthN[['SMD_ML']][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_OthN[['SMD_ML']]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_OthN[['SMD_ML']]$data$StudyId))` publications and involving `r length(unique(SMD_S_OthN[['SMD_ML']]$data$Strain))` different animal strain(s).
 
-|            Level            |                                                Number of categories for that level included in this analysis                                                 |                                                                    Attributable variance                                                                     |
+|            Level            |                                                                  Number of categories for that level included in this analysis                                                                   |                                                                                      Attributable variance                                                                                       |
 |:----------------------:|:----------------------:|:----------------------:|
 |           Strain            |                        `r ifelse('Strain' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$s.nlevels[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$sigma2[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain')]], NA)`                         |
 |       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$s.nlevels[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_OthN[["SMD_ML"]]$s.names, SMD_S_OthN[["SMD_ML"]]$sigma2[[which(SMD_S_OthN[["SMD_ML"]]$s.names == 'Strain/StudyId')]], NA)`                 |
@@ -2463,7 +2459,7 @@ Figure 3.8.4.1 displays the estimates for the pooled SMD when comparisons are st
 SMD_S_OthN_sex <- subgroup_analysis(df, "CvS", "Other neurobiological", "Sex", 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.height=3}
 plot_subgroup_analysis(df, "CvS", "Other neurobiological", "Sex", SMD_S_OthN_sex, SMD_S_OthN)
 ```
 
@@ -2526,7 +2522,7 @@ The table below shows which of the covariates, if any, explain some of the heter
 
 |       Moderator        |      Category       |                      $\beta$                       |                                                   95% CI                                                   |                      Marginal R^2^ (%)                       |
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-|     Overall effect     |         \-          |               `r SMD_S_OthN[["SMD_ML"]]$beta[1]`               |                                `r SMD_S_OthN[["SMD_ML"]]$ci.lb` to `r SMD_S_OthN[["SMD_ML"]]$ci.ub`                                |                              \-                              |
+|     Overall effect     |         \-          |         `r SMD_S_OthN[["SMD_ML"]]$beta[1]`         |                    `r SMD_S_OthN[["SMD_ML"]]$ci.lb` to `r SMD_S_OthN[["SMD_ML"]]$ci.ub`                    |                              \-                              |
 |          Sex           |         \-          |                         \-                         |                                                     \-                                                     |        `r round((r2_ml(SMD_S_OthN_sexI)[1]*100),1)`%         |
 |           \-           |      *Female*       |            `r SMD_S_OthN_sexI$beta[1]`             |                        `r SMD_S_OthN_sexI$ci.lb[1]` to `r SMD_S_OthN_sexI$ci.ub[1]`                        |                              \-                              |
 |           \-           |       *Male*        |            `r SMD_S_OthN_sexI$beta[2]`             |                        `r SMD_S_OthN_sexI$ci.lb[2]` to `r SMD_S_OthN_sexI$ci.ub[2]`                        |                              \-                              |
@@ -2569,8 +2565,6 @@ run_sse_plot_SMD_L(df, 'CvS', 'Other neurobiological')
 ```
 
 Egger regression based on `r run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["k"]]` studies of modelling of depression where other neurobiological outcomes was measured showed a coefficient for a small study effect of `r run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'Other neurobiological')[["pval"]][2]))`).
-
-
 
 # 4. Observed relationships between different outcomes measures in the same cohorts of animals
 

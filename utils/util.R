@@ -100,9 +100,10 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
     forest_plot <- if(experiment_type == "TvC"){
       forest(model$SMD_ML,
              xlim=c(xleft, xright),
-             ylim=c(-2, model$SMD_ML$k+6), rows=c((model$SMD_ML$k+2):3),
+             #ylim=c(-2, model$SMD_ML$k+5), 
+             rows=c((model$SMD_ML$k+1):2),
              mlab="SMD [95% C.I.]", 
-             alim=c((lower_x), (upper_x)),
+             alim=c((lower_x-1), (upper_x)),
              slab=paste(word(Authors_I, 1), Year, Strain),
              at = at_values,
              col = c("grey","grey"),
@@ -113,20 +114,21 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
              order=StudyId,
              xlab = "",
              ilab = cbind(ARRIVEScore, Label),
-             ilab.xpos = c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))),
+             ilab.xpos = c((lower_x-(0.6*arange)),(lower_x-(0.20*arange))),
              lty = c("solid","solid","solid"),
-             cex = 0.6, 
+             cex = 0.75, 
              cex.axis = 1.0, 
              cex.lab = 1.2,
              efac = c(1,1,2))
-      text(c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))), c("Reporting\n completeness", "Drug"), cex=0.75, font=2, adj = 0)
+      text(c((lower_x-(0.6*arange)),(lower_x-(0.20*arange))), model$SMD_ML$k+3, c("Reporting \ncompleteness", "Intervention"), cex=0.75, font=2)
     } else {
       if(experiment_type == "CvS"){
       forest(model$SMD_ML,
-             xlim=c(xleft, xright),
-             ylim=c(-2, model$SMD_ML$k+6), rows=c((model$SMD_ML$k+2):3),
+             xlim=c((xleft+(0.5*arange)), xright),
+             #ylim=c(-1, model$SMD_ML$k+5), 
+             rows=c((model$SMD_ML$k+1):2),
              mlab="SMD [95% C.I.]",
-             alim=c(lower_x, upper_x),
+             alim=c(lower_x, upper_x+2),
              slab=paste(word(Authors_I, 1), Year, Strain),
              at = at_values,
              col = c("grey","grey"),
@@ -137,36 +139,37 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
              order=StudyId,
              xlab = "", 
              ilab = ARRIVEScore,
-             ilab.xpos = (lower_x-(0.52*arange)),
-             cex = 0.6, 
+             ilab.xpos = (lower_x-(0.25*arange)),
+             cex = 0.75, 
              cex.axis = 1.0, 
              cex.lab = 1.2,
              lty = c("solid","solid","solid"),
              efac = c(1,1,3))
-      text(c((lower_x-(0.52*arange))), model$SMD_ML$k+6, c("Reporting\n completeness"), cex=0.75, font=2)
-    } else {
-      forest(model$SMD_ML,
-             xlim=c(xleft, xright),
-             ylim=c(-2, model$SMD_ML$k+6), rows=c((model$SMD_ML$k+2):3),
-             mlab="SMD [95% C.I.]",
-             alim=c(lower_x, upper_x),
-             slab=paste(word(Authors_I, 1), Year, Strain),
-             at = at_values,
-             col = c("grey","grey"),
-             addfit = TRUE,
-             addpred = TRUE,
-             annotate = TRUE,
-             header = "Study and Strain",
-             order=StudyId,
-             xlab = "", 
-             ilab = cbind(ARRIVEScore, `DiseaseModelLabel(s)_I`),
-             ilab.xpos = c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))),
-             cex = 0.6, 
-             cex.axis = 1.0, 
-             cex.lab = 1.2,
-             lty = c("solid","solid","solid"),
-             efac = c(1,1,3))
-      text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$SMD_ML$k+6, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
+      text(lower_x-(0.25*arange), model$SMD_ML$k+3, "Reporting \ncompleteness", cex=0.75, font=2)
+      } else {
+        forest(model$SMD_ML,
+               xlim=c(xleft, xright),
+               #ylim=c(-2, model$SMD_ML$k+6), 
+               rows=c((model$SMD_ML$k+1):2),
+               mlab="SMD [95% C.I.]",
+               alim=c(lower_x, upper_x),
+               slab=paste(word(Authors_I, 1), Year, Strain),
+               at = at_values,
+               col = c("grey","grey"),
+               addfit = TRUE,
+               addpred = TRUE,
+               annotate = TRUE,
+               header = "Study and Strain",
+               order=StudyId,
+               xlab = "", 
+               ilab = cbind(ARRIVEScore, Label),
+               ilab.xpos = c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))),
+               cex = 0.6, 
+               cex.axis = 1.0, 
+               cex.lab = 1.2,
+               lty = c("solid","solid","solid"),
+               efac = c(1,1,3))
+        text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$SMD_ML$k+3, c("Reporting \ncompleteness", "Intervention"), cex=0.75, font=2)
     }}
     
     cixlower <- model$SMD_ML[["ci.lb"]]
@@ -176,16 +179,16 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
     #mtext(outcome_title, side = 1, line = 3, cex = 1.2, font = 2)
     
     if (experiment_type == "TvC") {
-      mtext("Favours control", side = 1, line = 3, at = (1.5*lower_x), cex = 1.1, col = "red", font = 1, adj = 0)
-      mtext("Favours intervention", side = 1, line = 3, at = (1.5*upper_x), cex = 1.1, col = "darkgreen", font = 1, adj = 1)
+      mtext("Favours control", side = 1, line = 2, at = 0.5*lower_x, cex = 1, font = 1, adj=1)
+      mtext("Favours intervention", side = 1, line = 2, at = upper_x, cex = 1, font = 1)
       #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))
       #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
       title(paste0("Effect of exercise on ", outcome_title, " following SPS (SMD)"))
       
     } else if (experiment_type == "CvS") {
-      mtext("Sham better", side = 1, line = 3, at = (1.5*lower_x), cex = 1.1, col = "red", font = 1, adj = 0)
+      mtext("Sham better", side = 1, line = 2, at = lower_x, cex = 1, font = 1, adj = 0)
       
-      mtext("SPS better", side = 1, line = 3, at = (1.5*upper_x), cex = 1.1, col = "darkgreen", font = 1, adj = 1)
+      mtext("SPS better", side = 1, line = 2, at = 0.5*upper_x, cex = 1, font = 1, adj = 0)
       
       #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))    
       #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
@@ -997,7 +1000,7 @@ ARRIVE_traffic <- function(df, experiment_type, outcome) {
                         'All species specified','Animal sex specified','Age, weight or developmental stage specified','Timing and frequency of proceedures described',
                         'Any acclimitisation described','Data with variance, or Effect size and CI','Ethical approval with approval number',
                         'Ethical approval with or without approval number','Conflicts of interest statement','Funding sources','Description of any role of funder')
-  Rep_TL <- rob_traffic_light(data = ARRIVE, tool = "Generic", psize = 6, overall = FALSE)
+  Rep_TL <- rob_traffic_light(data = ARRIVE, tool = "Generic", psize = 6, overall = FALSE, x_title = "")
   
   return(Rep_TL)
 }
@@ -1161,8 +1164,8 @@ forest_metafor_NMD <- function(model, outcome){
   
   
   #mtext(outcome, side = 1, line = 3, cex = 1.2, font = 2)
-  mtext("Favours control", side = 1, line = 3, at = (1.2*lower_x), cex = 1.2, col = "red", font = 1)
-  mtext("Favours dopaminergic agent", side = 1, line = 3, at = (1.2*upper_x), cex = 1.2, col = "darkgreen", font = 1)
+  mtext("Favours control", side = 1, line = 3, at = (1.2*lower_x), cex = 1.2, font = 1)
+  mtext("Favours dopaminergic agent", side = 1, line = 3, at = (1.2*upper_x), cex = 1.2, font = 1)
   title(paste0("Dopaminergic agents effect on ", outcome, " in psychosis (NMD)"))
   
 }
