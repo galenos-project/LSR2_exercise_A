@@ -110,7 +110,7 @@ for (j in 2:(nrow(colu)-1)){ #1
                         aes(x = resm[, 1], y = resm[,3], weight = 1/sqrt((resm[, 4]^2) + (resm[,2]^2))), color = "black", linetype = "dashed") +
             labs(x = labelx, y = labely, title = labelr) +
             coord_cartesian(clip = "off") +
-            scale_size_continuous(name = 'Number of comparisons') +  
+            scale_size_continuous(name = 'Number of comparisons', breaks = ~unique(round(pretty(.)))) +  
             scale_color_manual(name = 'Experiment type', 
                                values = c("CvS" = "red", "TvC" = "green"),
                                labels = c('Model', 'Intervention')) +  # Set colors for SortLabel values
@@ -134,7 +134,7 @@ for (j in 2:(nrow(colu)-1)){ #1
                             aes(x = resm[, 1], y = resm[, 3], weight = 1/sqrt((resm[, 4]^2) + (resm[,2]^2))), color = "black", linetype = "dashed") +
                 labs(x = labelx, y = labely, title = labelr) +
                 coord_cartesian(clip = "off") +
-                scale_size_continuous(name = 'Number of comparisons') +  
+                scale_size_continuous(name = 'Number of comparisons', breaks = ~unique(round(pretty(.)))) +  
                 scale_color_manual(name = 'Experiment type', 
                                    values = c("CvS" = "red", "TvC" = "green"),
                                    labels = c('Model', 'Intervention')) +  # Set colors for SortLabel values
@@ -160,7 +160,7 @@ for (j in 2:(nrow(colu)-1)){ #1
                   geom_errorbar(aes(x = resm[, 1], y = resm[, 3], xmin = resm[, 1] - resm[, 2], xmax = resm[, 1] + resm[, 2], width = 0.2), na.rm = TRUE) +
                   labs(x = labelx, y = labely, title = labelr) +
                   coord_cartesian(clip = "off") +
-                  scale_size_continuous(name = 'Number of comparisons') +  
+                  scale_size_continuous(name = 'Number of comparisons', breaks = ~unique(round(pretty(.)))) +  
                   scale_color_manual(name = 'Experiment type', 
                                      values = c("CvS" = "red", "TvC" = "green"),
                                      labels = c('Model', 'Intervention')) +  # Set colors for SortLabel values
@@ -179,7 +179,7 @@ for (j in 2:(nrow(colu)-1)){ #1
                     geom_errorbar(aes(x = resm[, 1], y = resm[, 3], xmin = resm[, 1] - resm[, 2], xmax = resm[, 1] + resm[, 2], width = 0.2), na.rm = TRUE) +
                     labs(x = labelx, y = labely) +
                     coord_cartesian(clip = "off") +
-                    scale_size_continuous(name = 'Number of comparisons') +  
+                    scale_size_continuous(name = 'Number of comparisons', breaks = ~unique(round(pretty(.)))) +  
                     scale_color_manual(name = 'Experiment type', 
                                        values = c("CvS" = "red", "TvC" = "green"),
                                        labels = c('Model', 'Intervention')) +  # Set colors for SortLabel values
@@ -258,6 +258,8 @@ intervention_r_squared <- calculate_weighted_r_squared(resi[, 3], resi[, 1], 1/s
 
 # Create the label with superscript 2 using bquote
 labelr <- bquote(R^2~(model) == .(model_r_squared) * "; " * R^2~(intervention) == .(intervention_r_squared))
+labelx <- 'All Behavioural outcomes'
+labely <- 'All Neurobiological outcomes'
 
 p <- ggplot() +
   geom_point(aes(x = resi[, 1], y = resi[, 3], color = resi[,6], size = resi[, 5]), na.rm = TRUE) +  # Use resi[, 5] as the size
@@ -273,7 +275,7 @@ p <- ggplot() +
               aes(x = resm[, 1], y = resm[, 3], weight = 1/sqrt((resm[, 4]^2) + (resm[,2]^2))), color = "black", linetype = "dashed") +
   labs(x = labelx, y = labely, title = labelr) +
   coord_cartesian(clip = "off") +
-  scale_size_continuous(name = 'Number of comparisons') +  
+  scale_size_continuous(name = 'Number of comparisons', breaks = ~unique(round(pretty(.)))) +  
   scale_color_manual(name = 'Experiment type', 
                      values = c("CvS" = "red", "TvC" = "green"),
                      labels = c('Model', 'Intervention')) +  # Set colors for SortLabel values
