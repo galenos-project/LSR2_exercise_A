@@ -2572,61 +2572,43 @@ We selected cohorts where at least one outcome was presented for at least two ou
 
 Then, for each pair of outcome measures we plotted the effect sizes for each cohort, and fitted a regression line weighted on the standard error in the outcome measure represented on the x-axis. Outcome measure pairs are coded according to whether they come from model induction studies (red, expectation of worsening anhedonia) or from intervention studies (green, expectation of improvement in anhedonia). The number of experimental comparisons observed from each cohort is reflected in the size of the symbol, and shown in the figure legend.
 
-**4.1 Relationship between change in locomotor activity and change in freezing behaviour**
+We show pairwise relationships where there were at least 3 experimental cohorts for either modelling experiments, intervention experiments, or both, and provide the relevant regression coefficient(s). We also provide an overall representation of all paired neurobiological effect sizes with the corresponding behavioural outcome in that cohort.
 
-![](plot_2_3.png)
-
-**4.2 Relationship between change in locomotor activity and change in other behaviours**
-
-![](plot_2_5.png)
-
-**4.3 Relationship between change in locomotor activity and change in BDNF**
-
-![](plot_2_6.png)
-
-**4.4 Relationship between change in locomotor activity and change in stress response**
-
-![](plot_2_7.png)
-
-**4.5 Relationship between change in locomotor activity and change in other neurobehavioural outcomes**
+**4.1 Relationship between change in locomotor activity and change in 'other' neurobiological outcomes**
 
 ![](plot_2_9.png)
 
-**4.6 Relationship between change in other behaviours and change in freezing**
+**4.2 Relationship between change in freezing behaviour and change in 'other' behavioural outcomes**
 
 ![](plot_3_5.png)
 
-**4.7 Relationship between change in BDNF and change in freezing**
+**4.3 Relationship between change in BDNF and change in 'other' behavioural outcomes**
 
-![](plot_3_6.png)
+![](plot_5_6.png)
 
-**4.8 Relationship between change in other neurobiological outcomes and change in freezing**
-
-![](plot_3_9.png)
-
-**4.9 Relationship between change in other behaviours and change in fear memory**
-
-![](plot_4_5.png) **4.10 Relationship between change in BDNF and change in fear memory**
-
-![](plot_4_6.png)
-
-**4.11 Relationship between change in BDNF and change in other behavioural outcomes**
-
-![](plot_5_6.png) **4.12 Relationship between change in stress response and change in other behavioural outcomes**
+**4.4 Relationship between change in stress response and change in 'other' behavioural outcomes**
 
 ![](plot_5_7.png)
 
-**4.13 Relationship between change in other neurobiological outcomes and change in other behavioural outcomes**
+**4.5 Relationship between change in 'other' neurobiological outcomes and change in 'other' behavioural outcomes**
 
-![](plot_5_9.png) **4.14 Relationship between change in stress response and change in BDNF**
+![](plot_5_9.png)
+
+**4.6 Relationship between change in stress response and change in BDNF**
 
 ![](plot_6_7.png)
 
-**4.15 Relationship between change in other neurobiological outcomes and change in BDNF**
+**4.7 Relationship between change in 'other' neurobiological outcomes and change in BDNF**
 
-![](plot_6_9.png) **4.16 Relationship between change in other neurobiological outcomes and change in stress response**
+![](plot_6_9.png)
+
+**4.8 Relationship between change in 'other' neurobiological outcomes and change in stress response**
 
 ![](plot_7_9.png)
+
+**4.9 Relationship between change in all neurobiological outcomes and all behavioural outcomes**
+
+![](BvN.png) 
 
 # 5. Attrition bias and adverse effects of treatment
 
