@@ -168,7 +168,7 @@ tab2i$N <- as.numeric(tab2i$N)
 
 original_data <- tab2i
 # Rows to have bold lines beneath
-rows_with_bold_lines <- c(3,6,9,10,11,12,14,16,17,18,19,22,24,27,30,36,37,38,39,41,42,51,52,53)
+rows_with_bold_lines <- c(2,6,10,15,18,23,25,28,31,34,36,40)
 
 # Generate HTML table with adjusted styles
 cat('<div style="text-align: center;">')
@@ -214,7 +214,7 @@ tab2m$N <- as.numeric(tab2m$N)
 
 original_data <- tab2m
 # Rows to have bold lines beneath
-rows_with_bold_lines <- c(1,4,5,6,7,8,10,11,12,13,14,15,16,19,20,23,24,25,26,27,28,31,32,33)
+rows_with_bold_lines <- c(1,2,5,9,14,17,22,24,27,30,33,35,39)
 
 # Generate HTML table with adjusted styles
 cat('<div style="text-align: center;">')
@@ -257,14 +257,6 @@ References of included studies are located in the appendix. Included studies use
 
 Within the literature we identified distinct categories of experiments and the data presented would allow several meta-analytical contrasts to be drawn:
 
-**Effects of disease modelling**. These are experiments investigating the effect of models of PTSD, reported in `r nrow(df %>% filter(SortLabel == "CvS"))` experiments from `r nrow(df %>% filter(SortLabel == "CvS") %>% distinct(StudyId))` publications.
-
-In these studies the:
-
--   **Control group** is a group of animals that is (1) not subjected to a PTSD model induction paradigm and (2) is administered a control treatment (vehicle) or no treatment.
-
--   **Intervention group** is a group of animals that is (1) subjected to a PTSD model induction paradigm and (2) is administered a control treatment (vehicle) or no treatment.
-
 **Treatment vs control**. These were experiments investigating the effect of performing exercise, reported in `r nrow(df %>% filter(SortLabel == "TvC"))` experiments from `r nrow(df %>% filter(SortLabel == "TvC") %>% distinct(StudyId))` publications.
 
 In these studies the:
@@ -281,6 +273,16 @@ $$
 
 where $\bar{\mu}_C$, $\bar{\mu}_T$, $\bar{\mu}_S$ are the mean reported scores in the control, treatment, and sham groups respectively.
 
+**Effects of disease modelling**. These are experiments investigating the effect of models of PTSD, reported in `r nrow(df %>% filter(SortLabel == "CvS"))` experiments from `r nrow(df %>% filter(SortLabel == "CvS") %>% distinct(StudyId))` publications.
+
+In these studies the:
+
+-   **Control group** is a group of animals that is (1) not subjected to a PTSD model induction paradigm and (2) is administered a control treatment (vehicle) or no treatment.
+
+-   **Intervention group** is a group of animals that is (1) subjected to a PTSD model induction paradigm and (2) is administered a control treatment (vehicle) or no treatment.
+
+
+
 Outcomes with ≥2 independent effect sizes were considered for meta-analysis. In this iteration of the review, this includes `r df %>% group_by(outcome_type) %>% filter(n_distinct(StudyId) > 1) %>% summarise(n = n_distinct(StudyId)) %>% arrange(desc(n)) %>% pull(outcome_type) %>% unique() %>% tolower() %>% { if (length(.) > 1) paste(paste(head(., -1), collapse = ", "), "and", tail(., 1)) else .}`.
 
 All analyses were conducted allowing for the following hierarchical levels in a random effects model, which accounts for features common to experimental contrasts such as a shared control group:
@@ -291,9 +293,9 @@ All analyses were conducted allowing for the following hierarchical levels in a 
 
 -   **Level 3: Experiment** - effect sizes measured in the same experiment within a study, where often a control group contributes to several effect sizes.
 
-Each level for the hierarchy was only included in the model if more than 4 categories were present for at least one of these levels. Where more than 4 categories are not present for all levels, the variance attributable to that level is reported as zero.
+Each level for the hierarchy was only included in the model if more than 4 categories were present for at least one of these levels. Where more than 4 categories are not present for all levels, the variance attributable to levels with fewer than 5 categories is reported as zero.
 
-The hierarchical grouping may therefore be considered thus: **Strains** of laboratory animals are included in several **Studies**, each of which can report one or more **Experiments**, and each Experiment is comprised of at least two **Cohorts** which are considered identical except for differing in the experimental manipulation (the **Intervention**) or not being exposed to the disease modelling procedures (a **Sham** cohort, these only being used to provide a baseline for outcome measures to allow Normalised Mean Difference meta-analysis). An **Experiment** can include several **experimental contrasts**, for instance where different doses of drugs are compared to the same control group.
+The hierarchical grouping may therefore be considered thus: **Strains** of laboratory animals are included in several **Studies**, each of which can report one or more **Experiments**, and each Experiment is comprised of at least two **Cohorts** which are considered identical except for differing in the experimental manipulation (the **Intervention**) or not being exposed to the disease modelling procedures (a **Sham** cohort, these only being used to provide a baseline for outcome measures to allow Normalised Mean Difference meta-analysis). An **Experiment** can include several **experimental contrasts**, for instance where different doses of drugs are compared to the same control group. Several outcomes can be measured and reported from the same cohort of animals.
 
 We constructed multilevel models without Hartung-Knapp adjustments as these are not available for rma.mv class objects in the metafor package. Instead, the model is set to `test = "t"` to use t- and F-distributions for making inferences, and `dfs="contain"` to improve the method of approximating degrees of freedom of these distributions.
 
@@ -371,7 +373,7 @@ condition <- df$SortLabel == "TvC" & df$outcome_type == "Fear memory"
 df[condition, column_name] <- 'Other behavioural'
 ```
 
-## 2.3 Outcome 2: Freezing
+## 2.3 Outcome 3: Freezing
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_Fr <- run_SMD(df, "TvC", "Freezing")
@@ -451,7 +453,6 @@ For each outcome, the covariates of interest for subgroup analyses and meta-regr
 -   **Voluntary or forced exercise**
 -   **Duration of exercise**
 -   **Intensity of exercise**
--   **Control control conditions**
 
 We also conducted subgroup analyses using **(1) SyRCLE Risk of Bias** and **(2) ARRIVE reporting completeness** assessment scores as covariates to evaluate their influence on effect size estimates. These were not specified in the study protocol, but evaluation of risk of bias is required for the Summary of Evidence table, and no studies were considered entirely at low risk of bias or of high reporting completeness to allow such a sensitivity analysis.
 
@@ -459,7 +460,7 @@ The significance (p-value) reported is that for a test of whether the moderators
 
 #### **Sex**
 
-Figure 2.4.4.1 displays the estimates for the pooled SMD's when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.4.4.1 displays the estimates for the pooled SMD's when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot, with the 95% prediction interval shown as a red bar.
 
 **Figure 2.4.4.1 - Effect of exercise on other behavioural outcomes by Sex**
 
@@ -487,7 +488,7 @@ The p-value for the association between the sex of animal groups used and outcom
 
 #### **Voluntary or forced exercise**
 
-Figure 2.4.4.2 displays the estimates for the pooled SMD when comparisons are stratified by whether the exercise was voluntary or forced (VoF). Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.4.4.2 displays the estimates for the pooled SMD when comparisons are stratified by whether the exercise was voluntary or forced (VoF). Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by exercise type, is displayed as a diamond shape at the bottom of the plot.
 
 **Figure 2.4.4.2 - Effect of exercise on other behavioural outcomes by voluntary or forced exercise**
 
@@ -540,7 +541,7 @@ The p-value for the association between duration of treatment and outcome report
 
 #### **Exercise Intensity**
 
-We provide a meta-regression where exercise intensity is considered as a continuous variable.
+We provide a meta-regression where exercise intensity (expressed as m/min) is considered as a continuous variable.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_OB_EI <- metaregression_analysis(df, "TvC", "Other behavioural", "EI1", 0.5)
@@ -565,7 +566,7 @@ The p-value for the association between exercise intensity and the outcome repor
 
 #### **Total exercise**
 
-We provide a meta-regression where the total exercise as the product of the number of sessions, session duration, and session intensity, expressed in km, is considered as a continuous variable.
+We provide a meta-regression where the total exercise as the product of the number of sessions (n), session duration (min), and session intensity (km/min), with total exercise expressed in km (n * min * km/min), is considered as a continuous variable.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_OB_TE <- metaregression_analysis1(df, "TvC", "Other behavioural", "TotalExercise1", 0.5)
@@ -797,7 +798,6 @@ For each outcome, the covariates of interest for subgroup analyses and meta-regr
 -   **Voluntary or forced exercise**
 -   **Duration of exercise**
 -   **Intensity of exercise**
--   **Control control conditions**
 
 We also conducted subgroup analyses using **(1) SyRCLE Risk of Bias** and **(2) ARRIVE reporting completeness** assessment scores as covariates to evaluate their influence on effect size estimates. These were not specified in the study protocol, but evaluation of risk of bias is required for the Summary of Evidence table, and no studies were considered entirely at low risk of bias or of high reporting completeness to allow such a sensitivity analysis.
 
@@ -833,7 +833,7 @@ The p-value for the association between the sex of animal groups used and outcom
 
 #### **Voluntary or forced exercise**
 
-Figure 2.5.4.2 displays the estimates for the pooled SMD when comparisons are stratified by whether the exercise was voluntary or forced (VoF). Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.5.4.2 displays the estimates for the pooled SMD when comparisons are stratified by whether the exercise was voluntary or forced (VoF). Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by exercise type, is displayed as a diamond shape at the bottom of the plot.
 
 **Figure 2.5.4.2 - Effect of exercise on other BDNF by voluntary or forced exercise**
 
@@ -886,7 +886,7 @@ The p-value for the association between duration of treatment and outcome report
 
 #### **Exercise Intensity**
 
-We provide a meta-regression where exercise intensity is considered as a continuous variable.
+We provide a meta-regression where exercise intensity (expressed at m/min) is considered as a continuous variable.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_B_EI <- metaregression_analysis(df, "TvC", "BDNF", "EI1", 0.5)
@@ -1019,7 +1019,7 @@ SMD_S_B_rho0.8 <- run_ML_SMD(df, "TvC", "BDNF", 0.8)
 
 When the $\rho$ value is assumed to be 0.8, exercise had a pooled effect on BDNF of **SMD = `r SMD_S_B_rho0.2[["SMD_ML"]][["beta"]]`** (95% CI: `r SMD_S_B_rho0.2[["SMD_ML"]][["ci.lb"]]` to `r SMD_S_B_rho0.2[["SMD_ML"]][["ci.ub"]]`; 95% PrI: `r round(SMD_S_B_rho0.8[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_B_rho0.8[["pred_interval"]][["pi.ub"]],3)`).
 
-For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_B[["beta"]]` (95% CI: `r SMD_S_B[["ci.lb"]]` to `r SMD_S_B[["ci.ub"]]`).
+For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_B[["SMD_ML"]][["beta"]]` (95% CI: `r SMD_S_B[["SMD_ML"]][["ci.lb"]]` to `r SMD_S_B[["SMD_ML"]][["ci.ub"]]`).
 
 ### 2.5.6 Reporting bias/small-study effects
 
@@ -1070,7 +1070,7 @@ forest_metafor(SMD_S_StR, "TvC", "Stress response")
 
 Exercise interventions had a pooled effect on biological stress response induced by single prolonged stress of SMD = `r round(SMD_S_StR[["SMD_ML"]][['beta']], 3)` , (95% CI: `r round(SMD_S_StR[["SMD_ML"]][['ci.lb']], 3)` to `r round(SMD_S_StR[["SMD_ML"]][['ci.ub']], 3)`; 95% PrI: `r round(SMD_S_StR[["pred_interval"]][["pi.lb"]], 3)` to `r round(SMD_S_StR[["pred_interval"]][["pi.ub"]], 3)`.
 
-`r SMD_S_StR[["SMD_M"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_StR[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_StR[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_StR[["SMD_ML"]]$data$Strain))` different animal strain(s).
+`r SMD_S_StR[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_StR[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_StR[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_StR[["SMD_ML"]]$data$Strain))` different animal strain(s).
 
 |            Level            |                                                                 Number of categories for that level included in this analysis                                                                 |                                                                                     Attributable variance                                                                                     |
 |:------------:|:---------------------------:|:---------------------------:|
@@ -1092,7 +1092,6 @@ For each outcome, the covariates of interest for subgroup analyses and meta-regr
 -   **Voluntary or forced exercise**
 -   **Duration of exercise**
 -   **Intensity of exercise**
--   **Control control conditions**
 
 We also conducted subgroup analyses using **(1) SyRCLE Risk of Bias** and **(2) ARRIVE reporting completeness** assessment scores as covariates to evaluate their influence on effect size estimates. These were not specified in the study protocol, but evaluation of risk of bias is required for the Summary of Evidence table, and no studies were considered entirely at low risk of bias or of high reporting completeness to allow such a sensitivity analysis.
 
@@ -1303,7 +1302,6 @@ The table below shows which of the covariates, if any, explain some of the heter
 |          Sex           |                \-                 |                        \-                         |                                                    \-                                                    |        `r round((r2_ml(SMD_S_StR_sexI)[1]*100),1)`%         |
 |           \-           |             *Female*              |            `r SMD_S_StR_sexI$beta[1]`             |                        `r SMD_S_StR_sexI$ci.lb[1]` to `r SMD_S_StR_sexI$ci.ub[1]`                        |                             \-                              |
 |           \-           |              *Male*               |            `r SMD_S_StR_sexI$beta[2]`             |                        `r SMD_S_StR_sexI$ci.lb[2]` to `r SMD_S_StR_sexI$ci.ub[2]`                        |                             \-                              |
-|           \-           |            *Voluntary*            |            `r SMD_S_StR_VoFI$beta[2]`             |                        `r SMD_S_StR_VoFI$ci.lb[2]` to `r SMD_S_StR_VoFI$ci.ub[2]`                        |                             \-                              |
 | Duration of treatment  |                \-                 |                        \-                         |                                                    \-                                                    | `r round((r2_ml(SMD_S_StR_DOE$metaregression)[1]*100),1)`%  |
 |           \-           | *per weeks of treatment increase* | `r SMD_S_StR_DOE$metaregression_summary$beta[2]`  |  `r SMD_S_StR_DOE$metaregression_summary$ci.lb[2]` to `r SMD_S_StR_DOE$metaregression_summary$ci.ub[2]`  |                             \-                              |
 |   Exercise intensity   |                \-                 |                        \-                         |                                                    \-                                                    |  `r round((r2_ml(SMD_S_StR_EI$metaregression)[1]*100),1)`%  |
@@ -1332,15 +1330,15 @@ In the previous analyses for the effect of exercise on biological stress respons
 SMD_S_StR_rho0.2 <- run_ML_SMD(df, "TvC", "Stress response", 0.2)
 ```
 
-When the $\rho$ value is assumed to be 0.2, exercise had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.2[["beta"]]`** (95% CI: `r SMD_S_StR_rho0.2[["ci.lb"]]` to `r SMD_S_StR_rho0.2[["ci.ub"]]`; 95% PrI: `r round(SMD_S_StR_rho0.2[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_StR_rho0.2[["pred_interval"]][["pi.ub"]],3)`).
+When the $\rho$ value is assumed to be 0.2, exercise had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.2[["SMD_ML"]][["beta"]]`** (95% CI: `r SMD_S_StR_rho0.2[["SMD_ML"]][["ci.lb"]]` to `r SMD_S_StR_rho0.2[["SMD_ML"]][["ci.ub"]]`; 95% PrI: `r round(SMD_S_StR_rho0.2[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_StR_rho0.2[["pred_interval"]][["pi.ub"]],3)`).
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_StR_rho0.8 <- run_ML_SMD(df, "TvC", "Stress response", 0.8)
 ```
 
-When the $\rho$ value is assumed to be 0.8, exercise had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.8[["beta"]]`** (95% CI: `r SMD_S_StR_rho0.8[["ci.lb"]]` to `r SMD_S_StR_rho0.8[["ci.ub"]]`; 95% PrI: `r round(SMD_S_StR_rho0.8[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_StR_rho0.8[["pred_interval"]][["pi.ub"]],3)`).
+When the $\rho$ value is assumed to be 0.8, exercise had a pooled effect on biological stress response of **SMD = `r SMD_S_StR_rho0.8[["SMD_ML"]][["beta"]]`** (95% CI: `r SMD_S_StR_rho0.8[["SMD_ML"]][["ci.lb"]]` to `r SMD_S_StR_rho0.8[["SMD_ML"]][["ci.ub"]]`; 95% PrI: `r round(SMD_S_StR_rho0.8[["pred_interval"]][["pi.lb"]],3)` to `r round(SMD_S_StR_rho0.8[["pred_interval"]][["pi.ub"]],3)`).
 
-For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_StR[["SMD_M"]][["beta"]]` (95% CI: `r SMD_S_StR[["SMD_M"]][["ci.lb"]]` to `r SMD_S_StR[["SMD_M"]][["ci.ub"]]`).
+For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_StR[["SMD_ML"]][["beta"]]` (95% CI: `r SMD_S_StR[["SMD_ML"]][["ci.lb"]]` to `r SMD_S_StR[["SMD_ML"]][["ci.ub"]]`).
 
 ### 2.6.6 Reporting bias/small-study effects
 
@@ -1354,7 +1352,24 @@ Egger regression based on `r run_sse_SMD_L(df, 'TvC', 'Stress response')[["k"]]`
 
 ## 2.7 Outcome 7: Neurotransmitter levels
 
-No outcomes were reported.
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+SMD_S_NT <- run_SMD(df, "TvC", "Neurotransmitter levels")
+# TvC levels 3-3-2
+```
+
+Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_NT[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_NT[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_NT[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_NT[["SMD_ML"]]$data$Strain))` different animal strain(s). We provide a conventional random effects model to illustrate the data. No subgroup analysis is performed. We also now include these Freezing outcomes under the 'other behavioural' heading below.
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+forest_metafor(SMD_S_NT, "TvC", "Freezing")
+```
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+# since freezing no longer considered separately, edit df to 'other behavioural'
+column_name <- 'outcome_type'
+condition <- df$SortLabel == "TvC" & df$outcome_type == "Neurotransmitter levels"
+df[condition, column_name] <- 'Other neurobiological'
+```
+
 
 ## 2.8 Outcome 8: Other neurobiological outcomes
 
