@@ -1365,7 +1365,6 @@ For each outcome, the covariates of interest for subgroup analyses and meta-regr
 -   **Voluntary or forced exercise**
 -   **Duration of exercise**
 -   **Intensity of exercise**
--   **Control control conditions**
 
 We also conducted subgroup analyses using **(1) SyRCLE Risk of Bias** and **(2) ARRIVE reporting completeness** assessment scores as covariates to evaluate their influence on effect size estimates. These were not specified in the study protocol, but evaluation of risk of bias is required for the Summary of Evidence table, and no studies were considered entirely at low risk of bias or of high reporting completeness to allow such a sensitivity analysis.
 
