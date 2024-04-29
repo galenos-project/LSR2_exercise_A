@@ -1923,7 +1923,7 @@ ARRIVE_traffic(df, "CvS", "Stress response")
 SMD_S_B <- run_ML_SMD(df, "CvS", "BDNF", 0.5)
 ```
 
-The effect of single prolonged stress on other behaviours in animals using SMD as the effect size is shown in Figure 3.5.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
+The effect of single prolonged stress on BDNF in animals using SMD as the effect size is shown in Figure 3.5.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
 
 **Figure 3.5.3**
 
@@ -1931,7 +1931,7 @@ The effect of single prolonged stress on other behaviours in animals using SMD a
 forest_metafor(SMD_S_B, "CvS", "BDNF")
 ```
 
-Single prolonged stress had a pooled effect on other behaviours of SMD = `r round(SMD_S_B[["SMD_ML"]][['beta']], 3)`, (95% CI: `r round(SMD_S_B[["SMD_ML"]][['ci.lb']], 3)` to `r round(SMD_S_B[["SMD_ML"]][['ci.ub']], 3)`; 95% PrI: `r round(SMD_S_B[["pred_interval"]][["pi.lb"]], 3)` to `r round(SMD_S_B[["pred_interval"]][["pi.ub"]], 3)`).
+Single prolonged stress had a pooled effect on BDNF of SMD = `r round(SMD_S_B[["SMD_ML"]][['beta']], 3)`, (95% CI: `r round(SMD_S_B[["SMD_ML"]][['ci.lb']], 3)` to `r round(SMD_S_B[["SMD_ML"]][['ci.ub']], 3)`; 95% PrI: `r round(SMD_S_B[["pred_interval"]][["pi.lb"]], 3)` to `r round(SMD_S_B[["pred_interval"]][["pi.ub"]], 3)`).
 
 `r SMD_S_B[["SMD_ML"]][["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_B[["SMD_ML"]]$data$ExperimentID_I))` experiments from `r length(unique(SMD_S_B[["SMD_ML"]]$data$StudyId))` publications and involving `r length(unique(SMD_S_B[["SMD_ML"]]$data$Strain))` different animal strain(s).
 
