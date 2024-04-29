@@ -868,7 +868,7 @@ df <-  df %>%
 
 
 #RoB - first get rid of duplicates
-df <-df[,-c(186:218, 346:378)]
+df <-df[,-c(186:219, 347:380)]
 
 
 df <- df %>%
