@@ -2564,6 +2564,51 @@ We know of `r ctot` animals in Control cohorts and `r ttot` animals in Intervent
 
 # 6. Summary of the evidence
 
+## 6.1 Dopaminergic agents versus control
+
+```{r echo = FALSE}
+SoE_TvC <- read_xlsx("data/soe_tables_20240429.xlsx", "TvC")
+
+knitr::kable(SoE_TvC) %>%
+  kable_styling(bootstrap_options = "bordered")
+
+```
+
+## 6.2 Effect of inducing model, without treatment
+
+To provide context for the effects of dopaminergic drugs in these models, we also present a summary of the effects of model induction.
+
+```{r echo = FALSE}
+SoE_CvS <- read_xlsx("data/soe_tables_20240429.xlsx", "CvS")
+
+knitr::kable(SoE_CvS) %>%
+  kable_styling(bootstrap_options = "bordered")
+
+```
+
+Rationale for conclusions for indirectness: **[1] Effect of exercise on behavioural outcomes in PTSD: Moderate risk of indirectness** 
+
+**[2] Effect of exercise on neurobiological outcomes in PTSD: Moderate risk of indirectness** 
+
+## Evaluation of indirectness of evidence (based on criteria in document "Assessing the certainty of evidence in animal studies") for the studies included in the review
+
+The framework for the evaluation of indirectness is based on eight dimensions, based on the work of Belzung and Lemoine, and comprising **(i) Homological validity** - what is the extent of homology between the model organism and humans relevant to the condition studied; **(ii) Ontopathogenic validity** - Does the model include prenatal or early life exposures inducing transition from initial organism to vulnerable organism; **(iii) Triggering validity** - are any triggering factors used in the modelling -- or their homologues -known to induce psychosis or relapse in humans?; **(iv) Mechanistic validity** - whether the neurobiological or cognitive mechanisms which operate in human disease can be observed in the animal model; **(v) Induction validity** - Does the induction of the disease model induce changes in biomarkers (see below) which are known to be altered in human disease?; **(vi) Remission validity** - What is the effect of other drugs known to be effective in humans in the particular animal model / outcome measure pair? ; **(vii) Biomarker validity** - are changes in disease markers (eg neurotransmitter levels, structural brain imaging) seen in human disease also seen in this animal model?; and **(viii) Ethological validity** - what is the 'behavioural distance' between the model phenotype in animals and the symptoms and signs of human disease at which treatment is targeted?
+
+```{r echo = FALSE}
+SoE_Indir <- read_xlsx("data/soe_tables_20240429.xlsx", "Indir") ### ? where is this##
+
+knitr::kable(SoE_Indir) %>%
+  kable_styling(bootstrap_options = "bordered")
+
+```
+
+The description of the criteria is available at <https://doi.org/10.17605/OSF.IO/TDMAU>
+
+## Evaluation of the concordance between different outcome measures
+
+For both the induction of the disease model and the effects of exercise, there was some agreement between the effect sizes measured using these different outcomes when applied to the same cohort of animals. The data are however too sparse to allow firm conclusions at the level of outcome measure pairs.
+
+
 # 7. Software used
 
 ```{r echo=FALSE}
