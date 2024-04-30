@@ -262,6 +262,11 @@ columnnmae13 <- "TimeInMinute"
 condition <- (reconciled_cohort_role$StudyId == '0384b8a0-890a-49f3-80e2-ccd95416e901' & reconciled_cohort_role$TimeInMinute == -11)
 reconciled_cohort_role[condition, columnnmae13] <- 1
 
+
+columnname13 <- "GreaterIsWorse"
+condition <- (reconciled_cohort_role$StudyId == 'fc2e3423-7be3-41d0-bede-0f16b3d77618' & reconciled_cohort_role$OutcomeLabel == "OFT – total distance")
+reconciled_cohort_role[condition, columnname13] <- FALSE
+
 ## Wrangle wide so each observations is a single comparison
 data <- reconciled_cohort_role
 data <- data %>%
