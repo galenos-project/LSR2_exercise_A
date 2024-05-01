@@ -1651,9 +1651,13 @@ forest_metafor(SMD_S_FM, "CvS", "Fear memory")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
-# since freezing no longer considered separately, edit df to 'other behavioural'
+# since fear memory no longer considered separately, edit df to 'other behavioural'
 column_name <- 'outcome_type'
 condition <- df$SortLabel == "CvS" & df$outcome_type == "Fear memory"
+df[condition, column_name] <- 'Other behavioural'
+
+column_name <- 'outcome_type'
+condition <- df$SortLabel == "AvC" & df$outcome_type == "Fear memory"
 df[condition, column_name] <- 'Other behavioural'
 ```
 
@@ -2564,7 +2568,7 @@ We know of `r ctot` animals in Control cohorts and `r ttot` animals in Intervent
 
 # 6. Summary of the evidence
 
-## 6.1 Dopaminergic agents versus control
+## 6.1 Effect of exercise versus control in animals exposed to single prolonged stress
 
 ```{r echo = FALSE}
 SoE_TvC <- read_xlsx("data/soe_tables_20240429.xlsx", "TvC")
@@ -2574,9 +2578,9 @@ knitr::kable(SoE_TvC) %>%
 
 ```
 
-## 6.2 Effect of inducing model, without treatment
+## 6.2 Effect of single prolonged stress, without treatment, compared with animals not exposed to single prolonged stress
 
-To provide context for the effects of dopaminergic drugs in these models, we also present a summary of the effects of model induction.
+To provide context for the effects of exercise in these models, we also present a summary of the effects of model induction.
 
 ```{r echo = FALSE}
 SoE_CvS <- read_xlsx("data/soe_tables_20240429.xlsx", "CvS")
@@ -2586,9 +2590,16 @@ knitr::kable(SoE_CvS) %>%
 
 ```
 
-Rationale for conclusions for indirectness: **[1] Effect of exercise on behavioural outcomes in PTSD: Moderate risk of indirectness** 
+Rationale for conclusions for indirectness: 
+
+**[1] Effect of exercise on behavioural outcomes in PTSD: Moderate risk of indirectness** 
+Locomotor activity is increased following treatment, but in humans hyperlocomotion may be observed as a feature of PTSD, and is thought to reflect agitation. Other behavioural outcomes reported (fear memory, freezing, anxiety and cognitive impairment) have good Ethological validity, with clinically relevant human correlates. 
 
 **[2] Effect of exercise on neurobiological outcomes in PTSD: Moderate risk of indirectness** 
+BDNF levels are increased following treatment, and while PTSD is associated with increased BDNF levels in humans, there is also a reported association between high levels of BDNF and greater response to treatment. Similarly, changes in stress physiology are seen here and are associated with improved outcomes in human PTSD. We saw no significant change in neurotransmitter levels. Only one study reported serotonin levels, showing reduced hippocampal and prefrontal cortex serotonin (5-HT) following SPS, with reversal of hippocampal but not prefrontal cortex following treatment. Serum serotonin levels are reportedly reduced in people with PTSD.
+
+**[3] Validity of the single prolonged stress model: Mild to moderate risk of indirectness**
+The single prolonged stress model has reasonable Homological, Triggering, Induction, and Remission validity. No studies included an early 'priming' exposure which might give Ontopathogenic validity, and there was no significant effect of exercise on Freezing behaviour (although the number of included studies was low, and the point estimate favoured an effect). The elevated levels of BDNF seen in human PTSD were not seen in animal models (there was a non significant reduction in BDNF levels), when tested 4 weeks after induction, giving reduced Biomarker validity.Markers of physiological stress were increased by SPS, consistent with findings in humans; and there was no effect on neurotransmiter levels or on other neurobiological markers such as the abundance of Bax or Bcl-2.
 
 ## Evaluation of indirectness of evidence (based on criteria in document "Assessing the certainty of evidence in animal studies") for the studies included in the review
 
@@ -2606,7 +2617,14 @@ The description of the criteria is available at <https://doi.org/10.17605/OSF.IO
 
 ## Evaluation of the concordance between different outcome measures
 
-For both the induction of the disease model and the effects of exercise, there was some agreement between the effect sizes measured using these different outcomes when applied to the same cohort of animals. The data are however too sparse to allow firm conclusions at the level of outcome measure pairs.
+We were only able to evaluate this where there were data for pairs of outcome measures from at least three different experimental cohorts. Mapping all behavioural outcomes (which might be considered 'apical' or more clinically relevant) against all neurobiological outcomes (which might be considered intermediate or mechanistic outcomes), there was reasonable correlation (r<sup>2</sup> = 0.37) in effects of model induction, but not for the effects of exercise (r<sup>2</sup> = 0.07). 
+
+There were insufficient data to compare different behavioural outcome measures except for freezing behaviour compared with other behaviours for exercise treatment, where there was no relationship (r<sup>2</sup> = 0.02).
+
+Within Neurobiological responses, there was good agreement between effects on BDNF and effects on the stress response for both model induction (r<sup>2</sup> = 0.43) and exercise treatment (r<sup>2</sup> = 0.81); between effects on BDNF and effects on other neurobiological outcomes for both model induction (r<sup>2</sup> = 0.49) and exercise treatment (r<sup>2</sup> = 0.59); and between effects on the stress response and effects on other neurobiological outcomes for both model induction (r<sup>2</sup> = 0.27) and exercise treatment (r<sup>2</sup> = 0.97).
+
+Finally, we mapped individual neurobiological ('intermediate') outcomes against all behavioural outcomes (not shown). There was some agreement between effects on BDNF and effects on all behavioural outcomes for both model induction (r<sup>2</sup> = 0.21) and exercise treatment (r<sup>2</sup> = 0.25) and between effects on the stress response and effects on all behavioural outcomes for both model induction (r<sup>2</sup> = 0.29) and exercise treatment (r<sup>2</sup> = 0.14).
+
 
 
 # 7. Software used
