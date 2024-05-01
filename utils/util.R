@@ -1165,8 +1165,8 @@ forest_metafor_NMD <- function(model, outcome){
   
   #mtext(outcome, side = 1, line = 3, cex = 1.2, font = 2)
   mtext("Favours control", side = 1, line = 3, at = (1.2*lower_x), cex = 1.2, font = 1)
-  mtext("Favours dopaminergic agent", side = 1, line = 3, at = (1.2*upper_x), cex = 1.2, font = 1)
-  title(paste0("Dopaminergic agents effect on ", outcome, " in psychosis (NMD)"))
+  mtext("Favours exercise", side = 1, line = 3, at = (1.2*upper_x), cex = 1.2, font = 1)
+  title(paste0("Effects of exercise on ", outcome, " \noutcomes in Single Prolonged Stress (NMD)"))
   
 }
 
