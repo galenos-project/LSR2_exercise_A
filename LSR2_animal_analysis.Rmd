@@ -1025,7 +1025,7 @@ NMD_S_B <- run_ML_NMD(df, "TvC", "BDNF", 0.5)
 
 **Figure 2.5.5**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 12}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
 forest_metafor_NMD(NMD_S_B, "BDNF")
 ```
 
@@ -1354,30 +1354,19 @@ NMD_S_StR <- run_ML_NMD(df, "TvC", "Stress response", 0.5)
 
 **Figure 2.6.5**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 12}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 6}
 forest_metafor_NMD(NMD_S_StR, "stress response")
 ```
 
-<<<<<<< HEAD
 Exercise had a pooled effect on stress response outcomes of NMD = `r NMD_S_StR[["beta"]][1]` (95% CI: `r NMD_S_StR[["ci.lb"]]` to `r NMD_S_StR[["ci.ub"]]`) with a prediction interval of `r predict(NMD_S_StR)$pi.lb` to `r predict(NMD_S_StR)$pi.ub`). For reference the pooled effect size for SMD was `r SMD_S_StR[["SMD_ML"]][["beta"]][1]` (95% CI: `r SMD_S_StR[["SMD_ML"]][["ci.lb"]]` to `r SMD_S_StR[["SMD_ML"]][["ci.ub"]]`).
-=======
-Exercise had a pooled effect on stress response outcomes of NMD = `r NMD_S_Str[["beta"]][1]` (95% CI: `r NMD_S_Str[["ci.lb"]]` to `r NMD_S_Str[["ci.ub"]]`) with a prediction interval of `r predict(NMD_S_Str)$pi.lb` to `r predict(NMD_S_Str)$pi.ub`). For reference the pooled effect size for SMD was `r SMD_S_StR[["SMD_ML"]][["beta"]]` (95% CI: `r SMD_S_StR[["SMD_ML"]][["ci.lb"]]` to `r SMD_S_StR[["SMD_ML"]][["ci.ub"]]`).
->>>>>>> 19215100099575675a4aa709298c2b7b83404259
 
 `r NMD_S_StR[["k"]]` experimental comparisons were reported in `r NMD_S_StR[["s.nlevels"]][3]` experiments reported from `r length(unique(NMD_S_StR$data$StudyId))` publications and involving `r NMD_S_StR[["s.nlevels"]][1]` different animal strains.
 
 |            Level            |                                               Number of categories for that level included in this analysis                                               |                                                                   Attributable variance                                                                   |
-<<<<<<< HEAD
-|:-----------------:|:-------------------------:|:-------------------------:|
+|:---------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------:|
 |           Strain            |                        `r ifelse('Strain' %in% NMD_S_StR$s.names, NMD_S_StR$s.nlevels[[which(NMD_S_StR$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% NMD_S_StR$s.names, NMD_S_StR$sigma2[[which(NMD_S_StR$s.names == 'Strain')]], NA)`                         |
 |       Study x Strain        |                `r ifelse('Strain/StudyId' %in% NMD_S_StR$s.names, NMD_S_StR$s.nlevels[[which(NMD_S_StR$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% NMD_S_StR$s.names, NMD_S_StR$sigma2[[which(NMD_S_StR$s.names == 'Strain/StudyId')]], NA)`                 |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% NMD_S_StR$s.names, NMD_S_StR$s.nlevels[[which(NMD_S_StR$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% NMD_S_StR$s.names, NMD_S_StR$sigma2[[which(NMD_S_StR$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
-=======
-|:---------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% NMD_S_Str$s.names, NMD_S_Str$s.nlevels[[which(NMD_S_Str$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% NMD_S_Str$s.names, NMD_S_Str$sigma2[[which(NMD_S_Str$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% NMD_S_Str$s.names, NMD_S_Str$s.nlevels[[which(NMD_S_Str$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% NMD_S_Str$s.names, NMD_S_Str$sigma2[[which(NMD_S_Str$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% NMD_S_Str$s.names, NMD_S_Str$s.nlevels[[which(NMD_S_Str$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% NMD_S_Str$s.names, NMD_S_Str$sigma2[[which(NMD_S_Str$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
->>>>>>> 19215100099575675a4aa709298c2b7b83404259
 
 ### 2.6.6 Reporting bias/small-study effects
 
