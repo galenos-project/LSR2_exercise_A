@@ -1127,49 +1127,76 @@ run_ML_NMD <- function(df, experiment, outcome, rho_value) {
 forest_metafor_NMD <- function(model, outcome){
   
   lower_x <- floor(min(model[["yi"]]- model[["vi"]])) - 1
-  lower_x <- floor(lower_x / 5) * 5
+  #lower_x <- floor(lower_x / 5) * 5
   upper_x <- ceiling(max(model[["yi"]] + model[["vi"]])) + 1
-  upper_x <- ceiling(upper_x / 5) * 5
+  #upper_x <- ceiling(upper_x / 5) * 5
   arange <- upper_x - lower_x
   xleft <- -(1.5*arange)+lower_x
   xright <- upper_x + (0.5 * arange)
   summary_x <- model[["beta"]]
   model[["data"]][["NMD"]] <- round(model[["data"]][["NMD"]],1)
   
-  at_values <- seq(xleft, xright, by = arange/10)
+  at_values <- seq(round(lower_x,-2), round(upper_x,-2), by = round(arange, -2)/20)
   
   pred_interval <- predict(model)
   
-  forest_plot <- forest(model, 
-                        xlim=c(xleft, xright),
-                        #ylim=c(-2, model$k+5), rows=c((model$k+2):3),
-                        mlab="NMD [95% CI]",
-                        alim=c(lower_x-30, upper_x+20),
-                        slab=paste(word(Authors_I, 1), Year, Strain),
-                        at = at_values,# seq(-60,140,20),
-                        col = c("grey","grey"),
-                        addfit = TRUE,
-                        addpred = TRUE,
-                        annotate = TRUE,
-                        header = "Study and Strain",
-                        order=StudyId,
-                        xlab = "",
-                        ilab = cbind(ARRIVEScore, Label),
-                        ilab.xpos = c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))),
-                        cex = 0.75, 
-                        cex.axis = 1.0, 
-                        cex.lab = 1.0,
-                        efac = c(1,1,2))
-  text(c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))), model$k+2, c("Reporting \ncompleteness", "Intervention"), cex=0.75, font=2)
+  if(outcome=="Stress response") {
+    forest(model,
+           xlim=c(-600,400),
+           mlab="NMD [95% CI]",
+           alim=c(-120, 260),
+           slab=paste(word(Authors_I, 1), Year, Strain),
+           at = seq(-120,260,20),
+           col = c("grey","grey"),
+           addfit = TRUE,
+           addpred = TRUE,
+           annotate = TRUE,
+           header = "Study and Strain",
+           order=StudyId,
+           xlab = "",
+           ilab = cbind(ARRIVEScore, Label),
+           ilab.xpos = c(-370,-200),
+           cex = 0.75, 
+           cex.axis = 1.0, 
+           cex.lab = 1.0,
+           efac = c(1,1,2))
+    text(c(-370,-200), model$k+2, c("Reporting \ncompleteness", "Intervention"), cex=0.75, font=2)
+    
+    mtext("Favours control", side = 1, line = 2, at = -100, cex = 1, font = 1)
+    mtext("Favours exercise", side = 1, line = 2, at = 200, cex = 1, font = 1)
+    title(paste0("Effects of exercise on ", outcome, " \n in Single Prolonged Stress (NMD)"))
+    } 
+  else {  
+    forest(model, 
+            xlim=c(xleft, xright),
+            #ylim=c(-2, model$k+5), rows=c((model$k+2):3),
+            mlab="NMD [95% CI]",
+            alim=c(lower_x, upper_x),
+            slab=paste(word(Authors_I, 1), Year, Strain),
+            at = at_values,
+            col = c("grey","grey"),
+            addfit = TRUE,
+            addpred = TRUE,
+            annotate = TRUE,
+            header = "Study and Strain",
+            order=StudyId,
+            xlab = "",
+            ilab = cbind(ARRIVEScore, Label),
+            ilab.xpos = c((lower_x-(0.7*arange)),(lower_x-(0.20*arange))),
+            cex = 0.75, 
+            cex.axis = 1.0, 
+            cex.lab = 1.0,
+            efac = c(1,1,2))
+    text(c((lower_x-(0.7*arange)),(lower_x-(0.20*arange))), model$k+2, 
+         c("Reporting \ncompleteness", "Intervention"), cex=0.75, font=2)
   
   
-  #mtext(outcome, side = 1, line = 3, cex = 1.2, font = 2)
-  mtext("Favours control", side = 1, line = 2, at = (1.2*lower_x), cex = 1, font = 1)
-  mtext("Favours exercise", side = 1, line = 2, at = (1.2*upper_x), cex = 1, font = 1)
-  title(paste0("Effects of exercise on ", outcome, " \noutcomes in Single Prolonged Stress (NMD)"))
-  
+    #mtext(outcome, side = 1, line = 3, cex = 1.2, font = 2)
+    mtext("Favours control", side = 1, line = 2, at = lower_x, cex = 1, font = 1)
+    mtext("Favours exercise", side = 1, line = 2, at = upper_x, cex = 1, font = 1)
+    title(paste0("Effects of exercise on ", outcome, " \noutcomes in Single Prolonged Stress (NMD)"))
+  }
 }
-
 
 ###### Function to check number of levels in moderator variables for an experiment type (SortLabel) and outcome for this iteration #######
 
