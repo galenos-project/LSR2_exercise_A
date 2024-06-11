@@ -3,7 +3,7 @@ NA,node4,prevstud,Grey title box; Previous studies,Previous studies,Grey title b
 previous_studies,node5,box1,Studies included in previous version of review,Studies included in previous version of review,Studies included in previous version of review,previous_studies.html,0
 previous_reports,NA,box1,Reports of studies included in previous version of review,Reports of studies included in previous version of review,NA,previous_reports.html,0
 NA,node6,newstud,Yellow title box; Identification of new studies via databases and registers,Identification of new studies via databases and registers,Yellow title box; Identification of new studies via databases and registers,newstud.html,0
-database_results,node7,box2,Records identified from: Databases,Databases,Records identified from: Databases and Registers,database_results.html,1220
+database_results,node7,box2,Records identified from: Databases,Databases,Records identified from: Databases and Registers,database_results.html,1222
 database_specific_results,NA,box2,Records identified from: specific databases,Specific Databases,NA,database_results.html,"Database 1, xxx; Database 2, xxx; Database 3, xxx"
 register_results,NA,box2,Records identified from: Registers,Registers,NA,NA,0
 register_specific_results,NA,box2,Records identified from: specific registers,Specific Registers,NA,database_results.html,"Register 1, xxx; Register 2, xxx; Register 3, xxx"
